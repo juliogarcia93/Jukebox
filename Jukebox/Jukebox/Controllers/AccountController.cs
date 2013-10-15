@@ -53,7 +53,7 @@ namespace Jukebox.Controllers
                 {
                     string userId = await Logins.GetUserId(IdentityConfig.LocalLoginProvider, model.UserName);
                     await SignIn(userId, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Profile", "Account", new { username = model.UserName });
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Jukebox.Controllers
                         await Logins.Add(new UserLogin(user.Id, IdentityConfig.LocalLoginProvider, model.UserName)))
                     {
                         await SignIn(user.Id, isPersistent: false);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Home", "Account", new { username = model.UserName});
                     }
                     else
                     {
@@ -420,6 +420,15 @@ namespace Jukebox.Controllers
             RemoveLoginSuccess,
         }
         
+        #endregion
+
+        #region Pages
+        public ActionResult Profile(string username)
+        {
+            IdentityDbContext _context = new IdentityDbContext();
+            User model = _context.Users.Where(u => u.UserName == username).Single();
+            return View(model);
+        }
         #endregion
     }
 }

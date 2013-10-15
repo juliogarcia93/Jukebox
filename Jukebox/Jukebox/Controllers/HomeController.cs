@@ -26,5 +26,10 @@ namespace Jukebox.Controllers
 
             return View();
         }
+
+        public ActionResult Playlist()
+        {
+            return View();
+        }
     }
 }
