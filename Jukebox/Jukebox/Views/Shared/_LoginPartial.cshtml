@@ -9,7 +9,7 @@
     <ul class="nav">
         <li>
             
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Profile", "Account", routeValues: User.Identity.GetUserName(), htmlAttributes: new { title = "Profile" })
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Profile", "Account", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Profile" })
         </li>
         <li>
             @Html.ActionLink("Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })

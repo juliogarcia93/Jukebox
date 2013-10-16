@@ -6157,8 +6157,7 @@ a.badge:focus {
   position: fixed;
 }
 
-<!--
-Profile Layout -->
+/*Profile Layout*/
 .profile {
     padding: 30px;
     background: #eeeeee;
