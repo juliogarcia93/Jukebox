@@ -6161,18 +6161,33 @@ a.badge:focus {
 Profile Layout -->
 .profile {
     padding: 30px;
-    background: #19668e;
+    background: #eeeeee;
     font-size: 18px;
     color: inherit;
-    background-color: #188397
+    border-width: 5px;
+    border-bottom-color:#eeeeed;
+    font-color:black;
+    font-weight:200;
 }
 
 .profile h1 {
     text-align: left;
-    position: relative;
-    border-style: solid;
-    border-width: 5px;
-    border-color: #287EC7;
+    position: inherit;
+    border-style: none;
+    border-width: 1px;
+    background-color:#eeeeee;
+    font-size:36px;
+    padding:20px;
+}
+
+.profile p {
+    padding: 25px;
+    text-align: left;
+    border-style: none;
+    border-width: 3px;
+    border-color: #eeeeed;
+    font-size: 16px;
+    background: #eeeeee;
 }
 
 .box1 {
