@@ -88,7 +88,7 @@ namespace Jukebox.Controllers
                         await Logins.Add(new UserLogin(user.Id, IdentityConfig.LocalLoginProvider, model.UserName)))
                     {
                         await SignIn(user.Id, isPersistent: false);
-                        return RedirectToAction("Home", "Account", new { username = model.UserName});
+                        return RedirectToAction("Profile", "Account", new { username = model.UserName});
                     }
                     else
                     {
