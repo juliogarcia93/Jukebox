@@ -177,7 +177,7 @@ text-align: center;
 margin-right: 0px;
 }
 
-.btn span {
+.btn span.text {
 display: block;
 float: left;
 margin-right: 5px;
@@ -212,3 +212,23 @@ background-position: -448px -80px;
     margin: 0 8px 0 5px;
 }
 
+.footer-link{
+    margin-right: 5px;
+}
+
+a {
+color: #AAAAAA;
+text-decoration: none;
+}
+
+a:hover, a:focus {
+color: #B9B9B9;
+text-decoration: underline;
+}
+
+hr {
+margin: 0 0;
+border: 0;
+border-top: 1px solid #eeeeee;
+border-bottom: 1px solid #ffffff;
+}

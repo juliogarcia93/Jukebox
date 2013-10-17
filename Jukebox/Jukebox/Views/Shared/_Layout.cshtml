@@ -20,9 +20,6 @@
                 @Html.ActionLink("Jukebox", "Index", "Home", null, new { @class = "brand" })
                 <div class="nav-collapse collapse">
                     <ul class="nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                         <li>@Html.ActionLink("Playlist", "Playlist", "Home")</li>
                     </ul>
                     @Html.Partial("_LoginPartial")
@@ -34,7 +31,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Jukebox</p>
+            <div class="center">
+                @Html.ActionLink("About", "About", "Home", new { @class="footer-link"})
+                @Html.ActionLink("Contact", "Contact", "Home", new { @class="footer-link"})
+            </div>
+            <div class="center"></div>
+            <p class="pull-left">&copy; @DateTime.Now.Year Jukebox. All Rights Reserved.</p>
+
         </footer>
     </div>
 
