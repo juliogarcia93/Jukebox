@@ -6157,11 +6157,13 @@ a.badge:focus {
   position: fixed;
 }
 
-<!--
-Profile Layout -->
+setting-logo {
+    background-image: url('../img/Setting.png');
+}
+/*Profile Layout*/
 .profile {
     padding: 30px;
-    background: #eeeeee;
+    background-image: url('../img/profile-background.png');
     font-size: 18px;
     color: inherit;
     border-width: 5px;
@@ -6180,6 +6182,21 @@ Profile Layout -->
     padding:20px;
 }
 
+.profile div {
+    padding: 15px;
+    height:500px;
+}
+
+.profile scroll-table {
+    width: 250px;
+    height: 250px;
+    text-overflow:initial;
+    float:right;
+    border:thin;
+    border-color:black;
+    scrollbar-base-color:rgba(76, 22, 194, 0.88);
+}
+
 .profile p {
     padding: 25px;
     text-align: left;
@@ -6188,6 +6205,10 @@ Profile Layout -->
     border-color: #eeeeed;
     font-size: 16px;
     background: #eeeeee;
+}
+
+.profile profile-table {
+    width: 200;
 }
 
 .box1 {
