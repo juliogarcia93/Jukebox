@@ -12,7 +12,7 @@
             @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Profile", "Account", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Profile" })
         </li>
         <li>
-            @Html.ActionLink("Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            @Html.ActionLink(" ", "Manage", "Account", routeValues: null, htmlAttributes: new { style="background-image: url('../img/Setting.png');" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
     </ul>
