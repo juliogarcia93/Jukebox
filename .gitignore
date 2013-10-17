@@ -16,3 +16,4 @@ Jukebox.dll
 *.nlp
 
 *.suo
+/Jukebox/Jukebox/bin
