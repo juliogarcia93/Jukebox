@@ -14,3 +14,5 @@ Jukebox.dll
 *.pdb
 
 *.nlp
+
+*.suo

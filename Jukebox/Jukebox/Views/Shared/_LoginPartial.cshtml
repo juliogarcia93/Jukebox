@@ -5,17 +5,23 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form pull-right" }))
     {
     @Html.AntiForgeryToken()
+    <div class="dropdown">        
+        <ul class="nav">
+            <li>
             
-    <ul class="nav">
-        <li>
-            
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Profile", "Account", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Profile" })
-        </li>
-        <li>
-            @Html.ActionLink("Settings", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Profile", "Account", routeValues: new { username = User.Identity.Name }, htmlAttributes: new { title = "Profile" })
+            </li>
+
+            <li class="dropdown">
+                <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                    <li role="presentation">@Html.ActionLink("Manage", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage", @role = "menuitem", tabindex = "-1" })</li>
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
     }
 }
 else
