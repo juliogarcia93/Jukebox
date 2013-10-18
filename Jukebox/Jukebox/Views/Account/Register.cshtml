@@ -2,42 +2,52 @@
 @{
     ViewBag.Title = "Register";
 }
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-
+<div class="profile-container container-fluid">
+    <hgroup class="title">
+        <h1>@ViewBag.Title.</h1>
+    </hgroup>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary()
-    
-    <fieldset class="form-horizontal">
-        <legend>Create a new account.</legend>
-        <div class="control-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
-            <div class="controls">
-                @Html.TextBoxFor(m => m.UserName)
-            </div>
-        </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-            <div class="controls">
-                @Html.PasswordFor(m => m.Password)
-            </div>
-        </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label" })
-            <div class="controls">
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </div>
-        </div>
-        <div class="form-actions no-color">
-            <input type="submit" value="Register" class="btn" />
-        </div>
-    </fieldset>
-}
+    <div class="row">
+        <div class="col col-lg-5">
+            @*<form class="form-horizontal" role="form">*@
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col col-lg-3 control-label" })
+                    <div class="col-lg-9 input-div">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Username" })
+                        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col col-lg-3 control-label" })
+                    <div class="col-lg-9 input-div">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "form-control", placeholder = "Password", type = "password" })
+                        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col col-lg-3 control-label" })
+                    <div class="col-lg-9 input-div">
+                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password", type = "password" })
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "help-inline" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <button type="submit" class="btn btn-default">Register</button>
+                    </div>
+                </div>
+            @*</form>*@
+        </div>
+    </div>
 }
+    </div>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

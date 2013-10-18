@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Jukebox.Models;
+using DataAccessLayer.Models;
 
 namespace Jukebox.Controllers
 {
@@ -53,7 +54,15 @@ namespace Jukebox.Controllers
                 {
                     string userId = await Logins.GetUserId(IdentityConfig.LocalLoginProvider, model.UserName);
                     await SignIn(userId, model.RememberMe);
-                    return RedirectToAction("Profile", "Account", new { username = model.UserName });
+
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Profile", "Account", new { username = model.UserName });
+                    }
                 }
             }
 
@@ -88,7 +97,7 @@ namespace Jukebox.Controllers
                         await Logins.Add(new UserLogin(user.Id, IdentityConfig.LocalLoginProvider, model.UserName)))
                     {
                         await SignIn(user.Id, isPersistent: false);
-                        return RedirectToAction("Profile", "Account", new { username = model.UserName});
+                        return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
                     else
                     {
@@ -422,13 +431,35 @@ namespace Jukebox.Controllers
         
         #endregion
 
-        #region Pages
+        #region Profile
         public ActionResult Profile(string username)
         {
             IdentityDbContext _context = new IdentityDbContext();
             User model = _context.Users.Where(u => u.UserName == username).Single();
             return View(model);
         }
+
+        public ActionResult Upload()
+        {
+            return View();
+        }
+
+        //public ActionResult Save()
+        //{
+        //    for (int i = 0; i < Request.Files.Count; i++)
+        //    {
+        //        var file = Request.Files[i];
+
+        //        string fileName = System.IO.Path.GetFileName(file.FileName);
+        //        Song song = new Song(fileName, Request["songTitle"], Request["artist"], Request["album"], Request["genre"]);
+
+        //        SongList model = new SongList();
+        //        model.Add(song, file);
+        //    }
+        //    return RedirectToAction("Index", new { page = 1, category = Request["category"] });
+        //}
+
         #endregion
+
     }
 }

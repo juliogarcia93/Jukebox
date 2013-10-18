@@ -4,14 +4,52 @@
 <header>
     <title>Profile</title>
 </header>
-<body>
-<div class="profile">
-    <div>
-            <img src="../img/student.png" style="float:left;max-width:15%"/> Welcome @Model.UserName!
+<div class="profile-container container-fluid">
+    <div class="row">
+        <h3>Welcome @Model.UserName! @Html.ActionLink("Upload Music", "Upload", "Account", null, new { @class= "btn btn-primary pull-right"})</h3>
     </div>
-    <div class="scroll-table">
-        
+    <div class="row">
+            <div class="col col-lg-9">
+                <div class="box1">
+                    <audio class="col col-lg-12" controls="controls" loop="true">
+                        <source type="audio/mp3" src="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3" />
+                    </audio>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Song Title</th>
+                            <th>Artist</th>
+                            <th>Album</th>
+                            <th>Genre</th>
+                            <th>Length</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Wild For The Night</td>
+                            <td>A$AP Rocky</td>
+                            <td></td>
+                            <td>Hip-Hop</td>
+                            <td>3:33</td>
+                        </tr>
+                        <tr>
+                            <td>Looking For Trouble</td>
+                            <td>J. Cole featuring Pusha T., Kanye West, Cyhi, Big Sean</td>
+                            <td></td>
+                            <td>Hip-Hop</td>
+                            <td>3:33</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        <div class="col col-lg-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="clearfix"><a href="#">Songs<span class="pull-right" />0</a></li>
+                <li class="clearfix"><a href="#">Likes<span class="pull-right" />0</a></li>
+                <li class="clearfix"><a href="#">Following<span class="pull-right" />0</a></li>
+                <li class="clearfix"><a href="#">Followers<span class="pull-right" />0</a></li>
+            </ul>
+        </div>
+        </div>
     </div>
-</div>
-
-</body>

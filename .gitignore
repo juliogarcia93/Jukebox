@@ -1,5 +1,12 @@
 *.dll
-
+*.xml
+*.pdb
+*.nlp
+*.suo
+*.nupkg
+*.nuspec
+*.ps1
+*.transform
 /Jukebox/Jukebox/bin/
 /Jukebox/Jukebox/bin/*.dll
 /Jukebox/Jukebox/obj/
@@ -9,11 +16,5 @@
 /Jukebox/*/obj
 Jukebox.dll
 
-*.xml
 
-*.pdb
-
-*.nlp
-
-*.suo
 /Jukebox/Jukebox/bin

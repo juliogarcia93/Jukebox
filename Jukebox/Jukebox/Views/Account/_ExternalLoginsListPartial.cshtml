@@ -16,8 +16,7 @@ else
     <fieldset id="socialLoginList">
         <legend>Use another service to log in.</legend>
         <p>
-            <a id="lb-google-login" class="btn share-btn third-party google last"><i class="icon icon-google-plus-white-active"></i><span class="text" data-translate-text="GOOGLE">Google</span>
-                                                                                                                                                                                                </a>
+          
         @foreach (AuthenticationDescription p in Model) {
             <button type="submit" class="btn" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
         }

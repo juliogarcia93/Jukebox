@@ -1,7 +1,6 @@
 ﻿body {
-    padding-top: 60px;
     padding-bottom: 40px;
-    background-color: aliceblue;
+    background-color: #417496;
 }
 
 /* styles for validation helpers */
@@ -35,7 +34,7 @@ input[type="checkbox"].input-validation-error {
   border-style:none;
 }
 
-.btn.third-party.google {
+/*.btn.third-party.google {
 background-color: #d84936;
 background-image: -moz-linear-gradient(top, #dd4c39, #d14432);
 background-image: -ms-linear-gradient(top, #dd4c39, #d14432);
@@ -211,7 +210,7 @@ background-position: -448px -80px;
     position: relative;
     top: 7px;
     margin: 0 8px 0 5px;
-}
+}*/
 
 .index-hero {
     padding: 60px;
@@ -250,4 +249,21 @@ margin: 0 0;
 border: 0;
 border-top: 1px solid #eeeeee;
 border-bottom: 1px solid #ffffff;
+}
+
+.profile-container {
+    background-color: white;
+    padding-left: 25px;
+    padding-right: 50px;
+    padding-bottom: 10px;
+}
+
+.row {
+margin-right: -15px;
+margin-left: -15px;
+margin-bottom: 10px;
+}
+
+.input-div{
+    margin-bottom: 10px;
 }

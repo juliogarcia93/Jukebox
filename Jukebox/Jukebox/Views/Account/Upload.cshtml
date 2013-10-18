@@ -1,0 +1,53 @@
+@model User
+@using Jukebox.Models;
+
+@using (Html.BeginForm("Save", "ImageGallery", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="profile-container container-fluid">
+        <fieldset class="form-horizontal">
+            <legend>Upload your music.</legend>
+            <div class="control-group">
+                <label class="control-label">Choose your song.</label>
+                <div class="controls">
+                    <input type="file" multiple name="file" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Song title</label>
+                <div class="controls">
+                    <input type="text" name="songTitle" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Artist</label>
+                <div class="controls">
+                    <input type="text" name="artist" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Album</label>
+                <div class="controls">
+                    <input type="text" name="album" />
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Genre</label>
+                <div class="controls">
+                    <select name="genre">
+                        <option>Hip-Hop</option>
+                        <option>Dubstep</option>
+                        <option>R&B</option>
+                        <option>Country</option>
+                        <option>House</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-actions">
+                <input type="submit" value="Upload" class="btn btn-primary" />
+            </div>
+
+        </fieldset>
+    </div>
+}
