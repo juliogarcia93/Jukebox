@@ -249,13 +249,16 @@ margin: 0 0;
 border: 0;
 border-top: 1px solid #eeeeee;
 border-bottom: 1px solid #ffffff;
+margin-top: 15px;
 }
 
 .profile-container {
     background-color: white;
     padding-left: 25px;
     padding-right: 50px;
-    padding-bottom: 10px;
+    padding-bottom: 60px;
+    margin-bottom: -60px;
+    border-radius: 3px 3px 3px 3px;
 }
 
 .row {
@@ -266,4 +269,8 @@ margin-bottom: 10px;
 
 .input-div{
     margin-bottom: 10px;
+}
+
+#footer-div{
+    margin-left: 20px;
 }

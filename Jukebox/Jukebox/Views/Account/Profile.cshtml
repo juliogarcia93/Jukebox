@@ -6,7 +6,7 @@
 </header>
 <div class="profile-container container-fluid">
     <div class="row">
-        <h3>Welcome @Model.UserName! @Html.ActionLink("Upload Music", "Upload", "Account", null, new { @class= "btn btn-primary pull-right"})</h3>
+        <h3>Welcome @Model.UserName! @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right"})</h3>
     </div>
     <div class="row">
             <div class="col col-lg-9">
@@ -45,10 +45,10 @@
             </div>
         <div class="col col-lg-3">
             <ul class="nav nav-pills nav-stacked">
-                <li class="clearfix"><a href="#">Songs<span class="pull-right" />0</a></li>
-                <li class="clearfix"><a href="#">Likes<span class="pull-right" />0</a></li>
-                <li class="clearfix"><a href="#">Following<span class="pull-right" />0</a></li>
-                <li class="clearfix"><a href="#">Followers<span class="pull-right" />0</a></li>
+                <li class="clearfix"><a href="#">Songs<span class="badge pull-right">0</span></a></li>
+                <li class="clearfix"><a href="#">Likes<span class="badge pull-right">0</span></a></li>
+                <li class="clearfix"><a href="#">Following<span class="badge pull-right">0</span></a></li>
+                <li class="clearfix"><a href="#">Followers<span class="badge pull-right">0</span></a></li>
             </ul>
         </div>
         </div>
