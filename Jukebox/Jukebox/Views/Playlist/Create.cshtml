@@ -1,10 +1,85 @@
 ﻿@{
     ViewBag.Title = "Create a new room";
 }
-<hgroup>
-    <h2 id="Viewbag">@ViewBag.Title</h2>
-    <h3>@ViewBag.Message</h3>
-</hgroup>
-<div class="row-fluid">
+<div id="column">
+<div class="playlist container-fluid" id="left">
+    <div class="row">
+        <hgroup>
+            <h2 id="Viewbag">@ViewBag.Title</h2>
+            <h3>@ViewBag.Message</h3>
+        </hgroup>
+    </div>
 
+
+    <div class="row" id="footer-div">
+            <audio controls="controls" loop="true">
+                <source type="audio/mp3" src="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3" />
+            </audio>
+            <h3> <button type="submit" class="btn btn-default">Add Music</button> </h3>
+    </div>
+
+    <div class="row" id="footer-div">
+     <table class="table">
+         <thread>
+            <th>Song Title</th>
+            <th>Artist</th>
+            <th>Genre</th>
+            <th>Length</th>
+            <th>Like</th>
+        </thread>
+    
+        <tr>
+            <td>
+                <a href="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3">
+                    Test Song 1
+                </a>
+            </td>
+            <td>Artist 1</td>
+            <td>Album 1</td>
+            <td>Hip-Hop</td>
+            <td>3:20</td>
+            <td> <button type="submit" class="btn btn-default">Like</button> </td>
+       </tr>
+        <tr>
+            <td>
+                <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
+                    Test Song 2
+                </a>
+            </td>
+            <td>Artist 2</td>
+            <td>Album 2</td>
+            <td>Dubstep</td>
+            <td>3:30</td>
+            <td> <button type="submit" class="btn btn-default">Like</button> </td>
+       </tr>
+   
+    
+   
+     </table>
+    </div>
 </div>
+
+
+
+    <!--<div class="row">
+        <button type="submit" class="btn btn-default">Add Music</button>
+        @Html.ActionLink("Add Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right"})
+    </div>-->
+</div>
+
+
+
+<div class="playlist container-fluid" id="right">
+    <div class="row" id="footer-div">
+     <table class="table">
+        <th>Room Members</th>
+        <tr><td>Julio Garcia</td></tr>
+        <tr><td>Casey Barbello </td></tr>
+        <tr><td>Mathew Glodack </td></tr>
+        <tr><td>Daryl Pham</td></tr> 
+</table>
+</div>
+</div>
+
+
+

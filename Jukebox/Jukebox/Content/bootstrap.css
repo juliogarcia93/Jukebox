@@ -6803,3 +6803,15 @@ td.visible-print {
     display: none !important;
   }
 }
+
+#playlist,audio {
+    background: padding-box;
+    width:400px;
+    padding:20px;
+}
+
+.active a {
+    color:aqua;
+    text-decoration:none;
+}
+

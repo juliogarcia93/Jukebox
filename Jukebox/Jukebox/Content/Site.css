@@ -274,3 +274,25 @@ margin-bottom: 10px;
 #footer-div{
     margin-left: 20px;
 }
+
+.playlist {
+    background-color:white;
+    padding-left:30px;
+    padding-right:40;
+    padding-bottom: 50;
+    border-radius:15px;
+
+}
+
+#columns {
+    column-count 2;
+}
+
+#left {
+  width: 700px;
+  float: left;
+}
+
+#right {
+      margin-left: 710px;
+}
