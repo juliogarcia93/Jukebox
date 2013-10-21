@@ -10,6 +10,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Jukebox.Models;
 using DataAccessLayer.Models;
+using Entities;
+using DataAccessLayer.BusinessLogic;
 
 namespace Jukebox.Controllers
 {
@@ -435,8 +437,9 @@ namespace Jukebox.Controllers
         public ActionResult Profile(string username)
         {
             IdentityDbContext _context = new IdentityDbContext();
-            User model = _context.Users.Where(u => u.UserName == username).Single();
-            return View(model);
+            SongManager SongManager = new SongManager();
+            List<SongModel> list = SongManager.GetSongList().ToList();
+            return View(list);
         }
 
         

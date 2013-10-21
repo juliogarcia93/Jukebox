@@ -1,7 +1,7 @@
 @model User
 @using Jukebox.Models;
 
-@using (Html.BeginForm("Save", "ImageGallery", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Save", "Music", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)

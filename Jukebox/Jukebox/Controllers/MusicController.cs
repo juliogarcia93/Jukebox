@@ -14,19 +14,19 @@ namespace Jukebox.Controllers
             return View();
         }
 
-        //public ActionResult Save()
-        //{
-        //    for (int i = 0; i < Request.Files.Count; i++)
-        //    {
-        //        var file = Request.Files[i];
+        public ActionResult Save()
+        {
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                var file = Request.Files[i];
 
-        //        string fileName = System.IO.Path.GetFileName(file.FileName);
-        //        Song song = new Song(fileName, Request["songTitle"], Request["artist"], Request["album"], Request["genre"]);
+                string fileName = System.IO.Path.GetFileName(file.FileName);
+                SongModel song = new SongModel(fileName, Request["songTitle"], Request["artist"], Request["album"], Request["genre"], null);
 
-        //        SongList model = new SongList();
-        //        model.Add(song, file);
-        //    }
-        //    return RedirectToAction("Index", new { page = 1, category = Request["category"] });
-        //}
+                SongList model = new SongList(1,50);
+                model.Add(song, file);
+            }
+            return RedirectToAction("Profile", "Account", new { username = User.Identity.Name });
+        }
     }
 }

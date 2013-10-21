@@ -1,18 +1,18 @@
-@model User
-@using Jukebox.Models;
+@model List<SongModel>
+@using DataAccessLayer.Models;
 
 <header>
     <title>Profile</title>
 </header>
 <div class="profile-container container-fluid">
     <div class="row">
-        <h3>Welcome @Model.UserName! @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right"})</h3>
+        <h3>Welcome @User.Identity.Name! @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right"})</h3>
     </div>
     <div class="row">
             <div class="col col-lg-9">
                 <div class="box1">
                     <audio class="col col-lg-12" controls="controls" loop="true">
-                        <source type="audio/mp3" src="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3" />
+                        <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
                     </audio>
                 </div>
                 <table class="table">
@@ -26,26 +26,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Wild For The Night</td>
-                            <td>A$AP Rocky</td>
-                            <td></td>
-                            <td>Hip-Hop</td>
-                            <td>3:33</td>
-                        </tr>
-                        <tr>
-                            <td>Looking For Trouble</td>
-                            <td>J. Cole featuring Pusha T., Kanye West, Cyhi, Big Sean</td>
-                            <td></td>
-                            <td>Hip-Hop</td>
-                            <td>3:33</td>
-                        </tr>
+                        @foreach (SongModel song in Model)
+                        {
+                            <tr>
+                                <td>@song.SongTitle</td>
+                                <td>@song.Artist</td>
+                                <td>@song.Album</td>
+                                <td>@song.Genre</td>
+                                <td>@song.Length</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
         <div class="col col-lg-3">
             <ul class="nav nav-pills nav-stacked">
-                <li class="clearfix"><a href="#">Songs<span class="badge pull-right">0</span></a></li>
+                <li class="clearfix"><a href="#">Songs<span class="badge pull-right">@Model.Count()</span></a></li>
                 <li class="clearfix"><a href="#">Likes<span class="badge pull-right">0</span></a></li>
                 <li class="clearfix"><a href="#">Following<span class="badge pull-right">0</span></a></li>
                 <li class="clearfix"><a href="#">Followers<span class="badge pull-right">0</span></a></li>

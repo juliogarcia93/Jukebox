@@ -17,15 +17,12 @@ namespace Entities
         public Artist()
         {
             this.Songs = new HashSet<Song>();
-            this.Genres = new HashSet<Genre>();
-            this.Albums = new HashSet<Album>();
         }
     
         public int Id { get; set; }
         public string sName { get; set; }
+        public int SongId { get; set; }
     
         public virtual ICollection<Song> Songs { get; set; }
-        public virtual ICollection<Genre> Genres { get; set; }
-        public virtual ICollection<Album> Albums { get; set; }
     }
 }
