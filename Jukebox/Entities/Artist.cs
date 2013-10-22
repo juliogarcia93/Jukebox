@@ -21,7 +21,6 @@ namespace Entities
     
         public int Id { get; set; }
         public string sName { get; set; }
-        public int SongId { get; set; }
     
         public virtual ICollection<Song> Songs { get; set; }
     }

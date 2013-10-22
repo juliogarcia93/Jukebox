@@ -10,12 +10,16 @@
     </div>
     <div class="row">
             <div class="col col-lg-9">
-                <div class="box1">
-                    <audio class="col col-lg-12" controls="controls" loop="true">
-                        <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
-                    </audio>
-                </div>
-                <table class="table">
+                @if(Model.Count() > 0)
+                {
+                    <div class="box1">
+                        <audio class="col col-lg-12" controls="controls" id="audio" preload="auto" tabindex="0">
+                            <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
+                            <source type="audio/aif" src="../Music/@Model.First().FilePath" />
+                        </audio>
+                    </div>
+                }
+                <table class="table table-striped table-hover" id="playlist">
                     <thead>
                         <tr>
                             <th>Song Title</th>
@@ -29,11 +33,11 @@
                         @foreach (SongModel song in Model)
                         {
                             <tr>
-                                <td>@song.SongTitle</td>
-                                <td>@song.Artist</td>
-                                <td>@song.Album</td>
-                                <td>@song.Genre</td>
-                                <td>@song.Length</td>
+                                <td><a href="../Music/@song.FilePath">@song.SongTitle</a></td>
+                                <td><a href="../Music/@song.FilePath">@song.Artist</a></td>
+                                <td><a href="../Music/@song.FilePath">@song.Album</a></td>
+                                <td><a href="../Music/@song.FilePath">@song.Genre</a></td>
+                                <td><a href="../Music/@song.FilePath">@song.Length</a></td>
                             </tr>
                         }
                     </tbody>
@@ -49,3 +53,47 @@
         </div>
         </div>
     </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var audio;
+        var playlist;
+        var tracks;
+        var current;
+
+        function init() {
+            current = 0;
+            audio = $('#audio');
+            playlist = $('#playlist');
+            tracks = playlist.find('tbody tr a');
+            len = tracks.length - 1;
+            audio[0].play();
+            playlist.find('a').click(function (e) {
+                e.preventDefault();
+                link = $(this);
+                current = link.parent().index();
+                run(link, audio[0]);
+            });
+            audio[0].addEventListener('ended', function (e) {
+                current++;
+                if (current == len) {
+                    current = 0;
+                    link = playlist.find('a')[0];
+                } else {
+                    link = playlist.find('a')[current];
+                }
+                run(link, audio[0]);
+            });
+        }
+        function run(link, player) {
+            player.src = link.attr('href');
+            par = link.parent();
+            //par.addClass('active').siblings().removeClass('active');
+            audio[0].load();
+            audio[0].play();
+        }
+
+        init();
+    });
+    
+</script>

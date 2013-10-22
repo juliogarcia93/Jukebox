@@ -25,8 +25,8 @@ namespace Entities
         public string sFilePath { get; set; }
     
         public virtual ICollection<Account> Users { get; set; }
-        public virtual Artist Artist { get; set; }
         public virtual Album Album { get; set; }
         public virtual Genre Genre { get; set; }
+        public virtual Artist Artist { get; set; }
     }
 }

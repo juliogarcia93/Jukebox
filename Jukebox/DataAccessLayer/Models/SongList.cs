@@ -42,10 +42,13 @@ namespace DataAccessLayer.Models
                 pageSize).Take(pageSize).ToList());
         }
 
-        public void Add(SongModel song, HttpPostedFileBase file)
+        public void Add(string fileName, HttpPostedFileBase file)
         {
-            string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/");
-            file.SaveAs(MusicDirectory + song.FilePath);
+            string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
+            file.SaveAs(MusicDirectory);
+            TagLib.File metadata = TagLib.File.Create(MusicDirectory);
+            string Duration = metadata.Properties.Duration.Minutes.ToString() + ":" + metadata.Properties.Duration.Seconds.ToString();
+            SongModel song = new SongModel(fileName, metadata.Tag.Title, metadata.Tag.AlbumArtists.First(), metadata.Tag.Album, metadata.Tag.Genres.First(), Duration);
             SongManager.UploadSong(song);
         }
     

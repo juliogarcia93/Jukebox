@@ -17,7 +17,7 @@ namespace DataAccessLayer.Conversions
             entity.Album = new Album();
             entity.Artist = new Artist();
             entity.sTitle = model.SongTitle;
-            entity.sLength = "3:00";
+            entity.sLength = model.Length;
             entity.sFilePath = model.FilePath;
             entity.Genre.sName = model.Genre;
             entity.Artist.sName = model.Artist;

@@ -274,3 +274,17 @@ margin-bottom: 10px;
 #footer-div{
     margin-left: 20px;
 }
+
+.table tbody tr:hover{
+     cursor: pointer;
+}
+
+.table a{
+    text-decoration: none;
+    color: black;
+}
+
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+background-color: rgba(65, 116, 150, 0.16);
+color: white;
+}
