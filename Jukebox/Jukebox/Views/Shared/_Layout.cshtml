@@ -21,21 +21,36 @@
             @Html.ActionLink("Jukebox", "Index", "Home", null, new { @class = "navbar-brand" })
         </div>
 
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
+@if (Request.IsAuthenticated){
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li role="presentation">@Html.ActionLink("Create a room", "Create", "Playlist", routeValues: null, htmlAttributes: new { @role = "menuitem", tabindex = "-1" })</li>
-                        <li role="presentation">@Html.ActionLink("Join a room", "Join", "Playlist", routeValues: null, htmlAttributes: new { @role = "menuitem", tabindex = "-1" })</li>
+
+                        <li role="presentation">
+                            <!-- Button trigger modal, creating a modal for the user to easily create a group playlist -->
+
+                        <a data-toggle="modal" href="#myModal">Create A Room</a>
+                        </li>
+                        <li role="presentation">
+                            <!--ActionLink Method for joining a room -->
+                             <a data-toggle="modal" href="#JoinAroomModal">Join a room</a>
+                        </li>
+
                     </ul>
                 </li>
             </ul>
-            @Html.Partial("_LoginPartial")
-            
+}          
+ @Html.Partial("_LoginPartial")
         </div><!-- /.navbar-collapse -->
+
+
     </nav>
+
+  
 
     <div class="container">
         @RenderBody()
@@ -55,4 +70,92 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+<!-- Modal object that gets called when clicking create a room -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
+                            <h4 class="modal-title">Create a room</h4>
+        `                       </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <h4>Enter your group name:</h4>
+                            <input type="text" class="form-control" placeholder="Group name">
+                                        </div>
+                            <hr />
+                    <!--Used to select the genre of the room-->
+                                            <h4>Select a genre:</h4>
+                                                    <div class="col-lg-9 input-div">
+                                                <select name ="genre">
+                                                    <option>Hip-Hop</option>
+                                                    <option>Dubstep</option>
+                                                    <option>R&B</option>
+                                                    <option>Country</option>
+                                                    <option>House</option>
+                                                </select>
+                                                    </div>  
+                            <hr />
+                    <!--Used to select public or private rooms-->
+                                            <h4>Please select Public or Private room:</h4>
+                                                    <div class="col-lg-9 input-div">
+                                                <select name ="Room Type">
+                                                   <option>Public</option>
+                                                   <option>Private</option>
+                                                </select> 
+                                                    </div> 
+    
+                    <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <!-- Have to make the submit button connect to the database where the new room will be created -->
+            <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+            </div><!-- closed modal-body -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+<!-- Modal object that gets called when clicking create a room -->
+        <div class="modal fade" id="JoinAroomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
+                            <h4 class="modal-title">Create a room</h4>
+        `                       </div>
+                                    <div class="modal-body">
+                                        <div class="input-group">
+                                            <h4>Enter your group name:</h4>
+                            <input type="text" class="form-control" placeholder="Group name">
+                                        </div>
+                            <hr />
+                    <!--Used to select the genre of the room-->
+                                            <h4>Select a genre:</h4>
+                                                    <div class="col-lg-9 input-div">
+                                                <select name ="genre">
+                                                    <option>Hip-Hop</option>
+                                                    <option>Dubstep</option>
+                                                    <option>R&B</option>
+                                                    <option>Country</option>
+                                                    <option>House</option>
+                                                </select>
+                                                    </div>  
+                            <hr />
+                    <!--Used to select public or private rooms-->
+                                            <h4>Please select Public or Private room:</h4>
+                                                    <div class="col-lg-9 input-div">
+                                                <select name ="Room Type">
+                                                   <option>Public</option>
+                                                   <option>Private</option>
+                                                </select> 
+                                                    </div> 
+    
+                    <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <!-- Have to make the submit button connect to the database where the new room will be created -->
+            <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+            </div><!-- closed modal-body -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 </html>
