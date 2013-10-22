@@ -302,3 +302,15 @@ margin-bottom: 10px;
 #right {
       margin-left: 710px;
 }
+
+#room-type {
+    
+}
+
+#genre-select {
+    display: none;
+}
+
+#room-search {
+    display: none;
+}
