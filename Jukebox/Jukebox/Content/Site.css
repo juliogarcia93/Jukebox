@@ -275,29 +275,30 @@ margin-bottom: 10px;
     margin-left: 20px;
 }
 
-#playlist_right {
-    margin-left: 20px;
-    padding-right:20px;
+#playlist-right {
+    padding-right:10px;
+    padding-top:20px;
 }
 
 .playlist {
     background-color:white;
     padding-left:30px;
-    padding-right:40;
-    padding-bottom: 50;
+    padding-right:30px;
+    padding-bottom: 30px;
+    margin-bottom:50px;
     border-radius:15px;
 
 }
 
 #columns {
-    column-count 2;
+    -webkit-column-count: 2;
 }
 
 #left {
-  width: 700px;
   float: left;
 }
 
 #right {
-      margin-left: 710px;
+  column-width: 300px;
+  height:100%;
 }
