@@ -36,7 +36,8 @@ namespace DataAccessLayer.Repositories
                 Artist = s.Artist.sName,
                 Album = s.Album.sTitle,
                 Genre = s.Genre.sName,
-                FilePath = s.sFilePath
+                FilePath = s.sFilePath,
+                Length = s.sLength
             });
         }
 

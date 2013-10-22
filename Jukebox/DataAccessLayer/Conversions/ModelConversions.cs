@@ -13,15 +13,15 @@ namespace DataAccessLayer.Conversions
         public static Song SongModelToEntity(SongModel model)
         {
             Song entity = new Song();
+            entity.Artist = new Artist();
             entity.Genre = new Genre();
             entity.Album = new Album();
-            entity.Artist = new Artist();
-            entity.sTitle = model.SongTitle;
-            entity.sLength = model.Length;
-            entity.sFilePath = model.FilePath;
-            entity.Genre.sName = model.Genre;
-            entity.Artist.sName = model.Artist;
-            entity.Album.sTitle = model.Album;
+            entity.sLength = !string.IsNullOrEmpty(model.Length) ? model.Length : "";
+            entity.sFilePath = !string.IsNullOrEmpty(model.FilePath) ? model.FilePath : "";
+            entity.sTitle = !string.IsNullOrEmpty(model.SongTitle) ? model.SongTitle : "";
+            entity.Genre.sName = !string.IsNullOrEmpty(model.Genre) ? model.Genre : "";
+            entity.Artist.sName = !string.IsNullOrEmpty(model.Artist) ? model.Artist : "";
+            entity.Album.sTitle = !string.IsNullOrEmpty(model.Album) ? model.Album : "";
             return entity;
         }
 
