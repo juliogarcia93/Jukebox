@@ -34,183 +34,6 @@ input[type="checkbox"].input-validation-error {
   border-style:none;
 }
 
-/*.btn.third-party.google {
-background-color: #d84936;
-background-image: -moz-linear-gradient(top, #dd4c39, #d14432);
-background-image: -ms-linear-gradient(top, #dd4c39, #d14432);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dd4c39), to(#d14432));
-background-image: -webkit-linear-gradient(top, #dd4c39, #d14432);
-background-image: linear-gradient(top, #dd4c39, #d14432);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#ffdd4c39', endColorstr='#ffd14432', GradientType=0);
-border-radius: 3px;
-box-shadow: 0 1px 0 0 #e5e5e5,inset 0 1px 0 0 #e47061;
-border: solid 1px #ac3d2f;
-}
-
-#lb-twitter-login:last-child, #lb-google-login:last-child, #lb-twitter-login .last, #lb-google-login .last {
-margin-right: 0;
-}
-
-#lb-twitter-login, #lb-google-login {
-width: 118px;
-margin-right: 20px;
-}
-
-.btn.third-party.google:hover {
-background: #dd4c39;
-}
-
-.btn.third-party.google {
-background-color: #d84936;
-background-image: -moz-linear-gradient(top, #dd4c39, #d14432);
-background-image: -ms-linear-gradient(top, #dd4c39, #d14432);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#dd4c39), to(#d14432));
-background-image: -webkit-linear-gradient(top, #dd4c39, #d14432);
-background-image: linear-gradient(top, #dd4c39, #d14432);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#ffdd4c39', endColorstr='#ffd14432', GradientType=0);
-border-radius: 3px;
-box-shadow: 0 1px 0 0 #e5e5e5,inset 0 1px 0 0 #e47061;
-border: solid 1px #ac3d2f;
-}
-
-.btn.third-party {
-position: relative;
-height: 30px;
-width: 165px;
-padding: 0 5px;
-border-radius: 3px;
-}
-
-.btn:hover, .btn.hover {
-color: #333;
-background: #fcfcfc;
-text-decoration: none;
-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.2),inset 0 1px 0 0 #fff;
-}
-
-.btn {
-display: inline-block;
-height: 24px;
-padding: 0 7px 0 7px;
-margin: 0 7px 0 0;
-font-size: 11px;
-font-weight: bold;
-line-height: 24px;
-color: #333;
-text-align: center;
-text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-border: solid 1px #aaa;
-float: left;
-cursor: pointer;
-text-decoration: none;
--webkit-user-select: none;
--khtml-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-box-shadow: 0 1px 0 0 rgba(0,0,0,0.05),inset 0 1px 0 0 #fff;
-border-radius: 3px;
-background-color: #f5f5f5;
-background-image: -moz-linear-gradient(top, #fafafa, #ededed);
-background-image: -ms-linear-gradient(top, #fafafa, #ededed);
-background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#ededed));
-background-image: -webkit-linear-gradient(top, #fafafa, #ededed);
-background-image: linear-gradient(top, #fafafa, #ededed);
-background-repeat: repeat-x;
-filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#fffafafa', endColorstr='#ffededed', GradientType=0);
--webkit-transition: all .05s linear;
--moz-transition: all .05s linear;
--ms-transition: all .05s linear;
-transition: all .05s linear;
-}
-
-.btn .icon {
-position: relative;
-display: block;
-top: 4px;
-margin-right: 4px;
-float: left;
-}
-
-.icon {
-display: inline-block;
-width: 16px;
-height: 16px;
-vertical-align: text-top;
-background-image: url(/webincludes/css/images/icons-16x16.png?v=19);
-background-repeat: no-repeat;
-}
-
-.btn {
-font-size: 11px;
-font-weight: bold;
-line-height: 24px;
-color: #333;
-text-align: center;
-text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-cursor: pointer;
-}
-
-#lb-twitter-login .text, #lb-google-login .text {
-width: 83px;
-font-size: 12px;
-}
-
-.btn.third-party.google .text {
-border-left: solid 1px #ac3d2f;
-}
-
-.btn.third-party .text {
-position: relative;
-height: 18px;
-top: 6px;
-width: 135px;
-line-height: 18px;
-color: #ffffff;
-text-shadow: 0 -1px 0 rgba(0,0,0,0.2);
-text-align: center;
-}
-
-.btn span:last-child {
-margin-right: 0px;
-}
-
-.btn span.text {
-display: block;
-float: left;
-margin-right: 5px;
-}
-
-.btn {
-font-size: 11px;
-font-weight: bold;
-line-height: 24px;
-color: #333;
-text-align: center;
-text-shadow: 0 1px 0 rgba(255,255,255,0.8);
-cursor: pointer;
-}
-
-.icon {
-display: inline-block;
-width: 16px;
-height: 16px;
-vertical-align: text-top;
-background-image: url(/img/icons-16x16.png?v=19);
-background-repeat: no-repeat;
-}
-
-.icon-google-plus-white-active {
-background-position: -448px -80px;
-}
-
-.btn.third-party .icon {
-    position: relative;
-    top: 7px;
-    margin: 0 8px 0 5px;
-}*/
 
 .index-hero {
     padding: 60px;
@@ -275,30 +98,73 @@ margin-bottom: 10px;
     margin-left: 20px;
 }
 
-#playlist-right {
-    padding-right:10px;
-    padding-top:20px;
+.table tbody tr:hover{
+     cursor: pointer;
 }
 
-.playlist {
-    background-color:white;
-    padding-left:30px;
-    padding-right:30px;
-    padding-bottom: 30px;
-    margin-bottom:50px;
-    border-radius:15px;
-
+.table a{
+    text-decoration: none;
+    color: black;
 }
 
-#columns {
-    -webkit-column-count: 2;
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+background-color: rgba(65, 116, 150, 0.16);
 }
 
-#left {
-  float: left;
+.text-wrap{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
 }
 
-#right {
-  column-width: 300px;
-  height:100%;
+#music-playlist{
+    table-layout: fixed;
+}
+
+#table-length {
+    width: 10%;
+}
+
+#table-genre{
+    width: 15%;    
+}
+
+#table-album{
+    width: 25%;
+}
+
+#table-artist{
+    width: 15%;
+}
+
+#table-song{
+    width: 35%;
+}
+
+#footer-div {
+    margin-left: 20px;
+    min-width: 240px;
+}
+
+#playlist, audio {
+    background: padding-box;
+    width: 400px;
+    padding: 0px;
+}
+
+/*#profile-table-wrapper{
+    padding-left: 0px;
+    padding-right: 0px;
+}*/
+
+#profile-page-wrapper{
+    min-width: 940px;
+}
+
+#jukebox-logo{
+    max-width: 60px;
+}
+
+.active-link{
+    background-color: rgba(65, 116, 150, 0.16);
 }

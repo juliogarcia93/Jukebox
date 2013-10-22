@@ -14,11 +14,14 @@ namespace Entities
     
     public partial class Genre
     {
+        public Genre()
+        {
+            this.Songs = new HashSet<Song>();
+        }
+    
         public int Id { get; set; }
         public string sName { get; set; }
     
-        public virtual Song Song { get; set; }
-        public virtual Album Album { get; set; }
-        public virtual Artist Artist { get; set; }
+        public virtual ICollection<Song> Songs { get; set; }
     }
 }
