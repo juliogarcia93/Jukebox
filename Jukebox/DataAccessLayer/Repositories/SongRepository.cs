@@ -42,7 +42,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<SongModel> GetSongList(int loginId)
         {
-            return _context.Songs.Where(s => s.Users.Any(u => u.LoginId == loginId))
+            return _context.Songs.Where(s => s.Accounts.Any(u => u.LoginId == loginId))
                 .Select(s => new SongModel
                 {
                     SongTitle = s.sTitle,

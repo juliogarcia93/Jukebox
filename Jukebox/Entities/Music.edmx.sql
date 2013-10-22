@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/21/2013 18:12:35
+-- Date Created: 10/21/2013 19:47:57
 -- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -17,12 +17,6 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_UsersSong_Users]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UsersSong] DROP CONSTRAINT [FK_UsersSong_Users];
-GO
-IF OBJECT_ID(N'[dbo].[FK_UsersSong_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[UsersSong] DROP CONSTRAINT [FK_UsersSong_Song];
-GO
 IF OBJECT_ID(N'[dbo].[FK_SongAlbum]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Songs] DROP CONSTRAINT [FK_SongAlbum];
 GO
@@ -31,6 +25,12 @@ IF OBJECT_ID(N'[dbo].[FK_SongGenre]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_SongArtist]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Songs] DROP CONSTRAINT [FK_SongArtist];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AccountSong_Account]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Account];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
 GO
 
 -- --------------------------------------------------
@@ -52,8 +52,8 @@ GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
-IF OBJECT_ID(N'[dbo].[UsersSong]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[UsersSong];
+IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AccountSong];
 GO
 
 -- --------------------------------------------------
@@ -100,9 +100,9 @@ CREATE TABLE [dbo].[Accounts] (
 );
 GO
 
--- Creating table 'UsersSong'
-CREATE TABLE [dbo].[UsersSong] (
-    [Users_LoginId] int  NOT NULL,
+-- Creating table 'AccountSong'
+CREATE TABLE [dbo].[AccountSong] (
+    [Accounts_LoginId] int  NOT NULL,
     [Songs_Id] int  NOT NULL
 );
 GO
@@ -141,38 +141,15 @@ ADD CONSTRAINT [PK_Accounts]
     PRIMARY KEY CLUSTERED ([LoginId] ASC);
 GO
 
--- Creating primary key on [Users_LoginId], [Songs_Id] in table 'UsersSong'
-ALTER TABLE [dbo].[UsersSong]
-ADD CONSTRAINT [PK_UsersSong]
-    PRIMARY KEY CLUSTERED ([Users_LoginId], [Songs_Id] ASC);
+-- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
+ALTER TABLE [dbo].[AccountSong]
+ADD CONSTRAINT [PK_AccountSong]
+    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Users_LoginId] in table 'UsersSong'
-ALTER TABLE [dbo].[UsersSong]
-ADD CONSTRAINT [FK_UsersSong_Users]
-    FOREIGN KEY ([Users_LoginId])
-    REFERENCES [dbo].[Accounts]
-        ([LoginId])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Songs_Id] in table 'UsersSong'
-ALTER TABLE [dbo].[UsersSong]
-ADD CONSTRAINT [FK_UsersSong_Song]
-    FOREIGN KEY ([Songs_Id])
-    REFERENCES [dbo].[Songs]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_UsersSong_Song'
-CREATE INDEX [IX_FK_UsersSong_Song]
-ON [dbo].[UsersSong]
-    ([Songs_Id]);
-GO
 
 -- Creating foreign key on [Album_Id] in table 'Songs'
 ALTER TABLE [dbo].[Songs]
@@ -214,6 +191,29 @@ ADD CONSTRAINT [FK_SongArtist]
 CREATE INDEX [IX_FK_SongArtist]
 ON [dbo].[Songs]
     ([Artist_Id]);
+GO
+
+-- Creating foreign key on [Accounts_LoginId] in table 'AccountSong'
+ALTER TABLE [dbo].[AccountSong]
+ADD CONSTRAINT [FK_AccountSong_Account]
+    FOREIGN KEY ([Accounts_LoginId])
+    REFERENCES [dbo].[Accounts]
+        ([LoginId])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Songs_Id] in table 'AccountSong'
+ALTER TABLE [dbo].[AccountSong]
+ADD CONSTRAINT [FK_AccountSong_Song]
+    FOREIGN KEY ([Songs_Id])
+    REFERENCES [dbo].[Songs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountSong_Song'
+CREATE INDEX [IX_FK_AccountSong_Song]
+ON [dbo].[AccountSong]
+    ([Songs_Id]);
 GO
 
 -- --------------------------------------------------

@@ -212,6 +212,7 @@ background-position: -448px -80px;
     margin: 0 8px 0 5px;
 }*/
 
+
 .index-hero {
     padding: 60px;
     margin-bottom: 30px;
@@ -273,32 +274,18 @@ margin-bottom: 10px;
 
 #footer-div{
     margin-left: 20px;
-    padding-right:20px;
 }
 
-#playlist_right {
-    margin-left: 20px;
-    padding-right:20px;
+.table tbody tr:hover{
+     cursor: pointer;
 }
 
-.playlist {
-    background-color:white;
-    padding-left:30px;
-    padding-right:40;
-    padding-bottom: 50;
-    border-radius:15px;
-
+.table a{
+    text-decoration: none;
+    color: black;
 }
 
-#columns {
-    column-count 2;
-}
-
-#left {
-  width: 700px;
-  float: left;
-}
-
-#right {
-      margin-left: 710px;
+.table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
+background-color: rgba(65, 116, 150, 0.16);
+color: white;
 }

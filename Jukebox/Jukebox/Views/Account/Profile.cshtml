@@ -19,7 +19,7 @@
                         </audio>
                     </div>
                 }
-                <table class="table table-striped table-hover" id="playlist">
+                <table class="table table-striped table-hover" id="music-playlist">
                     <thead>
                         <tr>
                             <th>Song Title</th>
@@ -64,7 +64,7 @@
         function init() {
             current = 0;
             audio = $('#audio');
-            playlist = $('#playlist');
+            playlist = $('#music-playlist');
             tracks = playlist.find('tbody tr a');
             len = tracks.length - 1;
             audio[0].play();

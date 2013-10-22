@@ -16,7 +16,7 @@ namespace Entities
     {
         public Song()
         {
-            this.Users = new HashSet<Account>();
+            this.Accounts = new HashSet<Account>();
         }
     
         public int Id { get; set; }
@@ -24,9 +24,9 @@ namespace Entities
         public string sLength { get; set; }
         public string sFilePath { get; set; }
     
-        public virtual ICollection<Account> Users { get; set; }
         public virtual Album Album { get; set; }
         public virtual Genre Genre { get; set; }
         public virtual Artist Artist { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

@@ -50,6 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs">
+      <DependentUpon>Music.tt</DependentUpon>
+    </Compile>
     <Compile Include="Album.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
