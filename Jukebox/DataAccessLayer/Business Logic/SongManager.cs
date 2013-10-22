@@ -8,38 +8,32 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.BusinessLogic
 {
-    //public class SongManager
-    //{
-    //    private SongRepository ImageRepository;
-    //    public ImageManager()
-    //    {
-    //        ImageRepository = new SongRepository();
-    //    }
+    public class SongManager
+    {
+        private SongRepository SongRepository;
+        public SongManager()
+        {
+            SongRepository = new SongRepository();
+        }
+        
+        public AccountModel GetAccountModel(string username)
+        {
+            return SongRepository.GetAccountsList().Where(a => a.Username == username).Single();
+        }
 
-    //    public IQueryable<ImageModel> GetImageList(string category)
-    //    {
-    //        int categoryId = ImageRepository.GetCategoriesList().First(c => c.CategoryName == category).Id;
-    //        return ImageRepository.GetImageList(categoryId);
-    //    }
+        public IQueryable<SongModel> GetSongList(string username)
+        {
+            return SongRepository.GetSongList().Where(s => s.Username == username);
+        }
 
-    //    public void UploadImage(ImageModel model)
-    //    {
-    //        ImageRepository.Add(model);
-    //    }
+        public IQueryable<SongModel> GetSongList()
+        {
+            return SongRepository.GetSongList();
+        }
 
-    //    public string FirstActiveCategory()
-    //    {
-    //        return ImageRepository.GetActiveCategories().First();
-    //    }
-
-    //    public string[] GetCategories()
-    //    {
-    //        return ImageRepository.GetCategories();
-    //    }
-
-    //    public int ActiveCategoriesCount()
-    //    {
-    //        return ImageRepository.GetActiveCategories().Count();
-    //    }
-    //}
+        public void UploadSong(SongModel model)
+        {
+            SongRepository.Add(model);
+        }
+    }
 }
