@@ -9,6 +9,8 @@
 *.mdf
 *.ldf
 *.transform
+*.mp3
+*.aif
 /Jukebox/Jukebox/bin/
 /Jukebox/Jukebox/bin/*.dll
 /Jukebox/Jukebox/obj/

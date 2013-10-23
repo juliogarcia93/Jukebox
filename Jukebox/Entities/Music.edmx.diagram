@@ -5,15 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a75157a789dc482ba7710aeea1060b69" Name="Diagram1" >
-        <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="2" PointY="2.25" />
-        <EntityTypeShape EntityType="Music.Artist" Width="1.5" PointX="4" PointY="2.25" />
+        <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="3.125" PointY="1.125" />
+        <EntityTypeShape EntityType="Music.Artist" Width="1.5" PointX="6.125" PointY="1.25" />
         <EntityTypeShape EntityType="Music.Album" Width="1.5" PointX="2" PointY="4.375" />
         <EntityTypeShape EntityType="Music.Genre" Width="1.5" PointX="4" PointY="4.375" />
-        <AssociationConnector Association="Music.SongArtist" />
+        <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="0.5" PointY="2.375" />
+        <AssociationConnector Association="Music.SongAlbum" />
         <AssociationConnector Association="Music.SongGenre" />
-        <AssociationConnector Association="Music.AlbumGenre" />
-        <AssociationConnector Association="Music.ArtistGenre" />
-        <AssociationConnector Association="Music.ArtistAlbum" />
+        <AssociationConnector Association="Music.SongArtist" />
+        <AssociationConnector Association="Music.AccountSong" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

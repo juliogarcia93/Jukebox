@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -14,19 +15,16 @@ namespace Jukebox.Controllers
             return View();
         }
 
-        //public ActionResult Save()
-        //{
-        //    for (int i = 0; i < Request.Files.Count; i++)
-        //    {
-        //        var file = Request.Files[i];
-
-        //        string fileName = System.IO.Path.GetFileName(file.FileName);
-        //        Song song = new Song(fileName, Request["songTitle"], Request["artist"], Request["album"], Request["genre"]);
-
-        //        SongList model = new SongList();
-        //        model.Add(song, file);
-        //    }
-        //    return RedirectToAction("Index", new { page = 1, category = Request["category"] });
-        //}
+        public ActionResult Save()
+        {
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                var file = Request.Files[i];
+                string fileName = System.IO.Path.GetFileName(file.FileName);
+                SongList model = new SongList(1,50);
+                model.Add(fileName, file);
+            }
+            return RedirectToAction("Profile", "Account", new { username = User.Identity.Name });
+        }
     }
 }
