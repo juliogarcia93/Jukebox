@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/21/2013 19:47:57
--- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 10/22/2013 18:15:37
+-- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -144,7 +144,7 @@ GO
 -- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- --------------------------------------------------
