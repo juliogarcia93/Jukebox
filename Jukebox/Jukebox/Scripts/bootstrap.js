@@ -2000,8 +2000,3 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
 
 
 }(window.jQuery);
-
-$(document).ready(function () {
-    $('#room-type').mouseenter(function () {
-    
-    }
