@@ -38,7 +38,7 @@
                         </li>
                         <li role="presentation">
                             <!--ActionLink Method for joining a room -->
-                             <a data-toggle="modal" href="#JoinAroomModal">Join a room</a>
+                             <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join a room</a>
                         </li>
 
                     </ul>
@@ -134,20 +134,25 @@
                     <!--Used to select the genre of the room-->
                                         <div id="genre-select">
                                             <h4>Search by Genre:</h4>
-                                                    <div class="col-lg-9 input-div" id="genre-choice">
-                                                <select name ="genre">
-                                                    <option>Hip-Hop</option>
-                                                    <option>Dubstep</option>
-                                                    <option>R&B</option>
-                                                    <option>Country</option>
-                                                    <option>House</option>
+                                                    <div class="col-lg-9 input-div">
+                                                <select id="genre-choice" name ="genre">
+                                                    <option >Alternative</option>
+                                                    <option >Classical</option>
+                                                    <option >Country</option>
+                                                    <option >EDM</option>
+                                                    <option >Hip-Hop</option>
+                                                    <option >Indie</option>
+                                                    <option >Pop</option>
+                                                    <option >R&B</option>
+                                                    <option >Rock</option>
+                                                    <option >Techno</option>
                                                 </select>
                                                     </div>  
                                         </div>
                            
                     <!--Used to select public or private rooms-->
-                                           <div id="room-type">
-                                            <h4>Public or Private room:</h4>
+                                           <div id="room-select" >
+                                            <h4 id="name-change">Public or Private room:</h4>
                                                     <div class="col-lg-9 input-div">
                                                 <select name ="Room Type" id="room-type">
                                                    <option>Public</option>
@@ -158,10 +163,14 @@
                                            
     
                     <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+<div style="float:right">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="butt-close" style="position:relative;padding: 3px 7px;">Close</button>
     <!-- Have to make the submit button connect to the database where the new room will be created -->
-            <button type="button" class="btn btn-primary" >Submit</button>
-                    </div>
+</div>
+<div style="float:right">
+            <button type="button" class="btn btn-primary" id="butt-select" style="position:relative;padding: 3px 7px;">Submit</button>
+</div>                    
+</div>
             </div><!-- closed modal-body -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
