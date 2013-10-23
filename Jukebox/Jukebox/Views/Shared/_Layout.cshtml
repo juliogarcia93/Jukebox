@@ -71,6 +71,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
+
 <!-- Modal object that gets called when clicking create a room -->
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
             <div class="modal-dialog">
@@ -78,7 +79,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
                             <h4 class="modal-title">Create a room</h4>
-        `                       </div>
+                               </div>
                                     <div class="modal-body">
                                         <div class="input-group">
                                             <h4>Enter your group name:</h4>
@@ -121,16 +122,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="false">&times;</button>
-                            <h4 class="modal-title">Create a room</h4>
-        `                       </div>
+                            <h4 class="modal-title">Join a Room</h4>
+                               </div>
                                     <div class="modal-body">
-                                        <div class="input-group">
-                                            <h4>Enter your group name:</h4>
+                                        <div class="input-group" id="room-search">
+                                            <h4>Search for Room:</h4>
                             <input type="text" class="form-control" placeholder="Group name">
                                         </div>
-                            <hr />
+                            
                     <!--Used to select the genre of the room-->
-                                            <h4>Select a genre:</h4>
+                                        <div id="genre-select">
+                                            <h4>Search by Genre:</h4>
                                                     <div class="col-lg-9 input-div">
                                                 <select name ="genre">
                                                     <option>Hip-Hop</option>
@@ -140,8 +142,10 @@
                                                     <option>House</option>
                                                 </select>
                                                     </div>  
-                            <hr />
+                                        </div>
+                           
                     <!--Used to select public or private rooms-->
+                                           <div id="room-type">
                                             <h4>Please select Public or Private room:</h4>
                                                     <div class="col-lg-9 input-div">
                                                 <select name ="Room Type">
@@ -149,6 +153,8 @@
                                                    <option>Private</option>
                                                 </select> 
                                                     </div> 
+                                           </div>
+                                           
     
                     <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

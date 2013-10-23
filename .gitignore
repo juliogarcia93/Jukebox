@@ -6,6 +6,8 @@
 *.nupkg
 *.nuspec
 *.ps1
+*.mdf
+*.ldf
 *.transform
 *.mp3
 *.aif
@@ -20,3 +22,5 @@ Jukebox.dll
 
 
 /Jukebox/Jukebox/bin
+/Jukebox/Jukebox/App_Data/*.ldf
+/Jukebox/Jukebox/App_Data/*.mdf
