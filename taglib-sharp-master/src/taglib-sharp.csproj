@@ -281,7 +281,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\net-20\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\Jukebox\Jukebox\bin\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

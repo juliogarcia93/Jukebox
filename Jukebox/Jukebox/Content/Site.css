@@ -168,3 +168,11 @@ background-color: rgba(65, 116, 150, 0.16);
 .active-link{
     background-color: rgba(65, 116, 150, 0.16);
 }
+
+#genre-select {
+    display: none;
+}
+
+#room-search {
+    display: none;
+}
