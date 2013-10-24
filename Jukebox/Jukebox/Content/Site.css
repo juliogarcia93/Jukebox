@@ -168,3 +168,39 @@ background-color: rgba(141, 141, 141, 0.16);
 .active-link {
 background-color: rgba(0, 0, 0, 0.13);
 }
+
+.room-container {
+    background-color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 20px;
+    border-radius:15px;
+
+}
+
+#room-padding {
+   padding-top:30px;
+}
+
+#playlist-width {
+    float:left; 
+    width:65%;
+    max-height:490px;
+
+}
+
+#room-members-width {
+   float:right; 
+   width:30%;
+   max-height:490px;
+
+
+}
+
+.room-page-wrapper{
+    min-width: 940px;
+}
+
+#row-height {
+    overflow:scroll;
+}

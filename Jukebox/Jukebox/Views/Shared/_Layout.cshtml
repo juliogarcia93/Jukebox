@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
-
+     <script language="Javascript" type="text/javascript" src="~/Scripts/CustomScript.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse" role="navigation">
@@ -34,11 +34,11 @@
                         <li role="presentation">
                             <!-- Button trigger modal, creating a modal for the user to easily create a group playlist -->
 
-                        <a data-toggle="modal" href="#myModal">Create A Room</a>
+                        <a data-toggle="modal" href="#CreateAroomModal">Create A Room</a>
                         </li>
                         <li role="presentation">
                             <!--ActionLink Method for joining a room -->
-                             <a data-toggle="modal" href="#JoinAroomModal">Join a room</a>
+                             <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join a room</a>
                         </li>
 
                     </ul>
@@ -73,7 +73,7 @@
 </body>
 
 <!-- Modal object that gets called when clicking create a room -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+        <div class="modal fade" id="CreateAroomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -128,27 +128,33 @@
                                         <div class="input-group" id="room-search">
                                             <h4>Search for Room:</h4>
                             <input type="text" class="form-control" placeholder="Group name">
+                            <input type="text" class="form-control" placeholder="Password">
                                         </div>
                             
                     <!--Used to select the genre of the room-->
                                         <div id="genre-select">
                                             <h4>Search by Genre:</h4>
                                                     <div class="col-lg-9 input-div">
-                                                <select name ="genre">
-                                                    <option>Hip-Hop</option>
-                                                    <option>Dubstep</option>
-                                                    <option>R&B</option>
-                                                    <option>Country</option>
-                                                    <option>House</option>
+                                                <select id="genre-choice" name ="genre">
+                                                    <option >Alternative</option>
+                                                    <option >Classical</option>
+                                                    <option >Country</option>
+                                                    <option >EDM</option>
+                                                    <option >Hip-Hop</option>
+                                                    <option >Indie</option>
+                                                    <option >Pop</option>
+                                                    <option >R&B</option>
+                                                    <option >Rock</option>
+                                                    <option >Techno</option>
                                                 </select>
                                                     </div>  
                                         </div>
                            
                     <!--Used to select public or private rooms-->
-                                           <div id="room-type">
-                                            <h4>Please select Public or Private room:</h4>
+                                           <div id="room-select" >
+                                            <h4 id="name-change">Public or Private room:</h4>
                                                     <div class="col-lg-9 input-div">
-                                                <select name ="Room Type">
+                                                <select name ="Room Type" id="room-type">
                                                    <option>Public</option>
                                                    <option>Private</option>
                                                 </select> 
@@ -157,10 +163,14 @@
                                            
     
                     <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+<div style="float:right">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="butt-close" style="position:relative;padding: 3px 7px;">Close</button>
     <!-- Have to make the submit button connect to the database where the new room will be created -->
-            <button type="button" class="btn btn-primary">Submit</button>
-                    </div>
+</div>
+<div style="float:right">
+            <button type="button" class="btn btn-primary" id="butt-select" style="position:relative;padding: 3px 7px;">Submit</button>
+</div>                    
+</div>
             </div><!-- closed modal-body -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
