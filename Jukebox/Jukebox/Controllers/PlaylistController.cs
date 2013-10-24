@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DataAccessLayer.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,6 +13,8 @@ namespace Jukebox.Controllers
     {
         public ActionResult Create()
         {
+           /// RoomModal room = new RoomModal( Request.RequestType.ToString() );
+           /// return RedirectToAction("Create", "Playlist", new { username = User.Identity.Name });
             return View();
         }
 

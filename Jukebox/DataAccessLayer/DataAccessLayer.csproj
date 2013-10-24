@@ -60,6 +60,7 @@
     <Compile Include="Models\ArtistModel.cs" />
     <Compile Include="Models\GenreModel.cs" />
     <Compile Include="Models\ProfileWrapper.cs" />
+    <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\SongModel.cs" />
     <Compile Include="Models\SongList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

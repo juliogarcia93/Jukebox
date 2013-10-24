@@ -7,8 +7,10 @@
 <div class="room-container container-fluid pull-left" id="playlist-width">
     <div class="row">
         <hgroup>
-            <h2 id="Viewbag">@ViewBag.Title</h2>
-            <h3>@ViewBag.Message</h3>
+            <h3>@ViewBag.Title   @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#myModal"})
+            </h3>
+          <!-- <button type="submit" class="btn btn-default pull right">Add Music</button> 
+             <h3>@ViewBag.Message</h3>-->
         </hgroup>
     </div>
 
@@ -17,10 +19,10 @@
             <li><audio controls="controls" loop="true">
                 <source type="audio/mp3" src="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3" />
             </audio>
-             <button type="submit" class="btn btn-default">Add Music</button> </li>
+             </li>
     </div>
 
-    <div class="row" style="overflow:scroll; max-height:310px">
+    <div class="row" style="overflow:scroll; max-height:340px">
      <table class="table" >
          <thread>
             <th>Song Title</th>
