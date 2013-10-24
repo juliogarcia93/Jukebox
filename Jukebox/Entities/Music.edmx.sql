@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/21/2013 19:47:57
+-- Date Created: 10/23/2013 15:32:52
 -- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -17,20 +17,29 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_SongAlbum]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Songs] DROP CONSTRAINT [FK_SongAlbum];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SongGenre]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Songs] DROP CONSTRAINT [FK_SongGenre];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SongArtist]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Songs] DROP CONSTRAINT [FK_SongArtist];
-GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Account]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Account];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongArtist_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongArtist_Artist]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Artist];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongGenre_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongGenre_Genre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Genre];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
 GO
 
 -- --------------------------------------------------
@@ -55,6 +64,15 @@ GO
 IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AccountSong];
 GO
+IF OBJECT_ID(N'[dbo].[SongArtist]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongArtist];
+GO
+IF OBJECT_ID(N'[dbo].[SongGenre]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongGenre];
+GO
+IF OBJECT_ID(N'[dbo].[SongAlbum]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongAlbum];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -65,10 +83,7 @@ CREATE TABLE [dbo].[Songs] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [sTitle] nvarchar(max)  NOT NULL,
     [sLength] nvarchar(max)  NOT NULL,
-    [sFilePath] nvarchar(max)  NOT NULL,
-    [Album_Id] int  NOT NULL,
-    [Genre_Id] int  NOT NULL,
-    [Artist_Id] int  NOT NULL
+    [sFilePath] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -104,6 +119,27 @@ GO
 CREATE TABLE [dbo].[AccountSong] (
     [Accounts_LoginId] int  NOT NULL,
     [Songs_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'SongArtist'
+CREATE TABLE [dbo].[SongArtist] (
+    [Songs_Id] int  NOT NULL,
+    [Artists_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'SongGenre'
+CREATE TABLE [dbo].[SongGenre] (
+    [Songs_Id] int  NOT NULL,
+    [Genres_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'SongAlbum'
+CREATE TABLE [dbo].[SongAlbum] (
+    [Songs_Id] int  NOT NULL,
+    [Albums_Id] int  NOT NULL
 );
 GO
 
@@ -147,51 +183,27 @@ ADD CONSTRAINT [PK_AccountSong]
     PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
+-- Creating primary key on [Songs_Id], [Artists_Id] in table 'SongArtist'
+ALTER TABLE [dbo].[SongArtist]
+ADD CONSTRAINT [PK_SongArtist]
+    PRIMARY KEY CLUSTERED ([Songs_Id], [Artists_Id] ASC);
+GO
+
+-- Creating primary key on [Songs_Id], [Genres_Id] in table 'SongGenre'
+ALTER TABLE [dbo].[SongGenre]
+ADD CONSTRAINT [PK_SongGenre]
+    PRIMARY KEY CLUSTERED ([Songs_Id], [Genres_Id] ASC);
+GO
+
+-- Creating primary key on [Songs_Id], [Albums_Id] in table 'SongAlbum'
+ALTER TABLE [dbo].[SongAlbum]
+ADD CONSTRAINT [PK_SongAlbum]
+    PRIMARY KEY CLUSTERED ([Songs_Id], [Albums_Id] ASC);
+GO
+
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
-
--- Creating foreign key on [Album_Id] in table 'Songs'
-ALTER TABLE [dbo].[Songs]
-ADD CONSTRAINT [FK_SongAlbum]
-    FOREIGN KEY ([Album_Id])
-    REFERENCES [dbo].[Albums]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SongAlbum'
-CREATE INDEX [IX_FK_SongAlbum]
-ON [dbo].[Songs]
-    ([Album_Id]);
-GO
-
--- Creating foreign key on [Genre_Id] in table 'Songs'
-ALTER TABLE [dbo].[Songs]
-ADD CONSTRAINT [FK_SongGenre]
-    FOREIGN KEY ([Genre_Id])
-    REFERENCES [dbo].[Genres]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SongGenre'
-CREATE INDEX [IX_FK_SongGenre]
-ON [dbo].[Songs]
-    ([Genre_Id]);
-GO
-
--- Creating foreign key on [Artist_Id] in table 'Songs'
-ALTER TABLE [dbo].[Songs]
-ADD CONSTRAINT [FK_SongArtist]
-    FOREIGN KEY ([Artist_Id])
-    REFERENCES [dbo].[Artists]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- Creating non-clustered index for FOREIGN KEY 'FK_SongArtist'
-CREATE INDEX [IX_FK_SongArtist]
-ON [dbo].[Songs]
-    ([Artist_Id]);
-GO
 
 -- Creating foreign key on [Accounts_LoginId] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
@@ -214,6 +226,75 @@ ADD CONSTRAINT [FK_AccountSong_Song]
 CREATE INDEX [IX_FK_AccountSong_Song]
 ON [dbo].[AccountSong]
     ([Songs_Id]);
+GO
+
+-- Creating foreign key on [Songs_Id] in table 'SongArtist'
+ALTER TABLE [dbo].[SongArtist]
+ADD CONSTRAINT [FK_SongArtist_Song]
+    FOREIGN KEY ([Songs_Id])
+    REFERENCES [dbo].[Songs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Artists_Id] in table 'SongArtist'
+ALTER TABLE [dbo].[SongArtist]
+ADD CONSTRAINT [FK_SongArtist_Artist]
+    FOREIGN KEY ([Artists_Id])
+    REFERENCES [dbo].[Artists]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SongArtist_Artist'
+CREATE INDEX [IX_FK_SongArtist_Artist]
+ON [dbo].[SongArtist]
+    ([Artists_Id]);
+GO
+
+-- Creating foreign key on [Songs_Id] in table 'SongGenre'
+ALTER TABLE [dbo].[SongGenre]
+ADD CONSTRAINT [FK_SongGenre_Song]
+    FOREIGN KEY ([Songs_Id])
+    REFERENCES [dbo].[Songs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Genres_Id] in table 'SongGenre'
+ALTER TABLE [dbo].[SongGenre]
+ADD CONSTRAINT [FK_SongGenre_Genre]
+    FOREIGN KEY ([Genres_Id])
+    REFERENCES [dbo].[Genres]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SongGenre_Genre'
+CREATE INDEX [IX_FK_SongGenre_Genre]
+ON [dbo].[SongGenre]
+    ([Genres_Id]);
+GO
+
+-- Creating foreign key on [Songs_Id] in table 'SongAlbum'
+ALTER TABLE [dbo].[SongAlbum]
+ADD CONSTRAINT [FK_SongAlbum_Song]
+    FOREIGN KEY ([Songs_Id])
+    REFERENCES [dbo].[Songs]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Albums_Id] in table 'SongAlbum'
+ALTER TABLE [dbo].[SongAlbum]
+ADD CONSTRAINT [FK_SongAlbum_Album]
+    FOREIGN KEY ([Albums_Id])
+    REFERENCES [dbo].[Albums]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_SongAlbum_Album'
+CREATE INDEX [IX_FK_SongAlbum_Album]
+ON [dbo].[SongAlbum]
+    ([Albums_Id]);
 GO
 
 -- --------------------------------------------------

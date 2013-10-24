@@ -13,15 +13,18 @@ namespace DataAccessLayer.Conversions
         public static Song SongModelToEntity(SongModel model)
         {
             Song entity = new Song();
-            entity.Artist = new Artist();
-            entity.Genre = new Genre();
-            entity.Album = new Album();
-            entity.sLength = !string.IsNullOrEmpty(model.Length) ? model.Length : "";
-            entity.sFilePath = !string.IsNullOrEmpty(model.FilePath) ? model.FilePath : "";
-            entity.sTitle = !string.IsNullOrEmpty(model.SongTitle) ? model.SongTitle : "";
-            entity.Genre.sName = !string.IsNullOrEmpty(model.Genre) ? model.Genre : "";
-            entity.Artist.sName = !string.IsNullOrEmpty(model.Artist) ? model.Artist : "";
-            entity.Album.sTitle = !string.IsNullOrEmpty(model.Album) ? model.Album : "";
+            Artist artist = new Artist();
+            Genre genre = new Genre();
+            Album album = new Album();
+            entity.sLength = !string.IsNullOrEmpty(model.Length) ? model.Length : "(Unknown Length)";
+            entity.sFilePath = !string.IsNullOrEmpty(model.FilePath) ? model.FilePath : "(Unknown Filepath)";
+            entity.sTitle = !string.IsNullOrEmpty(model.SongTitle) ? model.SongTitle : System.IO.Path.GetFileNameWithoutExtension(model.FilePath);
+            genre.sName = !string.IsNullOrEmpty(model.Genre) ? model.Genre : "(Unknown Genre)";
+            artist.sName = !string.IsNullOrEmpty(model.Artist) ? model.Artist : "(Unknown Artist)";
+            album.sTitle = !string.IsNullOrEmpty(model.Album) ? model.Album : "(Unknown Album)";
+            entity.Artists.Add(artist);
+            entity.Genres.Add(genre);
+            entity.Albums.Add(album);
             return entity;
         }
 

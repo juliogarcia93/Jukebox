@@ -33,9 +33,9 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Select(s => new SongModel
             {
                 SongTitle = s.sTitle,
-                Artist = s.Artist.sName,
-                Album = s.Album.sTitle,
-                Genre = s.Genre.sName,
+                Artist = s.Artists.FirstOrDefault().sName,
+                Album = s.Albums.FirstOrDefault().sTitle,
+                Genre = s.Genres.FirstOrDefault().sName,
                 FilePath = s.sFilePath,
                 Length = s.sLength
             });
@@ -47,10 +47,11 @@ namespace DataAccessLayer.Repositories
                 .Select(s => new SongModel
                 {
                     SongTitle = s.sTitle,
-                    Artist = s.Artist.sName,
-                    Album = s.Album.sTitle,
-                    Genre = s.Genre.sName,
-                    FilePath = s.sFilePath
+                    Artist = s.Artists.FirstOrDefault().sName,
+                    Album = s.Albums.FirstOrDefault().sTitle,
+                    Genre = s.Genres.FirstOrDefault().sName,
+                    FilePath = s.sFilePath,
+                    Username = s.Accounts.Where(a => a.LoginId == loginId).First().Username
                 });
         }
 
@@ -82,8 +83,6 @@ namespace DataAccessLayer.Repositories
             try
             {
                 Song entity = ModelConversions.SongModelToEntity(model);
-                _context.Artists.Add(entity.Artist);
-                _context.Genres.Add(entity.Genre);
                 _context.Songs.Add(entity);
                 _context.SaveChanges();
             }
