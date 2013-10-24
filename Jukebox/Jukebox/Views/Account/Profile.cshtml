@@ -117,34 +117,39 @@
         var playlist;
         var tracks;
         var current;
+        var offset = 5; //number of td tags per row
 
         function init() {
-            current = 0;
+            current = 0 * offset;
             audio = $('#audio');
             playlist = $('#music-playlist');
             tracks = playlist.find('tbody tr a');
             len = tracks.length - 1;
             audio[0].play();
+
             playlist.find('a').click(function (e) {
                 e.preventDefault();
                 link = $(this);
-                current = link.parent().index();
-                run(link, audio[0]);
+
+                current = link.parent().parent().parent().index();
+                run($(link), audio[0]);
             });
+
             audio[0].addEventListener('ended', function (e) {
-                current++;
+                current = current + offset;
                 if (current == len) {
                     current = 0;
                     link = playlist.find('a')[0];
                 } else {
                     link = playlist.find('a')[current];
                 }
-                run(link, audio[0]);
+                run($(link), audio[0]);
             });
         }
+
         function run(link, player) {
-            player.src = link.attr('href');
-            selectedRow = link.parent().parent().parent();
+            player.src = $(link).attr('href');
+            selectedRow = $(link).parent().parent().parent();
             selectedRow.addClass('active-link').siblings().removeClass('active-link');
             audio[0].load();
             audio[0].play();
