@@ -10,10 +10,10 @@
         <EntityTypeShape EntityType="Music.Album" Width="1.5" PointX="2" PointY="4.375" />
         <EntityTypeShape EntityType="Music.Genre" Width="1.5" PointX="4" PointY="4.375" />
         <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="0.5" PointY="2.375" />
-        <AssociationConnector Association="Music.SongAlbum" />
-        <AssociationConnector Association="Music.SongGenre" />
-        <AssociationConnector Association="Music.SongArtist" />
         <AssociationConnector Association="Music.AccountSong" />
+        <AssociationConnector Association="Music.SongArtist" />
+        <AssociationConnector Association="Music.SongGenre" />
+        <AssociationConnector Association="Music.SongAlbum" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

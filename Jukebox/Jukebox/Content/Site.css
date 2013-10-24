@@ -108,7 +108,7 @@ margin-bottom: 10px;
 }
 
 .table-hover > tbody > tr:hover > td, .table-hover > tbody > tr:hover > th {
-background-color: rgba(65, 116, 150, 0.16);
+background-color: rgba(141, 141, 141, 0.16);
 }
 
 .text-wrap{
@@ -165,8 +165,8 @@ background-color: rgba(65, 116, 150, 0.16);
     max-width: 60px;
 }
 
-.active-link{
-    background-color: rgba(65, 116, 150, 0.16);
+.active-link {
+background-color: rgba(0, 0, 0, 0.13);
 }
 
 .room-container {
