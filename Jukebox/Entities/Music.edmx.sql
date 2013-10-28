@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/23/2013 15:32:52
--- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 10/28/2013 12:12:47
+-- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -23,46 +23,46 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SongArtist_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Song];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SongArtist_Artist]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Artist];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SongGenre_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Song];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SongGenre_Genre]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Genre];
+IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Song]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Song];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
+IF OBJECT_ID(N'[dbo].[FK_SongArtist_Artist]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Artist];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongArtist_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongGenre_Genre]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Genre];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongGenre_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Song];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Songs];
-GO
-IF OBJECT_ID(N'[dbo].[Artists]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Artists];
-GO
-IF OBJECT_ID(N'[dbo].[Albums]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Albums];
-GO
-IF OBJECT_ID(N'[dbo].[Genres]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Genres];
-GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
 IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AccountSong];
+GO
+IF OBJECT_ID(N'[dbo].[Albums]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Albums];
+GO
+IF OBJECT_ID(N'[dbo].[Artists]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Artists];
+GO
+IF OBJECT_ID(N'[dbo].[Genres]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Genres];
+GO
+IF OBJECT_ID(N'[dbo].[SongAlbum]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongAlbum];
 GO
 IF OBJECT_ID(N'[dbo].[SongArtist]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SongArtist];
@@ -70,8 +70,8 @@ GO
 IF OBJECT_ID(N'[dbo].[SongGenre]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SongGenre];
 GO
-IF OBJECT_ID(N'[dbo].[SongAlbum]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[SongAlbum];
+IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Songs];
 GO
 
 -- --------------------------------------------------
@@ -180,25 +180,25 @@ GO
 -- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Artists_Id] in table 'SongArtist'
 ALTER TABLE [dbo].[SongArtist]
 ADD CONSTRAINT [PK_SongArtist]
-    PRIMARY KEY CLUSTERED ([Songs_Id], [Artists_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Artists_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Genres_Id] in table 'SongGenre'
 ALTER TABLE [dbo].[SongGenre]
 ADD CONSTRAINT [PK_SongGenre]
-    PRIMARY KEY CLUSTERED ([Songs_Id], [Genres_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Genres_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Albums_Id] in table 'SongAlbum'
 ALTER TABLE [dbo].[SongAlbum]
 ADD CONSTRAINT [PK_SongAlbum]
-    PRIMARY KEY CLUSTERED ([Songs_Id], [Albums_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Albums_Id] ASC);
 GO
 
 -- --------------------------------------------------

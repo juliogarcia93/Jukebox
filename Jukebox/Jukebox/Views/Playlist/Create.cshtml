@@ -1,10 +1,15 @@
-﻿@{
+﻿@model List<SongModel>
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+
+@{
     ViewBag.Title = "Create a new room";
 }
 
 <div class="container">
 
-<div class="room-container container-fluid pull-left" id="playlist-width">
+<div class="room-container container-fluid">
     <div class="row">
         <hgroup>
             <h3>@ViewBag.Title   @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#myModal"})
@@ -15,145 +20,69 @@
     </div>
 
 
-    <div class="row" id="playlist-width" >
-            <li><audio controls="controls" loop="true">
-                <source type="audio/mp3" src="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3" />
-            </audio>
-             </li>
-    </div>
-
-    <div class="row" style="overflow:scroll; max-height:340px">
-     <table class="table" >
-         <thread>
-            <th>Song Title</th>
-            <th>Artist</th>
-            <th>Genre</th>
-            <th>Album</th>
-            <th>Length</th>
-            <th>Like</th>
-        </thread>
-         <tr>
-            <td>
-                <a href="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3">
-                    Test Song 1
-                </a>
-            </td>
-            <td>Artist 1</td>
-            <td>Album 1</td>
-            <td>Hip-Hop</td>
-            <td>3:20</td>
-            <td> <button type="submit" class="btn btn-default">Like</button> </td>
-       </tr>
-        <tr>
-            <td>
-                <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
-                    Test Song 2
-                </a>
-            </td>
-            <td>Artist 2</td>
-            <td>Album 2</td>
-            <td>Dubstep</td>
-            <td>3:30</td>
-            <td> <button type="submit" class="btn btn-default">Like</button> </td>
-       </tr>
-<tr>
-            <td>
-                <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
-                    Test Song 2
-                </a>
-            </td>
-            <td>Artist 2</td>
-            <td>Album 2</td>
-            <td>Dubstep</td>
-            <td>3:30</td>
-            <td> <button type="submit" class="btn btn-default">Like</button> </td>
-       </tr>
-<tr>
-            <td>
-                <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
-                    Test Song 2
-                </a>
-            </td>
-            <td>Artist 2</td>
-            <td>Album 2</td>
-            <td>Dubstep</td>
-            <td>3:30</td>
-            <td> <button type="submit" class="btn btn-default">Like</button> </td>
-       </tr>
-<tr>
-            <td>
-                <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
-                    Test Song 2
-                </a>
-            </td>
-            <td>Artist 2</td>
-            <td>Album 2</td>
-            <td>Dubstep</td>
-            <td>3:30</td>
-            <td> <button type="submit" class="btn btn-default">Like</button> </td>
-       </tr>
-<tr>
-            <td>
-                <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
-                    Test Song 2
-                </a>
-            </td>
-            <td>Artist 2</td>
-            <td>Album 2</td>
-            <td>Dubstep</td>
-            <td>3:30</td>
-            <td> <button type="submit" class="btn btn-default">Like</button> </td>
-       </tr>
-
-    
-   
-     </table>
-    </div>
-</div>
-
-
-
-    <!--<div class="row">
-        <button type="submit" class="btn btn-default">Add Music</button>
-        @Html.ActionLink("Add Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right"})
-    </div>-->
-
-   <div > <!--Container here-->
-
-
-
-<div class="room-container container-fluid" id="room-members-width">
     <div class="row">
-    <h3>Room Members</h3>
-</div>
-<div class="row" style="overflow:scroll; max-height:405px">
-      <table class="table">
-        <tr><td>Julio Garcia</td></tr>
-        <tr><td>Casey Barbello </td></tr>
-        <tr><td>Mathew Glodack </td></tr>
-        <tr><td>Daryl Pham</td></tr> 
-<tr><td>Julio Garcia</td></tr>
-        <tr><td>Casey Barbello </td></tr>
-        <tr><td>Mathew Glodack </td></tr>
-        <tr><td>Daryl Pham</td></tr> 
-<tr><td>Julio Garcia</td></tr>
-        <tr><td>Casey Barbello </td></tr>
-        <tr><td>Mathew Glodack </td></tr>
-        <tr><td>Daryl Pham</td></tr> 
-<tr><td>Julio Garcia</td></tr>
-        <tr><td>Casey Barbello </td></tr>
-        <tr><td>Mathew Glodack </td></tr>
-        <tr><td>Daryl Pham</td></tr> 
-<tr><td>Julio Garcia</td></tr>
-        <tr><td>Casey Barbello </td></tr>
-        <tr><td>Mathew Glodack </td></tr>
-        <tr><td>Daryl Pham</td></tr> 
+           @if(Model.Count() > 0)
+                {
+                    @*<div class="box1">*@
+                        <audio style="width:100%" controls="controls" id="audio" preload="auto" tabindex="0">
+                            <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
+                            <source type="audio/aif" src="../Music/@Model.First().FilePath" />
+                        </audio>
+                    @*</div>*@
+                }
+    </div>
 
-       
-</table>
+    <div class="row">
+        <div class="col col-lg-9 pull-left" >
+            <table class="table" >
+                <thread>
+                    <th>Song Title</th>
+                    <th>Artist</th>
+                    <th>Genre</th>
+                    <th>Album</th>
+                    <th>Length</th>
+                    <th>Like</th>
+                </thread>
+            <tr>
+                <td>
+                     <a href="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3">
+                         Test Song 1
+                     </a>
+                </td>
+                <td>Artist 1</td>
+                <td>Album 1</td>
+                <td>Hip-Hop</td>
+                <td>3:20</td>
+                <td> <button type="submit" class="btn btn-default">Like</button> </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
+                        Test Song 2
+                    </a>
+                </td>
+                <td>Artist 2</td>
+                <td>Album 2</td>
+                <td>Dubstep</td>
+                <td>3:30</td>
+                <td> <button type="submit" class="btn btn-default">Like</button> </td>
+            </tr>
+            </table>
+            </div>
+
+
+        <div class="col col-lg-3 pull-right">
+            <table class="table">
+                <th>Room Members</th>
+                <tr><td>Julio Garcia</td></tr>
+                <tr><td>Casey Barbello </td></tr>
+                <tr><td>Mathew Glodack </td></tr>
+                <tr><td>Daryl Pham</td></tr>      
+                </table>
+
+        </div>
+    </div>
 </div>
 </div>
 
-   </div>
-</div>
 
