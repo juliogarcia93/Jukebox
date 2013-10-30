@@ -2,34 +2,21 @@
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
-
-@{
-    ViewBag.Title = "Create a new room";
-}
-
 <div class="container">
 
 <div class="room-container container-fluid">
     <div class="row">
-        <hgroup>
-            <h3>@ViewBag.Title   @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#myModal"})
-            </h3>
-          <!-- <button type="submit" class="btn btn-default pull right">Add Music</button> 
-             <h3>@ViewBag.Message</h3>-->
-        </hgroup>
+        <div class="col col-lg-9">
+                <div class="pull-left"><h3 id="playlist-name">Ratchet 2013</h3></div><div id="room-type" class="pull-left">(Private)</div>
+        </div>
+        <div class="col col-lg-3 pull-right">
+            @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#profileModal", @id = "create-upload-button"})
+        </div>
     </div>
 
 
     <div class="row">
-           @if(Model.Count() > 0)
-                {
-                    @*<div class="box1">*@
-                        <audio style="width:100%" controls="controls" id="audio" preload="auto" tabindex="0">
-                            <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
-                            <source type="audio/aif" src="../Music/@Model.First().FilePath" />
-                        </audio>
-                    @*</div>*@
-                }
+           
     </div>
 
     <div class="row">
@@ -72,7 +59,7 @@
 
 
         <div class="col col-lg-3 pull-right">
-            <table class="table">
+            <table class="table table-bordered">
                 <th>Room Members</th>
                 <tr><td>Julio Garcia</td></tr>
                 <tr><td>Casey Barbello </td></tr>
