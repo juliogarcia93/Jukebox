@@ -14,7 +14,7 @@
     </div>
     <div class="row">
             <div class="col col-lg-9" id="profile-table-wrapper">
-                @if(Model.Count() > 0)
+                <!--@if(Model.Count() > 0)
                 {
                     @*<div class="box1">*@
                         <audio style="width:100%" controls="controls" id="audio" preload="auto" tabindex="0">
@@ -22,7 +22,7 @@
                             <source type="audio/aif" src="../Music/@Model.First().FilePath" />
                         </audio>
                     @*</div>*@
-                }
+                }-->
                 <table class="table table-hover" id="music-playlist">
                     <thead>
                         <tr>
@@ -72,6 +72,18 @@
         </div>
         </div>
     </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
+   @if(Model.Count() > 0)
+                {
+                    @*<div class="box1">*@
+                        <audio style="width:100%" controls="controls" id="audio" preload="auto" tabindex="0">
+                            <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
+                            <source type="audio/aif" src="../Music/@Model.First().FilePath" />
+                        </audio>
+                    @*</div>*@
+                }
+</nav>
 
   <!-- Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
