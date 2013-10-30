@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/28/2013 12:12:47
+-- Date Created: 10/29/2013 20:46:16
 -- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -23,46 +23,46 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
-GO
-IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Song];
+IF OBJECT_ID(N'[dbo].[FK_SongArtist_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Song];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SongArtist_Artist]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Artist];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SongArtist_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongArtist] DROP CONSTRAINT [FK_SongArtist_Song];
+IF OBJECT_ID(N'[dbo].[FK_SongGenre_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Song];
 GO
 IF OBJECT_ID(N'[dbo].[FK_SongGenre_Genre]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Genre];
 GO
-IF OBJECT_ID(N'[dbo].[FK_SongGenre_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[SongGenre] DROP CONSTRAINT [FK_SongGenre_Song];
+IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Songs];
+GO
+IF OBJECT_ID(N'[dbo].[Artists]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Artists];
+GO
+IF OBJECT_ID(N'[dbo].[Albums]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Albums];
+GO
+IF OBJECT_ID(N'[dbo].[Genres]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Genres];
+GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
 IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AccountSong];
-GO
-IF OBJECT_ID(N'[dbo].[Albums]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Albums];
-GO
-IF OBJECT_ID(N'[dbo].[Artists]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Artists];
-GO
-IF OBJECT_ID(N'[dbo].[Genres]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Genres];
-GO
-IF OBJECT_ID(N'[dbo].[SongAlbum]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[SongAlbum];
 GO
 IF OBJECT_ID(N'[dbo].[SongArtist]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SongArtist];
@@ -70,8 +70,8 @@ GO
 IF OBJECT_ID(N'[dbo].[SongGenre]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SongGenre];
 GO
-IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Songs];
+IF OBJECT_ID(N'[dbo].[SongAlbum]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SongAlbum];
 GO
 
 -- --------------------------------------------------

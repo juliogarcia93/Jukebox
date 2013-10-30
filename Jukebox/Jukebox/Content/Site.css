@@ -221,3 +221,20 @@ color: gray;
     border-color: #e7e7e7;
     padding-top: 10px;
 }
+
+#like-button {
+    width: 0px;
+    height: 8px;
+}
+
+.create-thumbs-up {
+    position: relative;
+    top: -7px;
+    left: -8px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+}
