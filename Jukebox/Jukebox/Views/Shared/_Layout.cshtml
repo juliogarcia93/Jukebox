@@ -72,7 +72,50 @@
     @RenderSection("scripts", required: false)
 </body>
 
-<!-- Modal object that gets called when clicking create a room -->
+  <!-- Create A Room Modal -->
+<div class="modal fade" id="CreateAroomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Create A Room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div>Content goes in here.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Upload" class="btn btn-primary pull-right" />
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+ <!-- Create A Room Modal -->
+<div class="modal fade" id="JoinAroomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Join A Room</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div>Content goes in here.</div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Upload" class="btn btn-primary pull-right" />
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+@*<!-- Modal object that gets called when clicking create a room -->
         <div class="modal fade" id="CreateAroomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -108,15 +151,15 @@
                                                     </div> 
     
                     <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
     <!-- Have to make the submit button connect to the database where the new room will be created -->
-            <button type="button" onclick="window.location.href='../Playlist/Create'" class="btn btn-primary">Submit</button>
+            <button type="button" onclick="window.location.href='../Playlist/Create'" class="btn btn-primary pull-right">Submit</button>
                     </div>
             </div><!-- closed modal-body -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-<!-- Modal object that gets called when clicking create a room -->
+  </div><!-- /.modal -->*@
+@*<!-- Modal object that gets called when clicking create a room -->
         <div class="modal fade" id="JoinAroomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -164,15 +207,15 @@
     
                     <div class="modal-footer">
 <div style="float:right">
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="butt-close" style="position:relative;padding: 3px 7px;">Close</button>
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="butt-close" style="position:relative;padding: 3px 7px;">Close</button>
     <!-- Have to make the submit button connect to the database where the new room will be created -->
 </div>
 <div style="float:right">
-            <button type="button" class="btn btn-primary" id="butt-select" style="position:relative;padding: 3px 7px;">Submit</button>
+            <button type="button" class="btn btn-primary pull-right" id="butt-select" style="position:relative;padding: 3px 7px;">Submit</button>
 </div>                    
 </div>
             </div><!-- closed modal-body -->
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+  </div><!-- /.modal -->*@
 </html>

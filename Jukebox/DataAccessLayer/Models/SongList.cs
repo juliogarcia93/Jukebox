@@ -48,7 +48,7 @@ namespace DataAccessLayer.Models
             file.SaveAs(MusicDirectory);
             TagLib.File metadata = TagLib.File.Create(MusicDirectory);
             string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
-            SongModel song = new SongModel(fileName, metadata.Tag.Title, metadata.Tag.AlbumArtists.FirstOrDefault(), metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
+            SongModel song = new SongModel(fileName, metadata.Tag.Title, metadata.Tag.FirstArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
             SongManager.UploadSong(song);
         }
     

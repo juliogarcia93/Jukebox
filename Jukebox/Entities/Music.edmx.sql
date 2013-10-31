@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/29/2013 20:46:16
--- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 10/30/2013 18:16:55
+-- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -180,25 +180,25 @@ GO
 -- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
+    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Artists_Id] in table 'SongArtist'
 ALTER TABLE [dbo].[SongArtist]
 ADD CONSTRAINT [PK_SongArtist]
-    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Artists_Id] ASC);
+    PRIMARY KEY CLUSTERED ([Songs_Id], [Artists_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Genres_Id] in table 'SongGenre'
 ALTER TABLE [dbo].[SongGenre]
 ADD CONSTRAINT [PK_SongGenre]
-    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Genres_Id] ASC);
+    PRIMARY KEY CLUSTERED ([Songs_Id], [Genres_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Albums_Id] in table 'SongAlbum'
 ALTER TABLE [dbo].[SongAlbum]
 ADD CONSTRAINT [PK_SongAlbum]
-    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Albums_Id] ASC);
+    PRIMARY KEY CLUSTERED ([Songs_Id], [Albums_Id] ASC);
 GO
 
 -- --------------------------------------------------
