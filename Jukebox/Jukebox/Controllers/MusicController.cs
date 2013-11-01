@@ -16,8 +16,12 @@ namespace Jukebox.Controllers
             {
                 var file = Request.Files[i];
                 string fileName = System.IO.Path.GetFileName(file.FileName);
-                SongList model = new SongList(1,100);
-                model.Add(fileName, file);
+                bool isMP3 = System.IO.Path.GetExtension(file.FileName) == ".mp3" ? true : false;
+                if (isMP3)
+                {
+                    SongList model = new SongList(1, 100);
+                    model.Add(fileName, file);
+                }
             }
             return RedirectToAction("Profile", "Account", new { username = User.Identity.Name });
         }
