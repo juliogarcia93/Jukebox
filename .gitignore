@@ -20,6 +20,9 @@ Jukebox.dll
 
 
 /Jukebox/Jukebox/bin
-/Jukebox/Jukebox/App_Data/*.ldf
-/Jukebox/Jukebox/App_Data/*.mdf
 /Jukebox/Jukebox/Music/*.m4a
+
+!taglib-sharp.dll
+!ICSharpCode.SharpZipLib.dll
+
+
