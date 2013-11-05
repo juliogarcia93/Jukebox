@@ -436,6 +436,7 @@ namespace Jukebox.Controllers
         #region Profile
         public ActionResult Profile(string username)
         {
+            ViewBag.Title = username + "'s Profile";
             IdentityDbContext _context = new IdentityDbContext();
             SongManager SongManager = new SongManager();
             List<SongModel> list = SongManager.GetSongList().ToList();

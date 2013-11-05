@@ -269,3 +269,42 @@ text-align: center;
     margin-top: 0px;
     margin-bottom: -10px;
 }
+
+body {
+padding-bottom: 80px;
+background-color: #FBCB55;
+}
+
+.round-number {
+-webkit-border-radius: 25px;
+-moz-border-radius: 25px;
+-ms-border-radius: 25px;
+-o-border-radius: 25px;
+border-radius: 25px;
+background-color: #404040;
+color: white;
+display: inline-block;
+float: left;
+font-size: 1.2em;
+line-height: 25px;
+margin-right: 10px;
+text-align: center;
+width: 25px;
+height: 25px;
+}
+
+.modal-header-description{
+margin-top: 2px;
+}
+
+.modal-row{
+    margin-bottom: 20px;
+}
+
+.modal-hidden{
+    display: none;
+}
+
+#modal-footer{
+    display: none;
+}

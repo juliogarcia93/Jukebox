@@ -87,6 +87,11 @@
     <Compile Include="Song.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
+    <Compile Include="Test.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Test.edmx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Music.edmx">
@@ -110,6 +115,13 @@
       <DependentUpon>Music.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <EntityDeploy Include="Test.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Test.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Test.edmx.diagram">
+      <DependentUpon>Test.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Music.edmx.sql" />
