@@ -17,8 +17,9 @@ namespace DataAccessLayer.Models
             Genre = null;
             Length = null;
         }
-        public SongModel(string filePath, string songTitle, string artist, string album, string genre, string length)
+        public SongModel(string username, string filePath, string songTitle, string artist, string album, string genre, string length)
         {
+            Username = username;
             FilePath = filePath;
             SongTitle = songTitle;
             Artist = artist;
@@ -32,7 +33,6 @@ namespace DataAccessLayer.Models
         public string Album { get; set; }
         public string Genre { get; set; }
         public string Length { get; set; }
-
         public string Username { get; set; }
 
     }

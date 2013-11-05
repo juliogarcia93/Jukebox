@@ -20,7 +20,7 @@ namespace Jukebox.Controllers
                 if (isMP3)
                 {
                     SongList model = new SongList(1, 100);
-                    model.Add(fileName, file);
+                    model.Add(User.Identity.Name, fileName, file);
                 }
             }
             return RedirectToAction("Profile", "Account", new { username = User.Identity.Name });

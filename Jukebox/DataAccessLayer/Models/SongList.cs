@@ -42,13 +42,13 @@ namespace DataAccessLayer.Models
                 pageSize).Take(pageSize).ToList());
         }
 
-        public void Add(string fileName, HttpPostedFileBase file)
+        public void Add(string username, string fileName, HttpPostedFileBase file)
         {
             string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
             file.SaveAs(MusicDirectory);
             TagLib.File metadata = TagLib.File.Create(MusicDirectory);
             string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
-            SongModel song = new SongModel(fileName, metadata.Tag.Title, metadata.Tag.FirstArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
+            SongModel song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
             bool songExists = SongManager.GetSongList().Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
             if (!songExists)
             {

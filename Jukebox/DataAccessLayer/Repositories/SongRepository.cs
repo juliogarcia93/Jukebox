@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace DataAccessLayer.Repositories
 {
-    public class SongRepository
+    public class SongRepository : IDisposable
     {
         private MusicContainer _context { get; set; }
 
@@ -27,6 +27,14 @@ namespace DataAccessLayer.Repositories
                 Id = g.Id,
                 sName = g.sName
             });
+        }
+
+        public IQueryable<AlbumModel> GetAlbumList()
+        {
+            return _context.Albums.Select(a => new AlbumModel
+                {
+                    sTitle = a.sTitle
+                });
         }
         public IQueryable<SongModel> GetSongList()
         {
@@ -73,9 +81,29 @@ namespace DataAccessLayer.Repositories
                 });
         }
 
-        private Account GetAccount(int loginId)
+        public Account GetAccount(int loginId)
         {
             return _context.Accounts.Where(a => a.LoginId == loginId).Single();
+        }
+
+        public Account GetAccount(string username)
+        {
+            return _context.Accounts.Where(a => a.Username == username).Single();
+        }
+
+        public Artist GetArtist(string artist)
+        {
+            return _context.Artists.Where(a => a.sName == artist).Single();
+        }
+
+        public Genre GetGenre(string genre)
+        {
+            return _context.Genres.Where(g => g.sName == genre).Single();
+        }
+
+        public Album GetAlbum(string album)
+        {
+            return _context.Albums.Where(a => a.sTitle == album).Single();
         }
 
         public void Add(SongModel model)
@@ -97,6 +125,11 @@ namespace DataAccessLayer.Repositories
                 }
             }
 
+        }
+
+        public void Dispose()
+        {
+            _context.Dispose();
         }
 
     }
