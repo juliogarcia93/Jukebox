@@ -23,5 +23,6 @@ namespace Entities
         public string Username { get; set; }
     
         public virtual ICollection<Song> Songs { get; set; }
+        public virtual Room Room { get; set; }
     }
 }

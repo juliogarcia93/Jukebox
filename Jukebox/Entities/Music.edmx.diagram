@@ -14,6 +14,8 @@
         <AssociationConnector Association="Music.SongArtist" />
         <AssociationConnector Association="Music.SongGenre" />
         <AssociationConnector Association="Music.SongAlbum" />
+        <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="7.5" PointY="3.5" />
+        <AssociationConnector Association="Music.AccountRoom" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

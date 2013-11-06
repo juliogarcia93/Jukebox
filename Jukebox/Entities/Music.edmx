@@ -239,6 +239,11 @@
             <End Role="Song" EntitySet="Songs" />
             <End Role="Album" EntitySet="Albums" />
           </AssociationSet>
+          <EntitySet Name="Rooms" EntityType="Music.Room" />
+          <AssociationSet Name="AccountRoom" Association="Music.AccountRoom">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Room" EntitySet="Rooms" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Song">
           <Key>
@@ -284,6 +289,7 @@
           <Property Type="Int32" Name="LoginId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Username" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Songs" Relationship="Music.AccountSong" FromRole="Account" ToRole="Song" />
+          <NavigationProperty Name="Room" Relationship="Music.AccountRoom" FromRole="Account" ToRole="Room" />
         </EntityType>
         <Association Name="AccountSong">
           <End Type="Music.Account" Role="Account" Multiplicity="*" />
@@ -300,6 +306,17 @@
         <Association Name="SongAlbum">
           <End Type="Music.Song" Role="Song" Multiplicity="*" />
           <End Type="Music.Album" Role="Album" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Accounts" Relationship="Music.AccountRoom" FromRole="Room" ToRole="Account" />
+        </EntityType>
+        <Association Name="AccountRoom">
+          <End Type="Music.Account" Role="Account" Multiplicity="*" />
+          <End Type="Music.Room" Role="Room" Multiplicity="1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
