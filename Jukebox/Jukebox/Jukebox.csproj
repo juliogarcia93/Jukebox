@@ -291,6 +291,7 @@
     <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Playlist\Create.cshtml" />
     <Content Include="Views\Playlist\Join.cshtml" />
+    <Content Include="Views\Shared\_PlaylistPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
