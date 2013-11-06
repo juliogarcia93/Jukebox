@@ -49,6 +49,11 @@
                 }
 </nav>
 -->
+
+@if(Model.Count() > 0){
+    @Html.Partial("_MusicPlayerPartial", Model)
+}
+
   <!-- Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

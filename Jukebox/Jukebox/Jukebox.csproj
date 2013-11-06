@@ -292,6 +292,7 @@
     <Content Include="Views\Playlist\Create.cshtml" />
     <Content Include="Views\Playlist\Join.cshtml" />
     <Content Include="Views\Shared\_PlaylistPartial.cshtml" />
+    <Content Include="Views\Shared\_MusicPlayerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

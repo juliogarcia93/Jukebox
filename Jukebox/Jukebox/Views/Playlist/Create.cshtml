@@ -21,8 +21,47 @@
 
     <div class="row">
         <div class="col col-lg-9 pull-left" >
-            @Html.Partial("_PlaylistPartial", Model)
-        </div>
+            <table class="table" >
+                <thread>
+                    <th>Song Title</th>
+                    <th>Artist</th>
+                    <th>Genre</th>
+                    <th>Album</th>
+                    <th>Length</th>
+                    <th>Like</th>
+                </thread>
+            <tr>
+                <td>
+                     <a href="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3">
+                         Test Song 1
+                     </a>
+                </td>
+                <td>Artist 1</td>
+                <td>Album 1</td>
+                <td>Hip-Hop</td>
+                <td>3:20</td>
+                <td> <button type="button" class="btn btn-default btn-lg" style="height: 30px">
+                        <span class="glyphicon create-thumbs-up glyphicon-thumbs-up" id="like-button"></span>
+                     </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
+                        Test Song 2
+                    </a>
+                </td>
+                <td>Artist 2</td>
+                <td>Album 2</td>
+                <td>Dubstep</td>
+                <td>3:30</td>
+                <td> <button type="button" class="btn btn-default btn-lg" style="height: 30px">
+                        <span class="glyphicon create-thumbs-up glyphicon-thumbs-up" id="like-button"></span>
+                     </button>
+                </td>
+            </tr>
+            </table>
+            </div>
 
 
         <div class="col col-lg-3 pull-right">
@@ -50,3 +89,4 @@
 </nav>
 -->
 
+ 
