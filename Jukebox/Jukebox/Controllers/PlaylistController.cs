@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.BusinessLogic;
+using DataAccessLayer.Models;
+using Jukebox.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,11 +13,12 @@ namespace Jukebox.Controllers
     [Authorize]
     public class PlaylistController : Controller
     {
-        public ActionResult Create()
+        public ActionResult Create(string username)
         {
-           /// RoomModal room = new RoomModal( Request.RequestType.ToString() );
-           /// return RedirectToAction("Create", "Playlist", new { username = User.Identity.Name });
-            return View();
+            IdentityDbContext _context = new IdentityDbContext();
+            SongManager SongManager = new SongManager();
+            List<SongModel> list = SongManager.GetSongList().ToList();
+            return View(list);
         }
 
         public ActionResult Join()

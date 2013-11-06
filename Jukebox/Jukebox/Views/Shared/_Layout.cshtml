@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="modal-footer" id="modal-footer">
-                <input type="submit" value="Create" onclick="window.location.href = '../Playlist/Create'" class="btn btn-primary pull-right" />
+                <input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
             </div>
         </div><!-- /.modal-content -->
