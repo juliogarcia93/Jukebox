@@ -439,7 +439,7 @@ namespace Jukebox.Controllers
             ViewBag.Title = username + "'s Profile";
             IdentityDbContext _context = new IdentityDbContext();
             SongManager SongManager = new SongManager();
-            List<SongModel> list = SongManager.GetSongList().ToList();
+            List<SongModel> list = SongManager.GetSongList().OrderBy(s => s.SongTitle).ToList();
             return View(list);
         }
 

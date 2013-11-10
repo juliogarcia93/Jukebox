@@ -13,10 +13,11 @@ namespace Jukebox.Controllers
     [Authorize]
     public class PlaylistController : Controller
     {
+        SongManager SongManager = new SongManager();
         public ActionResult Create(string username)
         {
             IdentityDbContext _context = new IdentityDbContext();
-            SongManager SongManager = new SongManager();
+            //SongManager SongManager = new SongManager();
             List<SongModel> list = SongManager.GetSongList().ToList();
             return View(list);
         }
@@ -24,6 +25,12 @@ namespace Jukebox.Controllers
         public ActionResult Join()
         {
             return View();
+        }
+
+        public PartialViewResult Search(string query)
+        {
+            List<SongModel> results = SongManager.Search(query, SongManager.GetSongList()).ToList();
+            return PartialView("_PlaylistPartial", results);
         }
 
     }

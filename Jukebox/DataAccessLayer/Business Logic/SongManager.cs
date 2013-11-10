@@ -35,5 +35,21 @@ namespace DataAccessLayer.BusinessLogic
         {
             SongRepository.Add(model);
         }
+
+        public IQueryable<SongModel> Search(string query, IQueryable<SongModel> originalList)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                return originalList;
+            }
+            return originalList.Where(s => s.SongTitle.Contains(query)
+                ||
+                s.Artist.Contains(query)
+                ||
+                s.Album.Contains(query)
+                ||
+                s.Genre.Contains(query)
+                ).OrderBy(s => s.SongTitle);
+        }
     }
 }
