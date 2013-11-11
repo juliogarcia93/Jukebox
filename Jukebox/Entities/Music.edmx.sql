@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/05/2013 19:56:48
+-- Date Created: 11/11/2013 12:48:21
 -- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -41,6 +41,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
 GO
+IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -60,6 +63,9 @@ IF OBJECT_ID(N'[dbo].[Genres]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
+GO
+IF OBJECT_ID(N'[dbo].[Rooms]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Rooms];
 GO
 IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AccountSong];

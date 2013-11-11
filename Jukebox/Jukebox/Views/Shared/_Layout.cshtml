@@ -144,8 +144,9 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer" id="modal-footer">
-                <input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />
+            <div class="modal-footer" id="modal-footer"> 
+                <input id="createbutton" class="btn btn-primary pull-right" type="submit" value="Create"/>
+                <!--<input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />-->
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
             </div>
         </div><!-- /.modal-content -->
@@ -277,4 +278,11 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->*@
+
+<script type="text/javascript">
+    document.getElementById("createbutton").onclick= function(){
+        location.href='@Url.Action("Create", "Playlist", new { username = User.Identity.Name })';
+}
+</script>
+
 </html>
