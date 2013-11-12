@@ -313,3 +313,14 @@ margin-top: 2px;
     border: none;
     width: 7%;
 }
+
+.btn-lg-round {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 15px;
+}
+
+#members-table {
+    background-color:aliceblue;
+}
