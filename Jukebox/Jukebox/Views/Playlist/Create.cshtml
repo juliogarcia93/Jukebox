@@ -10,7 +10,7 @@
                 <div class="pull-left"><h3 id="playlist-name">Ratchet 2013</h3></div><div id="room-type" class="pull-left">(Private)</div>
         </div>
         <div class="col col-lg-3 pull-right">
-            @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#profileModal", @id = "create-upload-button"})
+            @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})
         </div>
     </div>
 
@@ -114,4 +114,35 @@
 </nav>
 -->
 
- 
+  <!-- Modal -->
+<div class="modal fade" id="RoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <input type="submit" value="Create" class="btn btn-primary pull-right" id="add-music-submit" />
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                <h4 class="modal-title">Add Songs</h4>
+            </div>
+                @using (Html.BeginForm("Create", "Playlist", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+                    <form class="form-horizontal" role="form">
+                        <div class="modal-body"> 
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="container-fluid">
+                                <table>
+                                    <th>Choose songs from your playlist</th>
+                                    @foreach (SongModel song in Model){
+                                    <tr>
+                                        <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
+                                    </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                }
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
