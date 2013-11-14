@@ -6,6 +6,7 @@
 <header>
     <title>Profile</title>
 </header>
+<body id="profile-view">
 <div class="profile-container container-fluid" id="profile-page-wrapper">
     <div class="row">
         <h3>Welcome @User.Identity.Name! @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#profileModal"})</h3>
@@ -36,6 +37,7 @@
         </div>
         </div>
     </div>
+</body>
 <!--
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
    @if(Model.Count() > 0)
@@ -52,11 +54,11 @@
                 }
 </nav>
 -->
-
+<nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
 @if(Model.Count() > 0){
     @Html.Partial("_MusicPlayerPartial", Model)
 }
-
+</nav>
   <!-- Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
