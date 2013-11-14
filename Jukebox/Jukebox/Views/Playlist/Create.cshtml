@@ -10,7 +10,7 @@
                 <div class="pull-left"><h3 id="playlist-name">Ratchet 2013</h3></div><div id="room-type" class="pull-left">(Private)</div>
         </div>
         <div class="col col-lg-3 pull-right">
-            @Html.ActionLink("Upload Music", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#profileModal", @id = "create-upload-button"})
+            @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})
         </div>
     </div>
 
@@ -21,51 +21,12 @@
 
     <div class="row">
         <div class="col col-lg-9 pull-left" >
-            <table class="table" >
-                <thread>
-                    <th>Song Title</th>
-                    <th>Artist</th>
-                    <th>Genre</th>
-                    <th>Album</th>
-                    <th>Length</th>
-                    <th>Like</th>
-                </thread>
-            <tr>
-                <td>
-                     <a href="https://dl.dropboxusercontent.com/u/70488116/CS%2048/download.mp3">
-                         Test Song 1
-                     </a>
-                </td>
-                <td>Artist 1</td>
-                <td>Album 1</td>
-                <td>Hip-Hop</td>
-                <td>3:20</td>
-                <td> <button type="button" class="btn btn-default btn-lg" style="height: 30px">
-                        <span class="glyphicon create-thumbs-up glyphicon-thumbs-up" id="like-button"></span>
-                     </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://dl-web.dropbox.com/get/Music/download.mp3?w=AADZLGY7xfsRuLCsiSmLWHBVv33AIdWSHalXM-H5HWX3bA">
-                        Test Song 2
-                    </a>
-                </td>
-                <td>Artist 2</td>
-                <td>Album 2</td>
-                <td>Dubstep</td>
-                <td>3:30</td>
-                <td> <button type="button" class="btn btn-default btn-lg" style="height: 30px">
-                        <span class="glyphicon create-thumbs-up glyphicon-thumbs-up" id="like-button"></span>
-                     </button>
-                </td>
-            </tr>
-            </table>
+            @Html.Partial("_RoomPlaylistPartial", Model)
             </div>
 
 
         <div class="col col-lg-3 pull-right">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="members-table">
                 <th>Room Members</th>
                 <tr><td>Julio Garcia</td></tr>
                 <tr><td>Casey Barbello </td></tr>
@@ -77,6 +38,70 @@
 </div>
 </div>
 
+<nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
+@if(Model.Count() > 0){
+    @Html.Partial("_MusicPlayerPartial", Model)
+}
+</nav>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var audio;
+        var playlist;
+        var tracks;
+        var current;
+        var offset = 5; //number of td tags per row
+        var currentSong = $('#current-song');
+        var currentArtist = $('#current-artist');
+
+        function init() {
+            current = 0 * offset;
+            audio = $('#audio');
+            playlist = $('#music-playlist');
+            tracks = playlist.find('tbody tr a');
+            len = tracks.length - 1;
+            audio[0].play();
+            var song = playlist.find('tbody tr a')[current];
+            var artist = playlist.find('tbody tr a')[current + 1];
+            currentSong.text($(song).text());
+            currentArtist.text($(artist).text());
+
+            playlist.find('a').click(function (e) {
+                e.preventDefault();
+                link = $(this);
+
+                current = (link.parent().parent().parent().index()) * 5;
+                run($(link), audio[0]);
+            });
+
+            audio[0].addEventListener('ended', function (e) {
+                current = current + 5;
+                if (current == len) {
+                    current = 0;
+                    link = playlist.find('tbody tr a')[0];
+                } else {
+                    link = playlist.find('tbody tr a')[current];
+                }
+                run($(link), audio[0]);
+            });
+        }
+
+        function run(link, player) {
+            player.src = $(link).attr('href');
+            selectedRow = $(link).parent().parent().parent();
+            selectedRow.addClass('active-link').siblings().removeClass('active-link');
+            audio[0].load();
+            audio[0].play();
+            var song = playlist.find('tbody tr a')[current];
+            var artist = playlist.find('tbody tr a')[current + 1];
+            currentSong.text($(song).text());
+            currentArtist.text($(artist).text());
+        }
+
+        init();
+    });
+    
+</script>
 
 <!--
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
@@ -89,4 +114,35 @@
 </nav>
 -->
 
- 
+  <!-- Modal -->
+<div class="modal fade" id="RoomModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <input type="submit" value="Create" class="btn btn-primary pull-right" id="add-music-submit" />
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                <h4 class="modal-title">Add Songs</h4>
+            </div>
+                @using (Html.BeginForm("Create", "Playlist", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+                    <form class="form-horizontal" role="form">
+                        <div class="modal-body"> 
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="container-fluid">
+                                <table>
+                                    <th>Choose songs from your playlist</th>
+                                    @foreach (SongModel song in Model){
+                                    <tr>
+                                        <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
+                                    </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                }
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

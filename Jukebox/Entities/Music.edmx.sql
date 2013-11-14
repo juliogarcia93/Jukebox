@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/13/2013 10:39:37
--- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 11/13/2013 13:56:56
+-- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -124,8 +124,7 @@ GO
 
 -- Creating table 'Rooms'
 CREATE TABLE [dbo].[Rooms] (
-    [Id] int IDENTITY(1,1) NOT NULL,
-    [password] nvarchar(max)  NOT NULL
+    [Id] int IDENTITY(1,1) NOT NULL
 );
 GO
 

@@ -20,7 +20,6 @@ namespace Entities
         }
     
         public int Id { get; set; }
-        public string password { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
     }
