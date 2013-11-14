@@ -77,7 +77,8 @@ margin-top: 15px;
 }
 
 .profile-container {
-    background-color: rgba(189, 189, 189, .65);
+    /*background-color: rgba(189, 189, 189, .65);*/
+    background-color: white;
     padding-left: 25px;
     padding-right: 50px;
     padding-bottom: 60px;
