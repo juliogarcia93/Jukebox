@@ -236,10 +236,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\facicon.png" />
     <Content Include="img\icons-16x16.png" />
     <Content Include="img\jukebox.jpg" />
     <Content Include="img\Mainpage.png" />
     <Content Include="img\profile-background.png" />
+    <Content Include="img\profile.png" />
     <Content Include="img\Setting.png" />
     <Content Include="img\student.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -262,6 +264,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
