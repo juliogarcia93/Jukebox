@@ -2,9 +2,7 @@
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
-@{
-    bool active = true;
-}
+
 <header>
     <title>Profile</title>
 </header>
@@ -23,44 +21,7 @@
                         </audio>
                     @*</div>*@
                 }-->
-                <table class="table table-hover" id="music-playlist">
-                    <thead>
-                        <tr>
-                            <th id="table-song">Song Title</th>
-                            <th id="table-artist">Artist</th>
-                            <th id="table-album">Album</th>
-                            <th id="table-genre">Genre</th>
-                            <th id="table-length">Length</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (SongModel song in Model)
-                        {
-                            if(active == true)
-                            {
-                                active = false;
-                                <tr class="active-link">                                
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Artist</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a></div></td>
-                                </tr>
-                            }
-                            else
-                            {
-                                <tr>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Artist</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a></div></td>
-                                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a></div></td>
-                                </tr>
-                            }
-                                
-                        }
-                    </tbody>
-                </table>
+                @Html.Partial("_PlaylistPartial", Model)
             </div>
         <div class="col col-lg-3">
             <ul class="nav nav-pills nav-stacked">
@@ -72,7 +33,7 @@
         </div>
         </div>
     </div>
-
+<!--
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
    @if(Model.Count() > 0)
                 {
@@ -87,6 +48,11 @@
                     </div>
                 }
 </nav>
+-->
+
+@if(Model.Count() > 0){
+    @Html.Partial("_MusicPlayerPartial", Model)
+}
 
   <!-- Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

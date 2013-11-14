@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 10/31/2013 19:51:45
--- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 11/13/2013 10:39:37
+-- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -41,6 +41,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_SongAlbum_Album]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SongAlbum] DROP CONSTRAINT [FK_SongAlbum_Album];
 GO
+IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -60,6 +63,9 @@ IF OBJECT_ID(N'[dbo].[Genres]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
+GO
+IF OBJECT_ID(N'[dbo].[Rooms]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Rooms];
 GO
 IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
     DROP TABLE [dbo].[AccountSong];
@@ -111,7 +117,15 @@ GO
 -- Creating table 'Accounts'
 CREATE TABLE [dbo].[Accounts] (
     [LoginId] int IDENTITY(1,1) NOT NULL,
-    [Username] nvarchar(max)  NOT NULL
+    [Username] nvarchar(max)  NOT NULL,
+    [Room_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'Rooms'
+CREATE TABLE [dbo].[Rooms] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [password] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -177,28 +191,34 @@ ADD CONSTRAINT [PK_Accounts]
     PRIMARY KEY CLUSTERED ([LoginId] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'Rooms'
+ALTER TABLE [dbo].[Rooms]
+ADD CONSTRAINT [PK_Rooms]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Artists_Id] in table 'SongArtist'
 ALTER TABLE [dbo].[SongArtist]
 ADD CONSTRAINT [PK_SongArtist]
-    PRIMARY KEY CLUSTERED ([Songs_Id], [Artists_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Artists_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Genres_Id] in table 'SongGenre'
 ALTER TABLE [dbo].[SongGenre]
 ADD CONSTRAINT [PK_SongGenre]
-    PRIMARY KEY CLUSTERED ([Songs_Id], [Genres_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Genres_Id] ASC);
 GO
 
 -- Creating primary key on [Songs_Id], [Albums_Id] in table 'SongAlbum'
 ALTER TABLE [dbo].[SongAlbum]
 ADD CONSTRAINT [PK_SongAlbum]
-    PRIMARY KEY CLUSTERED ([Songs_Id], [Albums_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Songs_Id], [Albums_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -295,6 +315,20 @@ ADD CONSTRAINT [FK_SongAlbum_Album]
 CREATE INDEX [IX_FK_SongAlbum_Album]
 ON [dbo].[SongAlbum]
     ([Albums_Id]);
+GO
+
+-- Creating foreign key on [Room_Id] in table 'Accounts'
+ALTER TABLE [dbo].[Accounts]
+ADD CONSTRAINT [FK_AccountRoom]
+    FOREIGN KEY ([Room_Id])
+    REFERENCES [dbo].[Rooms]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountRoom'
+CREATE INDEX [IX_FK_AccountRoom]
+ON [dbo].[Accounts]
+    ([Room_Id]);
 GO
 
 -- --------------------------------------------------

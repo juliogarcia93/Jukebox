@@ -1,0 +1,16 @@
+﻿@model List<SongModel>
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+<nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
+            <div class="row">                    
+                <div id="current-music"><h5 id="current-song-header"><strong id="current-song"></strong> by <strong id="current-artist"></strong></h5></div>
+            </div>
+            <div class="row">
+                <audio style="width:100%" controls="controls" id="audio" preload="auto" tabindex="0">
+                    <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
+                    <source type="audio/aif" src="../Music/@Model.First().FilePath" />
+                </audio>
+            </div>
+        </nav>
+

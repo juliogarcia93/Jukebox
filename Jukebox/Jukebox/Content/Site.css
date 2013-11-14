@@ -41,7 +41,7 @@ input[type="checkbox"].input-validation-error {
     font-weight: 200;
     line-height: 30px;
     color: inherit;
-    background-image:url('../img/Mainpage.png');
+    background-color:transparent;
     overflow:hidden;
     position:relative;
     background-position: -261px -243px;   
@@ -272,7 +272,7 @@ text-align: center;
 
 body {
 padding-bottom: 80px;
-background-color: #FBCB55;
+background-image: url('../img/Mainpage.png');
 }
 
 .round-number {
@@ -308,3 +308,8 @@ margin-top: 2px;
 #modal-footer{
     display: none;
 }
+
+#modal-footer2{
+    display: none;
+}
+

@@ -5,15 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a75157a789dc482ba7710aeea1060b69" Name="Diagram1" >
-        <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="3.125" PointY="1.125" />
-        <EntityTypeShape EntityType="Music.Artist" Width="1.5" PointX="6.125" PointY="1.25" />
-        <EntityTypeShape EntityType="Music.Album" Width="1.5" PointX="2" PointY="4.375" />
-        <EntityTypeShape EntityType="Music.Genre" Width="1.5" PointX="4" PointY="4.375" />
-        <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="0.5" PointY="2.375" />
+        <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="3" PointY="3.125" />
+        <EntityTypeShape EntityType="Music.Artist" Width="1.5" PointX="5.25" PointY="1.25" />
+        <EntityTypeShape EntityType="Music.Album" Width="1.5" PointX="5.25" PointY="6" />
+        <EntityTypeShape EntityType="Music.Genre" Width="1.5" PointX="5.25" PointY="3.625" />
+        <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="0.75" PointY="4.625" />
         <AssociationConnector Association="Music.AccountSong" />
         <AssociationConnector Association="Music.SongArtist" />
         <AssociationConnector Association="Music.SongGenre" />
         <AssociationConnector Association="Music.SongAlbum" />
+        <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="3" PointY="8.25" />
+        <AssociationConnector Association="Music.AccountRoom" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

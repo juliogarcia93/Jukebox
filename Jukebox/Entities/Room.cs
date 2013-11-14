@@ -12,17 +12,16 @@ namespace Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class Room
     {
-        public Account()
+        public Room()
         {
-            this.Songs = new HashSet<Song>();
+            this.Accounts = new HashSet<Account>();
         }
     
-        public int LoginId { get; set; }
-        public string Username { get; set; }
+        public int Id { get; set; }
+        public string password { get; set; }
     
-        public virtual ICollection<Song> Songs { get; set; }
-        public virtual Room Room { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

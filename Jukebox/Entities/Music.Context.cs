@@ -30,5 +30,6 @@ namespace Entities
         public DbSet<Album> Albums { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<Room> Rooms { get; set; }
     }
 }
