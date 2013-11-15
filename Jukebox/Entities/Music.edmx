@@ -7,15 +7,10 @@
     <Schema Namespace="Music.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="MusicStoreContainer">
     <EntitySet Name="Songs" EntityType="Music.Store.Songs" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Artists" EntityType="Music.Store.Artists" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Albums" EntityType="Music.Store.Albums" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Genres" EntityType="Music.Store.Genres" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Accounts" EntityType="Music.Store.Accounts" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Rooms" EntityType="Music.Store.Rooms" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Playlists" EntityType="Music.Store.Playlists" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AccountSong" EntityType="Music.Store.AccountSong" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SongArtist" EntityType="Music.Store.SongArtist" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SongGenre" EntityType="Music.Store.SongGenre" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SongAlbum" EntityType="Music.Store.SongAlbum" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_AccountSong_Account" Association="Music.Store.FK_AccountSong_Account">
       <End Role="Account" EntitySet="Accounts" />
       <End Role="AccountSong" EntitySet="AccountSong" />
@@ -24,33 +19,9 @@
       <End Role="Song" EntitySet="Songs" />
       <End Role="AccountSong" EntitySet="AccountSong" />
     </AssociationSet>
-    <AssociationSet Name="FK_SongArtist_Song" Association="Music.Store.FK_SongArtist_Song">
-      <End Role="Song" EntitySet="Songs" />
-      <End Role="SongArtist" EntitySet="SongArtist" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SongArtist_Artist" Association="Music.Store.FK_SongArtist_Artist">
-      <End Role="Artist" EntitySet="Artists" />
-      <End Role="SongArtist" EntitySet="SongArtist" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SongGenre_Song" Association="Music.Store.FK_SongGenre_Song">
-      <End Role="Song" EntitySet="Songs" />
-      <End Role="SongGenre" EntitySet="SongGenre" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SongGenre_Genre" Association="Music.Store.FK_SongGenre_Genre">
-      <End Role="Genre" EntitySet="Genres" />
-      <End Role="SongGenre" EntitySet="SongGenre" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SongAlbum_Song" Association="Music.Store.FK_SongAlbum_Song">
-      <End Role="Song" EntitySet="Songs" />
-      <End Role="SongAlbum" EntitySet="SongAlbum" />
-    </AssociationSet>
-    <AssociationSet Name="FK_SongAlbum_Album" Association="Music.Store.FK_SongAlbum_Album">
-      <End Role="Album" EntitySet="Albums" />
-      <End Role="SongAlbum" EntitySet="SongAlbum" />
-    </AssociationSet>
-    <AssociationSet Name="AccountRoom" Association="Music.Store.AccountRoom">
+    <AssociationSet Name="AccountPlaylist" Association="Music.Store.AccountPlaylist">
       <End Role="Account" EntitySet="Accounts" />
-      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Playlist" EntitySet="Playlists" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Songs">
@@ -58,30 +29,12 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="sTitle" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="sLength" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="sFilePath" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Artists">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="sName" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Albums">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="sTitle" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Genres">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="sName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Length" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FilePath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Artist" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Genre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Album" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Accounts">
     <Key>
@@ -89,13 +42,20 @@
     </Key>
     <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Room_Id" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Rooms">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Playlists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Account_LoginId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="AccountSong">
     <Key>
@@ -105,39 +65,15 @@
     <Property Name="Accounts_LoginId" Type="int" Nullable="false" />
     <Property Name="Songs_Id" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="SongArtist">
-    <Key>
-      <PropertyRef Name="Songs_Id" />
-      <PropertyRef Name="Artists_Id" />
-    </Key>
-    <Property Name="Songs_Id" Type="int" Nullable="false" />
-    <Property Name="Artists_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SongGenre">
-    <Key>
-      <PropertyRef Name="Songs_Id" />
-      <PropertyRef Name="Genres_Id" />
-    </Key>
-    <Property Name="Songs_Id" Type="int" Nullable="false" />
-    <Property Name="Genres_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SongAlbum">
-    <Key>
-      <PropertyRef Name="Songs_Id" />
-      <PropertyRef Name="Albums_Id" />
-    </Key>
-    <Property Name="Songs_Id" Type="int" Nullable="false" />
-    <Property Name="Albums_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="AccountRoom">
-    <End Role="Account" Type="Music.Store.Accounts" Multiplicity="*" />
-    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="1" />
+  <Association Name="AccountPlaylist">
+    <End Role="Account" Type="Music.Store.Accounts" Multiplicity="1" />
+    <End Role="Playlist" Type="Music.Store.Playlists" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Room">
-        <PropertyRef Name="Id" />
+      <Principal Role="Account">
+        <PropertyRef Name="LoginId" />
       </Principal>
-      <Dependent Role="Account">
-        <PropertyRef Name="Room_Id" />
+      <Dependent Role="Playlist">
+        <PropertyRef Name="Account_LoginId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -165,108 +101,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_SongArtist_Song">
-    <End Role="Song" Type="Music.Store.Songs" Multiplicity="1" />
-    <End Role="SongArtist" Type="Music.Store.SongArtist" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Song">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SongArtist">
-        <PropertyRef Name="Songs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SongArtist_Artist">
-    <End Role="SongArtist" Type="Music.Store.SongArtist" Multiplicity="*" />
-    <End Role="Artist" Type="Music.Store.Artists" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Artist">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SongArtist">
-        <PropertyRef Name="Artists_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SongGenre_Song">
-    <End Role="Song" Type="Music.Store.Songs" Multiplicity="1" />
-    <End Role="SongGenre" Type="Music.Store.SongGenre" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Song">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SongGenre">
-        <PropertyRef Name="Songs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SongGenre_Genre">
-    <End Role="SongGenre" Type="Music.Store.SongGenre" Multiplicity="*" />
-    <End Role="Genre" Type="Music.Store.Genres" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Genre">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SongGenre">
-        <PropertyRef Name="Genres_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SongAlbum_Song">
-    <End Role="Song" Type="Music.Store.Songs" Multiplicity="1" />
-    <End Role="SongAlbum" Type="Music.Store.SongAlbum" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Song">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SongAlbum">
-        <PropertyRef Name="Songs_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_SongAlbum_Album">
-    <End Role="SongAlbum" Type="Music.Store.SongAlbum" Multiplicity="*" />
-    <End Role="Album" Type="Music.Store.Albums" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Album">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="SongAlbum">
-        <PropertyRef Name="Albums_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Music" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="MusicContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Songs" EntityType="Music.Song" />
-          <EntitySet Name="Artists" EntityType="Music.Artist" />
-          <EntitySet Name="Albums" EntityType="Music.Album" />
-          <EntitySet Name="Genres" EntityType="Music.Genre" />
           <EntitySet Name="Accounts" EntityType="Music.Account" />
           <AssociationSet Name="AccountSong" Association="Music.AccountSong">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Song" EntitySet="Songs" />
           </AssociationSet>
-          <AssociationSet Name="SongArtist" Association="Music.SongArtist">
-            <End Role="Song" EntitySet="Songs" />
-            <End Role="Artist" EntitySet="Artists" />
-          </AssociationSet>
-          <AssociationSet Name="SongGenre" Association="Music.SongGenre">
-            <End Role="Song" EntitySet="Songs" />
-            <End Role="Genre" EntitySet="Genres" />
-          </AssociationSet>
-          <AssociationSet Name="SongAlbum" Association="Music.SongAlbum">
-            <End Role="Song" EntitySet="Songs" />
-            <End Role="Album" EntitySet="Albums" />
-          </AssociationSet>
           <EntitySet Name="Rooms" EntityType="Music.Room" />
-          <AssociationSet Name="AccountRoom" Association="Music.AccountRoom">
+          <EntitySet Name="Playlists" EntityType="Music.Playlist" />
+          <AssociationSet Name="AccountPlaylist" Association="Music.AccountPlaylist">
             <End Role="Account" EntitySet="Accounts" />
-            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Playlist" EntitySet="Playlists" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Song">
@@ -274,37 +124,13 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="sTitle" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Type="String" Name="sLength" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Type="String" Name="sFilePath" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Length" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="FilePath" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Accounts" Relationship="Music.AccountSong" FromRole="Song" ToRole="Account" />
-          <NavigationProperty Name="Artists" Relationship="Music.SongArtist" FromRole="Song" ToRole="Artist" />
-          <NavigationProperty Name="Genres" Relationship="Music.SongGenre" FromRole="Song" ToRole="Genre" />
-          <NavigationProperty Name="Albums" Relationship="Music.SongAlbum" FromRole="Song" ToRole="Album" />
-        </EntityType>
-        <EntityType Name="Artist">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="sName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Songs" Relationship="Music.SongArtist" FromRole="Artist" ToRole="Song" />
-        </EntityType>
-        <EntityType Name="Album">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="sTitle" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Songs" Relationship="Music.SongAlbum" FromRole="Album" ToRole="Song" />
-        </EntityType>
-        <EntityType Name="Genre">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="sName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Songs" Relationship="Music.SongGenre" FromRole="Genre" ToRole="Song" />
+          <Property Type="String" Name="Artist" Nullable="false" />
+          <Property Type="String" Name="Genre" Nullable="false" />
+          <Property Type="String" Name="Album" Nullable="false" />
         </EntityType>
         <EntityType Name="Account">
           <Key>
@@ -313,34 +139,29 @@
           <Property Type="Int32" Name="LoginId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Username" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Songs" Relationship="Music.AccountSong" FromRole="Account" ToRole="Song" />
-          <NavigationProperty Name="Room" Relationship="Music.AccountRoom" FromRole="Account" ToRole="Room" />
+          <NavigationProperty Name="Playlists" Relationship="Music.AccountPlaylist" FromRole="Account" ToRole="Playlist" />
         </EntityType>
         <Association Name="AccountSong">
           <End Type="Music.Account" Role="Account" Multiplicity="*" />
           <End Type="Music.Song" Role="Song" Multiplicity="*" />
-        </Association>
-        <Association Name="SongArtist">
-          <End Type="Music.Song" Role="Song" Multiplicity="*" />
-          <End Type="Music.Artist" Role="Artist" Multiplicity="*" />
-        </Association>
-        <Association Name="SongGenre">
-          <End Type="Music.Song" Role="Song" Multiplicity="*" />
-          <End Type="Music.Genre" Role="Genre" Multiplicity="*" />
-        </Association>
-        <Association Name="SongAlbum">
-          <End Type="Music.Song" Role="Song" Multiplicity="*" />
-          <End Type="Music.Album" Role="Album" Multiplicity="*" />
         </Association>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Accounts" Relationship="Music.AccountRoom" FromRole="Room" ToRole="Account" />
         </EntityType>
-        <Association Name="AccountRoom">
-          <End Type="Music.Account" Role="Account" Multiplicity="*" />
-          <End Type="Music.Room" Role="Room" Multiplicity="1" />
+        <EntityType Name="Playlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="Music.AccountPlaylist" FromRole="Playlist" ToRole="Account" />
+        </EntityType>
+        <Association Name="AccountPlaylist">
+          <End Type="Music.Account" Role="Account" Multiplicity="1" />
+          <End Type="Music.Playlist" Role="Playlist" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -352,33 +173,12 @@
       <EntityTypeMapping TypeName="IsTypeOf(Music.Song)">
         <MappingFragment StoreEntitySet="Songs">
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="sTitle" ColumnName="sTitle" />
-          <ScalarProperty Name="sLength" ColumnName="sLength" />
-          <ScalarProperty Name="sFilePath" ColumnName="sFilePath" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Artists">
-      <EntityTypeMapping TypeName="IsTypeOf(Music.Artist)">
-        <MappingFragment StoreEntitySet="Artists">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="sName" ColumnName="sName" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Albums">
-      <EntityTypeMapping TypeName="IsTypeOf(Music.Album)">
-        <MappingFragment StoreEntitySet="Albums">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="sTitle" ColumnName="sTitle" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Genres">
-      <EntityTypeMapping TypeName="IsTypeOf(Music.Genre)">
-        <MappingFragment StoreEntitySet="Genres">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="sName" ColumnName="sName" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Length" ColumnName="Length" />
+          <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+          <ScalarProperty Name="Artist" ColumnName="Artist" />
+          <ScalarProperty Name="Genre" ColumnName="Genre" />
+          <ScalarProperty Name="Album" ColumnName="Album" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -397,6 +197,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Playlists">
+      <EntityTypeMapping TypeName="IsTypeOf(Music.Playlist)">
+        <MappingFragment StoreEntitySet="Playlists">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="AccountSong" TypeName="Music.AccountSong" StoreEntitySet="AccountSong">
       <EndProperty Name="Account">
         <ScalarProperty Name="LoginId" ColumnName="Accounts_LoginId" />
@@ -405,36 +213,12 @@
         <ScalarProperty Name="Id" ColumnName="Songs_Id" />
       </EndProperty>
     </AssociationSetMapping>
-    <AssociationSetMapping Name="SongArtist" TypeName="Music.SongArtist" StoreEntitySet="SongArtist">
-      <EndProperty Name="Song">
-        <ScalarProperty Name="Id" ColumnName="Songs_Id" />
-      </EndProperty>
-      <EndProperty Name="Artist">
-        <ScalarProperty Name="Id" ColumnName="Artists_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="SongGenre" TypeName="Music.SongGenre" StoreEntitySet="SongGenre">
-      <EndProperty Name="Song">
-        <ScalarProperty Name="Id" ColumnName="Songs_Id" />
-      </EndProperty>
-      <EndProperty Name="Genre">
-        <ScalarProperty Name="Id" ColumnName="Genres_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="SongAlbum" TypeName="Music.SongAlbum" StoreEntitySet="SongAlbum">
-      <EndProperty Name="Song">
-        <ScalarProperty Name="Id" ColumnName="Songs_Id" />
-      </EndProperty>
-      <EndProperty Name="Album">
-        <ScalarProperty Name="Id" ColumnName="Albums_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="AccountRoom" TypeName="Music.AccountRoom" StoreEntitySet="Accounts">
-      <EndProperty Name="Room">
-        <ScalarProperty Name="Id" ColumnName="Room_Id" />
-      </EndProperty>
+    <AssociationSetMapping Name="AccountPlaylist" TypeName="Music.AccountPlaylist" StoreEntitySet="Playlists">
       <EndProperty Name="Account">
-        <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+        <ScalarProperty Name="LoginId" ColumnName="Account_LoginId" />
+      </EndProperty>
+      <EndProperty Name="Playlist">
+        <ScalarProperty Name="Id" ColumnName="Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>

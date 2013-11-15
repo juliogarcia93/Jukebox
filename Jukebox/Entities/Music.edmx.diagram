@@ -6,16 +6,11 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a75157a789dc482ba7710aeea1060b69" Name="Diagram1" >
         <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="3.125" PointY="1.125" />
-        <EntityTypeShape EntityType="Music.Artist" Width="1.5" PointX="6.125" PointY="1.25" />
-        <EntityTypeShape EntityType="Music.Album" Width="1.5" PointX="2" PointY="4.375" />
-        <EntityTypeShape EntityType="Music.Genre" Width="1.5" PointX="4" PointY="4.375" />
         <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="0.5" PointY="2.375" />
         <AssociationConnector Association="Music.AccountSong" />
-        <AssociationConnector Association="Music.SongArtist" />
-        <AssociationConnector Association="Music.SongGenre" />
-        <AssociationConnector Association="Music.SongAlbum" />
-        <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="7.5" PointY="3.5" />
-        <AssociationConnector Association="Music.AccountRoom" />
+        <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="0.875" PointY="5.875" />
+        <EntityTypeShape EntityType="Music.Playlist" Width="1.5" PointX="3.125" PointY="4.75" />
+        <AssociationConnector Association="Music.AccountPlaylist" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

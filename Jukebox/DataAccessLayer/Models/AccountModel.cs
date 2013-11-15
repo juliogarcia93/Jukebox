@@ -10,11 +10,14 @@ namespace DataAccessLayer.Models
     {
         public AccountModel()
         {
-            LoginId = null;
             Username = null;
         }
 
-        public Nullable<int> LoginId { get; set; }
+        public int LoginId { get; set; }
         public string Username { get; set; }
+
+        public List<SongModel> Songs { get; set; }
+
+        public List<PlaylistModel> Playlists { get; set; }
     }
 }

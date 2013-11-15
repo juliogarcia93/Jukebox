@@ -18,18 +18,28 @@ namespace DataAccessLayer.BusinessLogic
         
         public AccountModel GetAccountModel(string username)
         {
-            return SongRepository.GetAccountsList().Where(a => a.Username == username).Single();
+            return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
         }
 
-        public IQueryable<SongModel> GetSongList(string username)
+        public List<SongModel> GetSongList(string username)
         {
-            return SongRepository.GetSongList().Where(s => s.Username == username);
+            if (SongRepository.GetAccountsList().Any(a => a.Username == username))
+            {
+                AccountModel account = GetAccountModel(username);
+                return SongRepository.GetSongList(account.LoginId).ToList();
+            }
+            else
+            {
+                return new List<SongModel>();
+            }
+            
         }
 
         public IQueryable<SongModel> GetSongList()
         {
             return SongRepository.GetSongList();
         }
+
 
         public void UploadSong(SongModel model)
         {
@@ -51,5 +61,7 @@ namespace DataAccessLayer.BusinessLogic
                 s.Genre.Contains(query)
                 ).OrderBy(s => s.SongTitle);
         }
+
+
     }
 }

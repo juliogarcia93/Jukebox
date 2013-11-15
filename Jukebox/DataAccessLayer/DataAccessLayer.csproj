@@ -59,6 +59,7 @@
     <Compile Include="Models\AlbumModel.cs" />
     <Compile Include="Models\ArtistModel.cs" />
     <Compile Include="Models\GenreModel.cs" />
+    <Compile Include="Models\PlaylistModel.cs" />
     <Compile Include="Models\ProfileWrapper.cs" />
     <Compile Include="Models\RoomList.cs" />
     <Compile Include="Models\RoomModel.cs" />

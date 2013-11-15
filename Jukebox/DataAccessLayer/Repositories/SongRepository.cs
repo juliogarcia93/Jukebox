@@ -20,24 +20,24 @@ namespace DataAccessLayer.Repositories
             _context = new MusicContainer();
         }
 
-        public IQueryable<GenreModel> GetGenreList()
-        {
-            return _context.Genres.Select(g => new GenreModel
-            {
-                Id = g.Id,
-                sName = g.sName
-            });
-        }
+        //public IQueryable<GenreModel> GetGenreList()
+        //{
+        //    return _context.Genres.Select(g => new GenreModel
+        //    {
+        //        Id = g.Id,
+        //        sName = g.sName
+        //    });
+        //}
         public IQueryable<SongModel> GetSongList()
         {
             return _context.Songs.Select(s => new SongModel
             {
-                SongTitle = s.sTitle,
-                Artist = s.Artists.FirstOrDefault().sName,
-                Album = s.Albums.FirstOrDefault().sTitle,
-                Genre = s.Genres.FirstOrDefault().sName,
-                FilePath = s.sFilePath,
-                Length = s.sLength
+                SongTitle = s.Title,
+                Artist = s.Artist,
+                Album = s.Album,
+                Genre = s.Genre,
+                FilePath = s.FilePath,
+                Length = s.Length
             });
         }
 
@@ -46,23 +46,15 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Accounts.Any(u => u.LoginId == loginId))
                 .Select(s => new SongModel
                 {
-                    SongTitle = s.sTitle,
-                    Artist = s.Artists.FirstOrDefault().sName,
-                    Album = s.Albums.FirstOrDefault().sTitle,
-                    Genre = s.Genres.FirstOrDefault().sName,
-                    FilePath = s.sFilePath,
-                    Username = s.Accounts.Where(a => a.LoginId == loginId).First().Username
+                    SongTitle = s.Title,
+                    Artist = s.Artist,
+                    Album = s.Album,
+                    Genre = s.Genre,
+                    FilePath = s.FilePath,
+                    Length = s.Length
                 });
         }
 
-        public IQueryable<ArtistModel> GetArtistList()
-        {
-            return _context.Artists.Select(a => new ArtistModel
-            {
-                Id = a.Id,
-                sName = a.sName
-            });
-        }
 
         public IQueryable<AccountModel> GetAccountsList()
         {
@@ -82,7 +74,17 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
+                Account account;
                 Song entity = ModelConversions.SongModelToEntity(model);
+                if (_context.Accounts.Any(a => a.Username == model.Username))
+                {
+                    account = _context.Accounts.First(a => a.Username == model.Username);
+                }
+                else
+                {
+                    account = new Account() { Username = model.Username };
+                }
+                entity.Accounts.Add(account);
                 _context.Songs.Add(entity);
                 _context.SaveChanges();
             }
