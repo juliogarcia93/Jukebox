@@ -1,7 +1,8 @@
 ﻿body {
-    padding-bottom: 40px;
-    background-color: #FBCB55;
     margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/Mainpage.png');
+    background-attachment: fixed;
 }
 
 /* styles for validation helpers */
@@ -272,10 +273,6 @@ text-align: center;
     margin-bottom: -10px;
 }
 
-body {
-padding-bottom: 80px;
-background-image: url('../img/Mainpage.png');
-}
 
 .round-number {
 -webkit-border-radius: 25px;
