@@ -72,19 +72,16 @@ text-decoration: underline;
 hr {
 margin: 0 0;
 border: 0;
-border-top: 1px solid #eeeeee;
-border-bottom: 1px solid #ffffff;
 margin-top: 15px;
 }
 
 .profile-container {
-    /*background-color: rgba(189, 189, 189, .65);*/
-    background-color: white;
-    padding-left: 25px;
-    padding-right: 50px;
-    padding-bottom: 60px;
-    margin-bottom: -60px;
-    border-radius: 3px 3px 3px 3px;
+background-color: rgba(255, 255, 255, 0.9);
+padding-left: 25px;
+padding-right: 50px;
+padding-bottom: 60px;
+margin-bottom: -60px;
+border-radius: 3px 3px 3px 3px;
 }
 
 .row {
@@ -330,4 +327,8 @@ margin-top: 2px;
 
 .glyphicon{
     margin-right:3px;
+}
+
+.white, .white a {
+  color: #fff;
 }

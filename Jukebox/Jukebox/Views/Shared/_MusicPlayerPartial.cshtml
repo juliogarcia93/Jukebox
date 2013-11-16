@@ -7,6 +7,11 @@
                 <div id="current-music"><h5 id="current-song-header"><strong id="current-song"></strong> by <strong id="current-artist"></strong></h5></div>
             </div>
             <div class="row">
+                @*<div class="span3">
+                    <a><li><i class="glyphicon glyphicon-random white"></i></li></a>
+                </div>*@
+                
+                
                 <audio style="width:100%" controls="controls" id="audio" preload="auto" tabindex="0">
                     <source type="audio/mp3" src="../Music/@Model.First().FilePath" />
                     <source type="audio/aif" src="../Music/@Model.First().FilePath" />
