@@ -61,6 +61,12 @@ namespace DataAccessLayer.BusinessLogic
                 s.Genre.Contains(query)
                 ).OrderBy(s => s.SongTitle);
         }
+        public void Delete(SongModel songmodel, string username)
+        {
+            AccountModel accountmodel = GetAccountModel(username);
+            int userId = accountmodel.LoginId;
+            SongRepository.Delete(songmodel, userId);
+        }
 
 
     }

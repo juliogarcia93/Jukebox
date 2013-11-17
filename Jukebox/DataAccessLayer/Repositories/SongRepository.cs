@@ -37,7 +37,8 @@ namespace DataAccessLayer.Repositories
                 Album = s.Album,
                 Genre = s.Genre,
                 FilePath = s.FilePath,
-                Length = s.Length
+                Length = s.Length,
+                SongId = s.Id;
             });
         }
 
@@ -51,7 +52,7 @@ namespace DataAccessLayer.Repositories
                     Album = s.Album,
                     Genre = s.Genre,
                     FilePath = s.FilePath,
-                    Length = s.Length
+                    Length = s.Length,
                 });
         }
 
@@ -99,6 +100,19 @@ namespace DataAccessLayer.Repositories
                 }
             }
 
+        }
+
+        //Delete method for deleting the songs from the users database
+        public void Delete(SongModel model, int LoginId)
+        {
+            Account account = GetAccount(LoginId);
+            Song s = Getsong(model.SongId);
+            account.Songs.Remove(s);
+            _context.SaveChanges();
+        }
+        public Song Getsong(int SongId)
+        {
+            return _context.Songs.Where(s => s.Id == SongId).Single();
         }
 
     }
