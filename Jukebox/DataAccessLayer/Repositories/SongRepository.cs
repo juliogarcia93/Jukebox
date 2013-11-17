@@ -18,6 +18,7 @@ namespace DataAccessLayer.Repositories
         public SongRepository()
         {
             _context = new MusicContainer();
+            //Starts the links to the dbsets to call and go through them
         }
 
         //public IQueryable<GenreModel> GetGenreList()
@@ -32,13 +33,13 @@ namespace DataAccessLayer.Repositories
         {
             return _context.Songs.Select(s => new SongModel
             {
+                SongID = s.Id,
                 SongTitle = s.Title,
                 Artist = s.Artist,
                 Album = s.Album,
                 Genre = s.Genre,
                 FilePath = s.FilePath,
-                Length = s.Length,
-                SongId = s.Id;
+                Length = s.Length
             });
         }
 
@@ -47,12 +48,13 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Accounts.Any(u => u.LoginId == loginId))
                 .Select(s => new SongModel
                 {
+                    SongID = s.Id,
                     SongTitle = s.Title,
                     Artist = s.Artist,
                     Album = s.Album,
                     Genre = s.Genre,
                     FilePath = s.FilePath,
-                    Length = s.Length,
+                    Length = s.Length
                 });
         }
 
@@ -102,17 +104,17 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        //Delete method for deleting the songs from the users database
-        public void Delete(SongModel model, int LoginId)
+        public void Delete(SongModel model, int loginID)
         {
-            Account account = GetAccount(LoginId);
-            Song s = Getsong(model.SongId);
-            account.Songs.Remove(s);
+            Account account = GetAccount(loginID);
+            account.Songs.Remove(GetSong(model.SongID));
             _context.SaveChanges();
+
         }
-        public Song Getsong(int SongId)
+
+        public Song GetSong(int songID)
         {
-            return _context.Songs.Where(s => s.Id == SongId).Single();
+            return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
     }

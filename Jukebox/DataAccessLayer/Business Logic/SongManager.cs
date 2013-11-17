@@ -68,6 +68,11 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.Delete(songmodel, userId);
         }
 
+        public void DeleteSong(SongModel model, string Username) 
+        {
+            AccountModel account = GetAccountModel(Username);
+            SongRepository.Delete(model, account.LoginId);
 
+        }
     }
 }

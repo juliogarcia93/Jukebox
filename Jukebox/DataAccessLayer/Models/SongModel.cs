@@ -29,6 +29,7 @@ namespace DataAccessLayer.Models
             Genre = genre;
             Length = length;
         }
+        public int SongID { get; set;}
         public string FilePath;
         public string SongTitle { get; set; }
         public string Artist { get; set; }
