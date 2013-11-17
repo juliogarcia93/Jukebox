@@ -14,6 +14,15 @@ namespace Entities
     
     public partial class Room
     {
+        public Room()
+        {
+            this.Accounts = new HashSet<Account>();
+        }
+    
         public int Id { get; set; }
+        public string RoomName { get; set; }
+        public string RoomPassword { get; set; }
+    
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

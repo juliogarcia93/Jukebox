@@ -13,11 +13,21 @@ namespace DataAccessLayer.Models
         public RoomModel ()
         {
             RoomName = null;
+
         }
         public RoomModel(string roomname)
         {
             RoomName = roomname;
         }
+        public RoomModel(string roomname, string password)
+        {
+            RoomName = roomname;
+            RoomPassword = password;
+        }
+        public Nullable<string> RoomPassword { get; set; }
         public string RoomName { get; set; }
+        public List<SongModel> Songs { get; set; }
+        public List<AccountModel> Accounts { get; set; }
+        public int RoomId { get; set; }
     }
 }

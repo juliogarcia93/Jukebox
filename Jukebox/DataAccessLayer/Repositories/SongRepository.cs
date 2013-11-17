@@ -67,7 +67,23 @@ namespace DataAccessLayer.Repositories
                     Username = a.Username
                 });
         }
+        //Returns an account list of the room to display on the playlist
+        public IQueryable<AccountModel> GetAccountsList(RoomModel room)
+        {
+            int roomId = GetRoomId(room);
+            return _context.Accounts.Where(a => a.RoomId == roomId)
+               .Select(a => new AccountModel
+               {
+                   LoginId = a.LoginId,
+                   Username = a.Username
+               });
+        }
 
+        //
+        public int GetRoomId(RoomModel room)
+        {
+            return room.RoomId;
+        }
         private Account GetAccount(int loginId)
         {
             return _context.Accounts.Where(a => a.LoginId == loginId).Single();
@@ -116,6 +132,8 @@ namespace DataAccessLayer.Repositories
         {
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
+
+      
 
     }
 }

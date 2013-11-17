@@ -38,6 +38,6 @@ namespace DataAccessLayer.Models
         public string Length { get; set; }
 
         public string Username { get; set; }
-
+        public int SongId { get; set; }
     }
 }

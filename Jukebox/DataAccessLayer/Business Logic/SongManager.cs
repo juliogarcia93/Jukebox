@@ -21,6 +21,13 @@ namespace DataAccessLayer.BusinessLogic
             return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
         }
 
+
+        //Gets the account list related to the roomModel
+        public List<AccountModel> GetAccountList(RoomModel room)
+        {
+            return SongRepository.GetAccountsList(room).ToList();
+        }
+
         public List<SongModel> GetSongList(string username)
         {
             if (SongRepository.GetAccountsList().Any(a => a.Username == username))
@@ -60,6 +67,12 @@ namespace DataAccessLayer.BusinessLogic
                 ||
                 s.Genre.Contains(query)
                 ).OrderBy(s => s.SongTitle);
+        }
+        public void Delete(SongModel songmodel, string username)
+        {
+            AccountModel accountmodel = GetAccountModel(username);
+            int userId = accountmodel.LoginId;
+            SongRepository.Delete(songmodel, userId);
         }
 
         public void DeleteSong(SongModel model, string Username) 
