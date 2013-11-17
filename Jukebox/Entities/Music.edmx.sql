@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/14/2013 23:24:10
--- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 11/16/2013 20:20:08
+-- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -23,11 +23,11 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
 GO
-IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
-GO
 IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoomAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_RoomAccount];
 GO
 
 -- --------------------------------------------------
@@ -69,13 +69,16 @@ GO
 -- Creating table 'Accounts'
 CREATE TABLE [dbo].[Accounts] (
     [LoginId] int IDENTITY(1,1) NOT NULL,
-    [Username] nvarchar(max)  NOT NULL
+    [Username] nvarchar(max)  NOT NULL,
+    [RoomId] int  NULL
 );
 GO
 
 -- Creating table 'Rooms'
 CREATE TABLE [dbo].[Rooms] (
-    [Id] int IDENTITY(1,1) NOT NULL
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [RoomName] nvarchar(max)  NOT NULL,
+    [RoomPassword] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -125,7 +128,7 @@ GO
 -- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
+    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -167,6 +170,20 @@ ADD CONSTRAINT [FK_AccountPlaylist]
 CREATE INDEX [IX_FK_AccountPlaylist]
 ON [dbo].[Playlists]
     ([Account_LoginId]);
+GO
+
+-- Creating foreign key on [RoomId] in table 'Accounts'
+ALTER TABLE [dbo].[Accounts]
+ADD CONSTRAINT [FK_RoomAccount]
+    FOREIGN KEY ([RoomId])
+    REFERENCES [dbo].[Rooms]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RoomAccount'
+CREATE INDEX [IX_FK_RoomAccount]
+ON [dbo].[Accounts]
+    ([RoomId]);
 GO
 
 -- --------------------------------------------------

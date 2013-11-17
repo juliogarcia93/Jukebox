@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="3.125" PointY="1.125" />
         <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="0.5" PointY="2.375" />
         <AssociationConnector Association="Music.AccountSong" />
-        <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="0.5" PointY="5.25" />
+        <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="0.5" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Music.Playlist" Width="1.5" PointX="2.875" PointY="4.75" />
         <AssociationConnector Association="Music.AccountPlaylist" />
         <AssociationConnector Association="Music.RoomAccount" />

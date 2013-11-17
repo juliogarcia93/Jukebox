@@ -18,7 +18,7 @@ else
         <p>
           
         @foreach (AuthenticationDescription p in Model) {
-            <button type="submit" class="btn" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+            <button type="submit" class="btn" style="display:inline" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
         }
         </p>
     </fieldset>

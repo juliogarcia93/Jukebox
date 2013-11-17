@@ -4,7 +4,7 @@
 
 
             <div class="row">                    
-                <div id="current-music"><h5 id="current-song-header"><strong id="current-song"></strong> by <strong id="current-artist"></strong></h5></div>
+                <div id="current-music"><h5 id="current-song-header"><strong id="current-song">@Model.First().SongTitle</strong> by <strong id="current-artist">@Model.First().Artist</strong></h5></div>
             </div>
             <div class="row">
                 @*<div class="span3">

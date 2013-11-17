@@ -11,6 +11,7 @@ namespace DataAccessLayer.BusinessLogic
     public class SongManager
     {
         private SongRepository SongRepository;
+
         public SongManager()
         {
             SongRepository = new SongRepository();

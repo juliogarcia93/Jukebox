@@ -8,7 +8,7 @@ using System.Web;
 
 namespace DataAccessLayer.Models
 {
-    class RoomModel
+    public class RoomModel
     {
         public RoomModel ()
         {
@@ -24,7 +24,7 @@ namespace DataAccessLayer.Models
             RoomName = roomname;
             RoomPassword = password;
         }
-        public Nullable<string> RoomPassword { get; set; }
+        public string RoomPassword { get; set; }
         public string RoomName { get; set; }
         public List<SongModel> Songs { get; set; }
         public List<AccountModel> Accounts { get; set; }
