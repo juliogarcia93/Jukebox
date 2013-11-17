@@ -1,9 +1,31 @@
 ﻿body {
     margin-top: 75px;
     padding-bottom: 80px;
+    background-color: rgb(189,189,189);
+    background-attachment: fixed;
+}
+
+#homepage-view {
+    margin-top: 75px;
+    padding-bottom: 80px;
     background-image: url('../img/Mainpage.png');
     background-attachment: fixed;
 }
+
+#manage-view {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/profile.png');
+    background-attachment: fixed;
+}
+
+#profile-view {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/profile-background.png');
+    background-attachment: fixed;
+}
+
 
 /* styles for validation helpers */
 .field-validation-error {
