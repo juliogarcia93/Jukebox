@@ -118,6 +118,10 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Playlist" EntitySet="Playlists" />
           </AssociationSet>
+          <AssociationSet Name="RoomAccount" Association="Music.RoomAccount">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Song">
           <Key>
@@ -140,6 +144,8 @@
           <Property Type="String" Name="Username" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Songs" Relationship="Music.AccountSong" FromRole="Account" ToRole="Song" />
           <NavigationProperty Name="Playlists" Relationship="Music.AccountPlaylist" FromRole="Account" ToRole="Playlist" />
+          <NavigationProperty Name="Room" Relationship="Music.RoomAccount" FromRole="Account" ToRole="Room" />
+          <Property Type="Int32" Name="RoomId" Nullable="true" />
         </EntityType>
         <Association Name="AccountSong">
           <End Type="Music.Account" Role="Account" Multiplicity="*" />
@@ -150,6 +156,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Accounts" Relationship="Music.RoomAccount" FromRole="Room" ToRole="Account" />
+          <Property Type="String" Name="RoomName" Nullable="false" />
+          <Property Type="String" Name="RoomPassword" Nullable="false" />
         </EntityType>
         <EntityType Name="Playlist">
           <Key>
@@ -162,6 +171,18 @@
         <Association Name="AccountPlaylist">
           <End Type="Music.Account" Role="Account" Multiplicity="1" />
           <End Type="Music.Playlist" Role="Playlist" Multiplicity="*" />
+        </Association>
+        <Association Name="RoomAccount">
+          <End Type="Music.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="Music.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>

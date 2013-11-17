@@ -21,6 +21,13 @@ namespace DataAccessLayer.BusinessLogic
             return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
         }
 
+
+        //Gets the account list related to the roomModel
+        public List<AccountModel> GetAccountList(RoomModel room)
+        {
+            return SongRepository.GetAccountsList(room).ToList();
+        }
+
         public List<SongModel> GetSongList(string username)
         {
             if (SongRepository.GetAccountsList().Any(a => a.Username == username))
