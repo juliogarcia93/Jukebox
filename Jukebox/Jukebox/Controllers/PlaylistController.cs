@@ -18,8 +18,10 @@ namespace Jukebox.Controllers
         {
             IdentityDbContext _context = new IdentityDbContext();
             //SongManager SongManager = new SongManager();
-            List<SongModel> list = SongManager.GetSongList().ToList();
-            return View(list);
+            RoomModel room = new RoomModel();
+            room.Songs = SongManager.GetSongList(username).ToList();
+           //List<SongModel> list = SongManager.GetSongList(username).ToList();
+            return View(room);
         }
 
         public ActionResult Join()
@@ -32,6 +34,13 @@ namespace Jukebox.Controllers
             List<SongModel> results = SongManager.Search(query, SongManager.GetSongList()).ToList();
             return PartialView("_PlaylistPartial", results);
         }
+
+        public ActionResult AddSongsToRoom(List<SongModel> songs, RoomModel room)
+        {
+            SongManager.AddSongsToList(songs, room.Songs);
+            return View(room);
+        }
+
 
     }
 }

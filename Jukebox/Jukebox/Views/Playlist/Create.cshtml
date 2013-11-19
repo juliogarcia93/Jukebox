@@ -1,4 +1,4 @@
-﻿@model List<SongModel>
+﻿@model RoomModel
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
@@ -7,21 +7,16 @@
 <div class="room-container container-fluid">
     <div class="row">
         <div class="col col-lg-9">
-                <div class="pull-left"><h3 id="playlist-name">Ratchet 2013</h3></div><div id="room-type" class="pull-left">(Private)</div>
+                <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div><div id="room-type" class="pull-left">@if (@Model.isPublic) {<p>(Public)</p>} else {<p>(Private)</p>}</div>
         </div>
         <div class="col col-lg-3 pull-right">
-            @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})
+            <a class= "btn btn-primary pull-right" id = "create-upload-button" data-toggle="modal" href="#RoomModal">Create A Room</a>
         </div>
-    </div>
-
-
-    <div class="row">
-           
     </div>
 
     <div class="row">
         <div class="col col-lg-9 pull-left" >
-            @Html.Partial("_RoomPlaylistPartial", Model)
+            @Html.Partial("_RoomPlaylistPartial", Model.Songs)
             </div>
 
 
@@ -39,8 +34,8 @@
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
-@if(Model.Count() > 0){
-    @Html.Partial("_MusicPlayerPartial", Model)
+@if(Model.Songs.Count() > 0){
+    @Html.Partial("_MusicPlayerPartial", Model.Songs)
 }
 </nav>
 
@@ -120,8 +115,6 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <input type="submit" value="Create" class="btn btn-primary pull-right" id="add-music-submit" />
-                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                 <h4 class="modal-title">Add Songs</h4>
             </div>
                 @using (Html.BeginForm("Create", "Playlist", FormMethod.Post, new { @enctype = "multipart/form-data" }))
@@ -133,9 +126,9 @@
                             <div class="container-fluid">
                                 <table>
                                     <th>Choose songs from your playlist</th>
-                                    @foreach (SongModel song in Model){
-                                    <tr>
-                                        <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
+                                    @foreach (SongModel song in Model.Songs){
+                                    <tr>                       
+                                        <td>  <div class="text-wrap"> <input type="checkbox"> <a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
                                     </tr>
                                     }
                                 </table>
@@ -143,6 +136,16 @@
                         </div>
                     </form>
                 }
+        <div class="modal-footer">
+                        <input type="submit" value="Create" class="btn btn-primary pull-right" />
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                    </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+    document.getElementById("createbutton").onclick = function () {
+        location.href = '@Url.Action("Add Songs", "AddSongsToRoom", "Playlist", Model.Songs, Model)';
+    }
+</script>

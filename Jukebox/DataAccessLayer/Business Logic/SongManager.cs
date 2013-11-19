@@ -82,5 +82,14 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.Delete(model, account.LoginId);
 
         }
+
+        public List<SongModel> AddSongsToList(List<SongModel> newSongs, List<SongModel> list)
+        {
+            foreach (SongModel song in list)
+            {
+                SongRepository.AddSongToList(song, list);
+            }
+            return list;
+        }
     }
 }

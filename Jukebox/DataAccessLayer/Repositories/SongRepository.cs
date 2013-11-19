@@ -133,7 +133,11 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
-      
+        public List<SongModel> AddSongToList(SongModel song, List<SongModel> list)
+        {
+            list.Add(song);
+            return list;
+        }
 
     }
 }

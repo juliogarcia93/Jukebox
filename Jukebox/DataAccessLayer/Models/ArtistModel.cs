@@ -21,6 +21,6 @@ namespace DataAccessLayer.Models
         }
         public Nullable<int> Id { get; set; }
         public string sName { get; set; }
-    
+
     }
 }
