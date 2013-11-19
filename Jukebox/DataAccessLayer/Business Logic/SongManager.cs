@@ -22,6 +22,12 @@ namespace DataAccessLayer.BusinessLogic
             return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
         }
 
+        //returns the total lists of accounts
+        public List<AccountModel> GetAccountList()
+        {
+            return SongRepository.GetAccountsList().ToList();
+        }
+
 
         //Gets the account list related to the roomModel
         public List<AccountModel> GetAccountList(RoomModel room)
@@ -52,6 +58,11 @@ namespace DataAccessLayer.BusinessLogic
         public void UploadSong(SongModel model)
         {
             SongRepository.Add(model);
+        }
+
+        public void AddSong(SongModel model)
+        {
+            SongRepository.AddSong(model);
         }
 
         public IQueryable<SongModel> Search(string query, IQueryable<SongModel> originalList)

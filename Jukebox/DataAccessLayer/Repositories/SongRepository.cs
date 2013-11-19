@@ -133,6 +133,22 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
+
+        //Link songs to the users with the same songs
+        public void AddSong(SongModel model)
+        {
+            Account account;
+            if (_context.Accounts.Any(a => a.Username == model.Username))
+            {
+                account = _context.Accounts.First(a => a.Username == model.Username);
+            }
+            else
+            {
+                account = new Account() { Username = model.Username };
+            }
+            _context.Songs.Where(s => s.Title == model.SongTitle && s.Length == model.Length).Single().Accounts.Add(account);
+            _context.SaveChanges();
+        }
       
 
     }

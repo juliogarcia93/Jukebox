@@ -32,6 +32,16 @@ namespace Jukebox.Controllers
             List<SongModel> results = SongManager.Search(query, SongManager.GetSongList()).ToList();
             return PartialView("_PlaylistPartial", results);
         }
+        //returns a partial view of the total list of accounts
+        public PartialViewResult ListAccounts()
+        {
+            IdentityDbContext _context = new IdentityDbContext();
+            //SongManager SongManager = new SongManager();
+            List<AccountModel> list = SongManager.GetAccountList().ToList();
+            return PartialView("_AccountsPartial", list);
+        }
+
+
 
     }
 }

@@ -151,9 +151,9 @@
           <Property Type="String" Name="Length" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="FilePath" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Accounts" Relationship="Music.AccountSong" FromRole="Song" ToRole="Account" />
-          <Property Type="String" Name="Artist" Nullable="false" />
-          <Property Type="String" Name="Genre" Nullable="false" />
-          <Property Type="String" Name="Album" Nullable="false" />
+          <Property Type="String" Name="Artist" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Genre" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="Album" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Account">
           <Key>
@@ -176,15 +176,15 @@
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Accounts" Relationship="Music.RoomAccount" FromRole="Room" ToRole="Account" />
-          <Property Type="String" Name="RoomName" Nullable="false" />
-          <Property Type="String" Name="RoomPassword" Nullable="false" />
+          <Property Type="String" Name="RoomName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Type="String" Name="RoomPassword" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="Playlist">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Account" Relationship="Music.AccountPlaylist" FromRole="Playlist" ToRole="Account" />
         </EntityType>
         <Association Name="AccountPlaylist">

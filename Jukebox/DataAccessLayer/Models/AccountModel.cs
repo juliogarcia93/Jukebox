@@ -24,7 +24,6 @@ namespace DataAccessLayer.Models
         public string Username { get; set; }
         public Nullable<int> RoomId { get; set; }
         public List<SongModel> Songs { get; set; }
-
         public List<PlaylistModel> Playlists { get; set; }
     }
 }

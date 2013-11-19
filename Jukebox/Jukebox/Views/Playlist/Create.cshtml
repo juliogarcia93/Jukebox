@@ -27,12 +27,7 @@
 
         <div class="col col-lg-3 pull-right">
             <table class="table table-bordered" id="members-table">
-                <th>Room Members</th>
-                <tr><td>Julio Garcia</td></tr>
-                <tr><td>Casey Barbello </td></tr>
-                <tr><td>Mathew Glodack </td></tr>
-                <tr><td>Daryl Pham</td></tr>      
-                </table>
+             @Html.Action("ListAccounts", "Playlist")
         </div> 
     </div>
 </div>
@@ -73,6 +68,7 @@
                 current = (link.parent().parent().parent().index()) * 5;
                 run($(link), audio[0]);
             });
+
 
             audio[0].addEventListener('ended', function (e) {
                 current = current + 5;

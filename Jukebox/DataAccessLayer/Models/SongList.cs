@@ -50,9 +50,18 @@ namespace DataAccessLayer.Models
             string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
             SongModel song = new SongModel(username,fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
             bool songExists = SongManager.GetSongList().Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
+            
+              
+            
             if (!songExists)
             {
                 SongManager.UploadSong(song);
+            }
+            //AccountModel account = SongManager.GetAccountList().Where(a => a.Username == username).Single();
+            bool UserSongExists = SongManager.GetSongList().Any(s => s.Username == username && s.SongTitle == song.SongTitle && s.Length == song.Length);
+            if (!UserSongExists)
+            {
+                SongManager.AddSong(song);
             }
         }
     
