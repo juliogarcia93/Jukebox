@@ -1,0 +1,34 @@
+﻿@model List<AccountModel>
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+@{
+    bool active = true;
+}
+
+<table class="table table-hover" id="Account-List">
+    <thead>
+        <tr>
+            <th id="table-song">Account</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (AccountModel account in Model)
+        {
+            if (active == true)
+            {
+                active = false;
+                <tr class="active-link">
+                    <td><div class="text-wrap"><a>@account.Username</a></div></td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td><div class="text-wrap"><a>@account.Username</a></div></td>
+                </tr>
+            }
+
+        }
+    </tbody>
+</table>
