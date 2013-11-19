@@ -1,5 +1,9 @@
-﻿using System;
+﻿using DataAccessLayer.BusinessLogic;
+using DataAccessLayer.Models;
+using Jukebox.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +12,7 @@ namespace Jukebox.Controllers
 {
     public class HomeController : Controller
     {
+        SongManager SongManager = new SongManager();
         public ActionResult Index()
         {
             return View();
@@ -31,5 +36,6 @@ namespace Jukebox.Controllers
         {
             return View();
         }
+
     }
 }

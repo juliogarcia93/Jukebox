@@ -297,6 +297,7 @@
     <Content Include="Views\Shared\_PlaylistPartial.cshtml" />
     <Content Include="Views\Shared\_MusicPlayerPartial.cshtml" />
     <Content Include="Views\Shared\_RoomPlaylistPartial.cshtml" />
+    <Content Include="Views\Shared\_AccountsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

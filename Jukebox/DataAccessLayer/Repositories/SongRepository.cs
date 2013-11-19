@@ -67,6 +67,8 @@ namespace DataAccessLayer.Repositories
                     Username = a.Username
                 });
         }
+
+
         //Returns an account list of the room to display on the playlist
         public IQueryable<AccountModel> GetAccountsList(RoomModel room)
         {
@@ -133,7 +135,21 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
-      
+        public SongModel FindSong(string name, string album)
+        {
+            return _context.Songs.Where(s => s.Title == name && s.Album == album)
+                .Select(a => new SongModel
+                {
+                    SongID = a.Id,
+                    SongTitle = a.Title,
+                    Artist = a.Artist,
+                    Album = a.Album,
+                    Genre = a.Genre,
+                    FilePath = a.FilePath,
+                    Length = a.Length
+                }).Single();
+                    
+        }
 
     }
 }

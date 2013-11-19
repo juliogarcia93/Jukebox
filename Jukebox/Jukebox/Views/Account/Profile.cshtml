@@ -10,6 +10,8 @@
 <div class="profile-container container-fluid" id="profile-page-wrapper">
     <div class="row">
         <h3>Welcome @User.Identity.Name!
+            <div id="testtest">Song</div>
+            <div id="testtest2">Album</div>
             <a class="btn btn-primary pull-right" data-toggle="modal" href="#profileModal">
                 <span class="glyphicon glyphicon-music"></span>
                  Upload Music
@@ -35,6 +37,7 @@
                 <li class="clearfix"><a href="#">Likes<span class="badge pull-right">0</span></a></li>
                 <li class="clearfix"><a href="#">Following<span class="badge pull-right">0</span></a></li>
                 <li class="clearfix"><a href="#">Followers<span class="badge pull-right">0</span></a></li>
+               
             </ul>
         </div>
         </div>
@@ -129,13 +132,17 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#delete-button').hide();
+        $('#delete-song').hide();
         var audio;
         var playlist;
         var tracks;
         var current;
-        var offset = 5; //number of td tags per row
+        var offset = 6; //number of td tags per row
         var currentSong = $('#current-song');
         var currentArtist = $('#current-artist');
+        var DeleteSong = $('#testtest'); 
+        var DeleteAlbum = $('#testtest2');
 
         function init() {
             current = 0 * offset;
@@ -146,15 +153,30 @@
             audio[0].play();
             var song = playlist.find('tbody tr a')[current];
             var artist = playlist.find('tbody tr a')[current + 1];
+            var album = playlist.find('tbody tr a')[current + 2];
             currentSong.text($(song).text());
             currentArtist.text($(artist).text());
-
+            
             playlist.find('a').click(function (e) {
                 e.preventDefault();
                 link = $(this);
 
                 current = (link.parent().parent().parent().index()) * 5;
                 run($(link), audio[0]);
+            });
+
+            playlist.find('button').click(function (e) {
+                e.preventDefault();
+                song = $(this).parent().prev().prev().prev().prev().prev();
+                album = $(this).parent().prev().prev().prev();
+                position = $(this).parent().parent();
+                current = (song.parent().parent().parent().parent().index()) * 6;
+                DeleteSong.text($(song).text());
+                DeleteAlbum.text($(album).text());
+                $(position).fadeOut(400);
+                audio[0].play();
+                remove($(song), $(album));
+                
             });
 
             audio[0].addEventListener('ended', function (e) {
@@ -166,6 +188,19 @@
                     link = playlist.find('tbody tr a')[current];
                 }
                 run($(link), audio[0]);
+            });
+        }
+
+        function remove(song, album) {
+            var SongName = $(song).text();
+            var Album = $(album).text();
+            $.ajax({
+                url: "/Playlist/Delete",
+                data: { SongName: SongName, Album: Album },
+                success: function (data) {
+                    $('#music-playlist').html(data);
+                }
+
             });
         }
 
@@ -275,6 +310,7 @@
             run($(link), audio[0]);
         });
 
+        
         audio[0].addEventListener('ended', function (e) {
             current = current + 5;
             if (current == len) {

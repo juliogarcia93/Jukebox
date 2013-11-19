@@ -33,5 +33,21 @@ namespace Jukebox.Controllers
             return PartialView("_PlaylistPartial", results);
         }
 
+        public ActionResult Delete(string SongName, string Album)
+        {
+            string Username = @User.Identity.Name;
+            SongModel song = SongManager.FindSong(SongName, Album);
+            SongManager.Delete(song, Username);
+
+            return View("Profile");
+        }
+        //Function that will return the list of accounts to the view
+
+        public PartialViewResult ListAccounts()
+        {
+
+            List<AccountModel> list = SongManager.GetAccountsList();
+            return PartialView("_AccountsPartial", list);
+        }
     }
 }

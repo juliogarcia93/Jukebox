@@ -1,0 +1,25 @@
+﻿@model List<AccountModel>
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+<table class="table table-hover" id="music-playlist">
+    <thead>
+        <tr>
+            <th id="table-song">Users</th>
+        </tr>
+    </thead>
+    <tbody>
+@if(Model.Count() > 0){
+        foreach (AccountModel account in Model)
+        {
+           
+                <tr>
+                    <td><div class="text-wrap">@account.Username</div></td>
+                   
+                </tr>
+           
+
+        }
+}
+    </tbody>
+</table>
