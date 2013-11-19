@@ -27,7 +27,8 @@
 
         <div class="col col-lg-3 pull-right">
             <table class="table table-bordered" id="members-table">
-             @Html.Action("ListAccounts", "Playlist")
+                  @Html.Action("ListAccounts", "Playlist")   
+                </table>
         </div> 
     </div>
 </div>
@@ -68,7 +69,6 @@
                 current = (link.parent().parent().parent().index()) * 5;
                 run($(link), audio[0]);
             });
-
 
             audio[0].addEventListener('ended', function (e) {
                 current = current + 5;

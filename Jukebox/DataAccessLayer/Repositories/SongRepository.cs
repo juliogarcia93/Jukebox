@@ -67,6 +67,8 @@ namespace DataAccessLayer.Repositories
                     Username = a.Username
                 });
         }
+
+
         //Returns an account list of the room to display on the playlist
         public IQueryable<AccountModel> GetAccountsList(RoomModel room)
         {
@@ -133,23 +135,21 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
-
-        //Link songs to the users with the same songs
-        public void AddSong(SongModel model)
+        public SongModel FindSong(string name, string album)
         {
-            Account account;
-            if (_context.Accounts.Any(a => a.Username == model.Username))
-            {
-                account = _context.Accounts.First(a => a.Username == model.Username);
-            }
-            else
-            {
-                account = new Account() { Username = model.Username };
-            }
-            _context.Songs.Where(s => s.Title == model.SongTitle && s.Length == model.Length).Single().Accounts.Add(account);
-            _context.SaveChanges();
+            return _context.Songs.Where(s => s.Title == name && s.Album == album)
+                .Select(a => new SongModel
+                {
+                    SongID = a.Id,
+                    SongTitle = a.Title,
+                    Artist = a.Artist,
+                    Album = a.Album,
+                    Genre = a.Genre,
+                    FilePath = a.FilePath,
+                    Length = a.Length
+                }).Single();
+                    
         }
-      
 
     }
 }

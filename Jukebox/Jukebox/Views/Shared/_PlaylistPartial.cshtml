@@ -14,6 +14,7 @@
             <th id="table-album">Album</th>
             <th id="table-genre">Genre</th>
             <th id="table-length">Length</th>
+            <th id="delete-song">Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -28,6 +29,10 @@
                     <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a></div></td>
                     <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a></div></td>
                     <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a></div></td>
+                    <td><button type="button" id="delete-button">
+                         <span class="glyphicon glyphicon-trash" ></span>
+                    </button>
+                    </td>
                 </tr>
             }
             else
@@ -38,6 +43,10 @@
                     <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a></div></td>
                     <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a></div></td>
                     <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a></div></td>
+                    <td><button type="button" id="delete-button" >
+                         <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </td>
                 </tr>
             }
 

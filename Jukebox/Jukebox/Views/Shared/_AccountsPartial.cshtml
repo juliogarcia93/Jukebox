@@ -2,33 +2,24 @@
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
-@{
-    bool active = true;
-}
-
-<table class="table table-hover" id="Account-List">
+<table class="table table-hover" id="music-playlist">
     <thead>
         <tr>
-            <th id="table-song">Account</th>
+            <th id="table-song">Users</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (AccountModel account in Model)
+@if(Model.Count() > 0){
+        foreach (AccountModel account in Model)
         {
-            if (active == true)
-            {
-                active = false;
-                <tr class="active-link">
-                    <td><div class="text-wrap"><a>@account.Username</a></div></td>
-                </tr>
-            }
-            else
-            {
+           
                 <tr>
-                    <td><div class="text-wrap"><a>@account.Username</a></div></td>
+                    <td><div class="text-wrap">@account.Username</div></td>
+                   
                 </tr>
-            }
+           
 
         }
+}
     </tbody>
 </table>

@@ -77,11 +77,20 @@
     <Compile Include="Playlist.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
+    <Compile Include="Playlist1.cs">
+      <DependentUpon>Music.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
+    <Compile Include="Room1.cs">
+      <DependentUpon>Music.tt</DependentUpon>
+    </Compile>
     <Compile Include="Song.cs">
+      <DependentUpon>Music.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Song1.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
     <Compile Include="Test.Designer.cs">

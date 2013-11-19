@@ -18,6 +18,7 @@ namespace Jukebox.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        SongManager SongManager = new SongManager();
         public AccountController() : this(IdentityConfig.Secrets, IdentityConfig.Logins, IdentityConfig.Users, IdentityConfig.Roles) { }
 
         public AccountController(IUserSecretStore secrets, IUserLoginStore logins, IUserStore users, IRoleStore roles)
@@ -448,6 +449,8 @@ namespace Jukebox.Controllers
         
 
         #endregion
+
+        
 
     }
 }
