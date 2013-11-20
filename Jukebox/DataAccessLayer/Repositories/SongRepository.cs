@@ -151,5 +151,16 @@ namespace DataAccessLayer.Repositories
                     
         }
 
+        //Add song method for associating a current database song with a username
+        public void AddSong(SongModel model, string username)
+        {
+            Account account = _context.Accounts.Where(s => s.Username == username).Single();
+            Song song = _context.Songs.Where(s => s.Title == model.SongTitle && s.Length == model.Length).Single(); 
+            //Song song = ModelConversions.SongModelToEntity(model);
+            account.Songs.Add(song);
+            song.Accounts.Add(account);
+            _context.SaveChanges();
+        }
+
     }
 }

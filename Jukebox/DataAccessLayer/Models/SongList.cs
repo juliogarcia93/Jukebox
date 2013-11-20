@@ -57,11 +57,13 @@ namespace DataAccessLayer.Models
             {
                 SongManager.UploadSong(song);
             }
-            //AccountModel account = SongManager.GetAccountList().Where(a => a.Username == username).Single();
-            bool UserSongExists = SongManager.GetSongList().Any(s => s.Username == username && s.SongTitle == song.SongTitle && s.Length == song.Length);
+
+           
+
+            bool UserSongExists = SongManager.GetSongList(username).Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
             if (!UserSongExists)
             {
-                SongManager.AddSong(song);
+                SongManager.AddSong(song, username);
             }
         }
     

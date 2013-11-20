@@ -29,8 +29,5 @@ namespace Entities
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
-        public DbSet<Playlist1> Playlist1 { get; set; }
-        public DbSet<Room1> Room1 { get; set; }
-        public DbSet<Song1> Song1 { get; set; }
     }
 }

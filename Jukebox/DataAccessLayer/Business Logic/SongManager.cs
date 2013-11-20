@@ -28,6 +28,11 @@ namespace DataAccessLayer.BusinessLogic
             return SongRepository.GetAccountsList().ToList();
         }
 
+        public void AddSong(SongModel model, string username)
+        {
+            SongRepository.AddSong(model,username);
+        }
+
 
         //Gets the account list related to the roomModel
         public List<AccountModel> GetAccountList(RoomModel room)
@@ -53,7 +58,7 @@ namespace DataAccessLayer.BusinessLogic
             }
             
         }
-
+        //replaced IQueryable<SongModel>  with List<SongModel>
         public IQueryable<SongModel> GetSongList()
         {
             return SongRepository.GetSongList();
