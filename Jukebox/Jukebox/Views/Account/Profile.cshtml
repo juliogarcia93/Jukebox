@@ -10,8 +10,8 @@
 <div class="profile-container container-fluid" id="profile-page-wrapper">
     <div class="row">
         <h3>Welcome @User.Identity.Name!
-            <div id="testtest">Song</div>
-            <div id="testtest2">Album</div>
+            @*<div id="testtest">Song</div>
+            <div id="testtest2">Album</div>*@
             <a class="btn btn-primary pull-right" data-toggle="modal" href="#profileModal">
                 <span class="glyphicon glyphicon-music"></span>
                  Upload Music
@@ -132,8 +132,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#delete-button').hide();
-        $('#delete-song').hide();
         var audio;
         var playlist;
         var tracks;

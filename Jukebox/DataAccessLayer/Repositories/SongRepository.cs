@@ -112,6 +112,17 @@ namespace DataAccessLayer.Repositories
                 }).Single();
 
         }
+
+        //Add song method for associating a current database song with a username
+        public void AddSong(SongModel model, string username)
+        {
+            Account account = _context.Accounts.Where(s => s.Username == username).Single();
+            Song song = _context.Songs.Where(s => s.Title == model.SongTitle && s.Length == model.Length).Single();
+            //Song song = ModelConversions.SongModelToEntity(model);
+            account.Songs.Add(song);
+            song.Accounts.Add(account);
+            _context.SaveChanges();
+        }
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
@@ -148,6 +159,10 @@ namespace DataAccessLayer.Repositories
             _context.SaveChanges();
 
         }
+        private Account GetAccount(int loginId)
+        {
+            return _context.Accounts.Where(a => a.LoginId == loginId).Single();
+        }
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Room stuff --------------------------//
 //-----------------------------------------------------------------------------------// 
@@ -157,10 +172,7 @@ namespace DataAccessLayer.Repositories
         {
             return room.RoomId;
         }
-        private Account GetAccount(int loginId)
-        {
-            return _context.Accounts.Where(a => a.LoginId == loginId).Single();
-        }
+      
               
                      
     }

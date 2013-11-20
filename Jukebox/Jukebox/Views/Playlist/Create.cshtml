@@ -1,4 +1,4 @@
-﻿@model List<SongModel>
+﻿@model List<RoomModel>
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
@@ -7,7 +7,7 @@
 <div class="room-container container-fluid">
     <div class="row">
         <div class="col col-lg-9">
-                <div class="pull-left"><h3 id="playlist-name">Ratchet 2013</h3></div><div id="room-type" class="pull-left">(Private)</div>
+                <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div>@*<div id="room-type" class="pull-left">(Private)</div>*@
         </div>
         <div class="col col-lg-3 pull-right">
             @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})

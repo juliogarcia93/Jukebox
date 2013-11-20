@@ -14,19 +14,11 @@ namespace Jukebox.Controllers
     public class PlaylistController : Controller
     {
         SongManager SongManager = new SongManager();
-        public ActionResult Create(string username)
-        {
-            IdentityDbContext _context = new IdentityDbContext();
-            //SongManager SongManager = new SongManager();
-            List<SongModel> list = SongManager.GetSongList().ToList();
-            return View(list);
-        }
 
-        public ActionResult Join()
-        {
-            return View();
-        }
 
+        
+
+       
         public PartialViewResult Search(string query)
         {
             List<SongModel> results = SongManager.Search(query, SongManager.GetSongList()).ToList();
@@ -51,6 +43,8 @@ namespace Jukebox.Controllers
 
             return View("Profile");
         }
+
+        
         ////Function that will return the list of accounts to the view
 
         //public PartialViewResult ListAccounts()
