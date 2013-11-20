@@ -30,15 +30,8 @@
                 </div>
                 @Html.Partial("_PlaylistPartial", Model.Songs)
             </div>
-        <div class="col col-lg-3">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="clearfix"><a href="#">Songs<span class="badge pull-right">@Model.Songs.Count()</span></a></li>
-                <li class="clearfix"><a href="#">Playlists<span class="badge pull-right">@Model.Playlists.Count()</span></a></li>
-                <li class="clearfix"><a href="#">Likes<span class="badge pull-right">0</span></a></li>
-                <li class="clearfix"><a href="#">Following<span class="badge pull-right">0</span></a></li>
-                <li class="clearfix"><a href="#">Followers<span class="badge pull-right">0</span></a></li>
-               
-            </ul>
+        <div class="col col-lg-3" id="UserBar">
+           @Html.Partial("_UserBar", Model)
         </div>
         </div>
     </div>
@@ -136,6 +129,7 @@
         var playlist;
         var tracks;
         var current;
+        var Songs = @Model.Songs.Count();
         var offset = 6; //number of td tags per row
         var currentSong = $('#current-song');
         var currentArtist = $('#current-artist');
@@ -174,6 +168,8 @@
                 $(position).fadeOut(400);
                 audio[0].play();
                 remove($(song), $(album));
+                Songs = Songs -1;
+                refresh();
                 
             });
 
@@ -197,9 +193,14 @@
                 data: { SongName: SongName, Album: Album },
                 success: function (data) {
                     $('#music-playlist').html(data);
+                   
                 }
 
             });
+        }
+
+        function refresh() {
+            $('#SongCount').text(Songs);
         }
 
         function run(link, player) {

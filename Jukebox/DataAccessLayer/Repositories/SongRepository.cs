@@ -21,9 +21,9 @@ namespace DataAccessLayer.Repositories
             //Starts the links to the dbsets to call and go through them
         }
 
-//-----------------------------------------------------------------------------------//
-//-------------------------------The Things for Song/Music stuff --------------------//
-//-----------------------------------------------------------------------------------//
+        //-----------------------------------------------------------------------------------//
+        //-------------------------------The Things for Song/Music stuff --------------------//
+        //-----------------------------------------------------------------------------------//
         public IQueryable<SongModel> GetSongList()
         {
             return _context.Songs.Select(s => new SongModel
@@ -123,9 +123,16 @@ namespace DataAccessLayer.Repositories
             song.Accounts.Add(account);
             _context.SaveChanges();
         }
-//-----------------------------------------------------------------------------------//
-//-------------------------------The Things for Account stuff -----------------------//
-//-----------------------------------------------------------------------------------//
+        //-----------------------------------------------------------------------------------//
+        //-------------------------------The Things for Account stuff -----------------------//
+        //-----------------------------------------------------------------------------------//
+
+        private Account GetAccount(int loginId)
+        {
+            return _context.Accounts.Where(a => a.LoginId == loginId).Single();
+        }
+
+
         public IQueryable<AccountModel> GetAccountsList()
         {
             return _context.Accounts.Select(a => new AccountModel
@@ -159,21 +166,58 @@ namespace DataAccessLayer.Repositories
             _context.SaveChanges();
 
         }
-        private Account GetAccount(int loginId)
-        {
-            return _context.Accounts.Where(a => a.LoginId == loginId).Single();
-        }
-//-----------------------------------------------------------------------------------//
-//-------------------------------The Things for Room stuff --------------------------//
-//-----------------------------------------------------------------------------------// 
+        //-----------------------------------------------------------------------------------//
+        //-------------------------------The Things for Room stuff --------------------------//
+        //-----------------------------------------------------------------------------------// 
 
-        
+
         public int GetRoomId(RoomModel room)
         {
             return room.RoomId;
         }
-      
-              
-                     
+
+        //Function RoomExists returns if the room is already in the database
+        public Boolean RoomExists(RoomModel room)
+        {
+            return _context.Rooms.Any(s => s.RoomName == room.RoomName);
+        }
+
+        //Function CreateARoom adds a roommodel to the database
+        public void CreateARoom(RoomModel room, string username)
+        {
+            try
+            {
+                Account account = _context.Accounts.Where(s => s.Username == username).Single();
+                Room entity = ModelConversions.RoomModelToEntity(room);
+                account.RoomId = entity.Id;
+                entity.Accounts.Add(account);
+                _context.Rooms.Add(entity);
+                _context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+
+        }
+
+        public List<AccountModel> RoomAccounts(string username)
+        {
+            Account account = _context.Accounts.Where(a => a.Username == username).Single();
+            int Room = (int)account.RoomId;
+            Room room = _context.Rooms.Where(r => r.Id == Room).Single();
+            return room.Accounts.Select(u => new AccountModel
+            {
+                LoginId = u.LoginId,
+                Username = u.Username
+            }).ToList();
+
+        }
     }
 }

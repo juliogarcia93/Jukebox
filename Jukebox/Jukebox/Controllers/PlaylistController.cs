@@ -29,7 +29,7 @@ namespace Jukebox.Controllers
         {
             IdentityDbContext _context = new IdentityDbContext();
             //SongManager SongManager = new SongManager();
-            List<AccountModel> list = SongManager.GetAccountsList();
+            List<AccountModel> list = SongManager.RoomAccounts(@User.Identity.Name);
             return PartialView("_AccountsPartial", list);
         }
 

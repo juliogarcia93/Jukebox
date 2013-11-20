@@ -114,8 +114,21 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Room stuff --------------------------//
 //-----------------------------------------------------------------------------------//    
-        
-       
+
+        public void CreateARoom(RoomModel room, string username)
+        {
+            if (!SongRepository.RoomExists(room))
+            {
+                SongRepository.CreateARoom(room, username);
+            }
+
+        }
+
+        public List<AccountModel> RoomAccounts(string username)
+        {
+            return SongRepository.RoomAccounts(username);
+        }
+
 
         
     }
