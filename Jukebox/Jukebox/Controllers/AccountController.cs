@@ -27,6 +27,7 @@ namespace Jukebox.Controllers
             Logins = logins;
             Users = users;
             Roles = roles;
+            
         }
 
         public IUserSecretStore Secrets { get; private set; }
@@ -98,8 +99,10 @@ namespace Jukebox.Controllers
                     if (await Users.Create(user) &&
                         await Secrets.Create(new UserSecret(model.UserName, model.Password)) &&
                         await Logins.Add(new UserLogin(user.Id, IdentityConfig.LocalLoginProvider, model.UserName)))
+                       
                     {
                         await SignIn(user.Id, isPersistent: false);
+                        SongManager.AddAccount(model.UserName);
                         return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
                     else
