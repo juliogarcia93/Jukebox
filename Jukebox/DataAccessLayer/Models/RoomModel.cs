@@ -24,7 +24,7 @@ namespace DataAccessLayer.Models
             RoomName = roomname;
             RoomPassword = password;
         }
-        public string RoomPassword { get; set; }
+        public Nullable<string> RoomPassword { get; set; }
         public string RoomName { get; set; }
         public List<SongModel> Songs { get; set; }
         public List<AccountModel> Accounts { get; set; }

@@ -126,6 +126,13 @@ namespace DataAccessLayer.Repositories
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
+
+        private Account GetAccount(int loginId)
+        {
+            return _context.Accounts.Where(a => a.LoginId == loginId).Single();
+        }
+              
+        
         public IQueryable<AccountModel> GetAccountsList()
         {
             return _context.Accounts.Select(a => new AccountModel
@@ -168,11 +175,24 @@ namespace DataAccessLayer.Repositories
         {
             return room.RoomId;
         }
-        private Account GetAccount(int loginId)
+
+        //Function RoomExists returns if the room is already in the database
+        public Boolean RoomExists(RoomModel room)
         {
-            return _context.Accounts.Where(a => a.LoginId == loginId).Single();
+            return _context.Rooms.Any(s => s.RoomName == room.RoomName);
         }
-              
-                     
+
+        //Function CreateARoom adds a roommodel to the database
+        public void CreateARoom(RoomModel room, string username)
+        {
+
+            Account account = _context.Accounts.Where(s => s.Username == username).Single();
+            Room entity = ModelConversions.RoomModelToEntity(room);
+            account.RoomId = entity.Id;
+            entity.Accounts.Add(account);
+            _context.Rooms.Add(entity);
+            _context.SaveChanges();
+        }
+                 
     }
 }
