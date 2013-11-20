@@ -119,7 +119,7 @@ namespace DataAccessLayer.BusinessLogic
         {
             if (!SongRepository.RoomExists(room))
             {
-                SongRepository.CreateARoom(room);
+                SongRepository.CreateARoom(room,username);
             }
 
         }
