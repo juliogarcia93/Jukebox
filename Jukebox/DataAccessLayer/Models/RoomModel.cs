@@ -11,27 +11,39 @@ namespace DataAccessLayer.Models
 {
     public class RoomModel
     {
-
-        public RoomModel ()
+        SongManager SongManager = new SongManager();
+        public RoomModel()
         {
             RoomName = "Rachet 2013";
-            isPublic = false;
+            Privacy = "Private";
+            Accounts = new List<AccountModel>();
+            Songs = new List<SongModel>();
         }
         public RoomModel(string roomname)
         {
             RoomName = roomname;
+            Accounts = new List<AccountModel>();
+            Songs = new List<SongModel>();
         }
         public RoomModel(string roomname, string password)
         {
             RoomName = roomname;
             RoomPassword = password;
+            Accounts = new List<AccountModel>();
+            Songs = new List<SongModel>();
         }
 
         public string RoomPassword { get; set; }
         public string RoomName { get; set; }
-        public bool isPublic { get; set; } 
+        public string Privacy { get; set; }
         public List<SongModel> Songs { get; set; }
         public List<AccountModel> Accounts { get; set; }
         public int RoomId { get; set; }
+
+        public List<SongModel> GetSongs(string username)
+        {
+            return SongManager.GetAccountModel(username).Songs;
+        }
+
     }
 }

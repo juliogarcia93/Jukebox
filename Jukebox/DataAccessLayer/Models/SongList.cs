@@ -48,13 +48,13 @@ namespace DataAccessLayer.Models
             file.SaveAs(MusicDirectory);
             TagLib.File metadata = TagLib.File.Create(MusicDirectory);
             string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
-            SongModel song = new SongModel(username,fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
+            SongModel song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
             bool songExists = SongManager.GetSongList().Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
             if (!songExists)
             {
                 SongManager.UploadSong(song);
             }
         }
-    
+
     }
 }

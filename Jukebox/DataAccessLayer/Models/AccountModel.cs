@@ -11,12 +11,14 @@ namespace DataAccessLayer.Models
         public AccountModel()
         {
             Username = null;
+            Songs = new List<SongModel>();
         }
 
         public AccountModel(int id, string username)
         {
             LoginId = id;
             Username = username;
+            Songs = new List<SongModel>();
 
         }
 

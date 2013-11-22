@@ -7,10 +7,10 @@
 <div class="room-container container-fluid">
     <div class="row">
         <div class="col col-lg-9">
-                <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div><div id="room-type" class="pull-left">@if (@Model.isPublic) {<p>(Public)</p>} else {<p>(Private)</p>}</div>
+                <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div><div id="room-type" class="pull-left">(@Model.Privacy)</div>
         </div>
         <div class="col col-lg-3 pull-right">
-            <a class= "btn btn-primary pull-right" id = "create-upload-button" data-toggle="modal" href="#RoomModal">Create A Room</a>
+            <a class= "btn btn-primary pull-right" id = "create-upload-button" data-toggle="modal" href="#RoomModal">Add Songs</a>
         </div>
     </div>
 
@@ -48,6 +48,7 @@
         var offset = 5; //number of td tags per row
         var currentSong = $('#current-song');
         var currentArtist = $('#current-artist');
+        var currentUser = User.Identity.username;
 
         function init() {
             current = 0 * offset;
@@ -93,6 +94,18 @@
             currentArtist.text($(artist).text());
         }
 
+        function getAccount() {
+            $('#account-search')
+            $.ajax({
+                url: "/Playlist/GetAccount",
+                data: { currentUser: currentUser },
+                success: function (data) {
+                    alert('Sucess ' + data);
+                }
+
+            });
+        }
+
         init();
     });
     
@@ -126,9 +139,10 @@
                             <div class="container-fluid">
                                 <table>
                                     <th>Choose songs from your playlist</th>
-                                    @foreach (SongModel song in Model.Songs){
+                                    @foreach (SongModel song in Model.GetSongs(@User.Identity.Name))
+                                    {
                                     <tr>                       
-                                        <td>  <div class="text-wrap"> <input type="checkbox"> <a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
+                                        <td>  <div class="text-wrap"> <input type="checkbox"> @song.SongTitle</div></td>
                                     </tr>
                                     }
                                 </table>
@@ -137,7 +151,7 @@
                     </form>
                 }
         <div class="modal-footer">
-                        <input type="submit" value="Create" class="btn btn-primary pull-right" />
+                        <input type="submit" value="Add" class="btn btn-primary pull-right" />
                         <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
                     </div>
         </div><!-- /.modal-content -->
@@ -146,6 +160,6 @@
 
 <script type="text/javascript">
     document.getElementById("createbutton").onclick = function () {
-        location.href = '@Url.Action("Add Songs", "AddSongsToRoom", "Playlist", Model.Songs, Model)';
+        location.href = '@Url.Action("AddSongsToRoom", "Playlist", new { songs = Model.Songs, room = Model } )';
     }
 </script>

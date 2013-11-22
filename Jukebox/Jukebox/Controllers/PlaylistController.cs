@@ -19,7 +19,8 @@ namespace Jukebox.Controllers
             IdentityDbContext _context = new IdentityDbContext();
             //SongManager SongManager = new SongManager();
             RoomModel room = new RoomModel();
-            room.Songs = SongManager.GetSongList(username).ToList();
+            room.Accounts.Add(SongManager.GetAccountModel(username));
+            //room.Songs = SongManager.GetSongList().ToList();
            //List<SongModel> list = SongManager.GetSongList(username).ToList();
             return View(room);
         }
@@ -40,7 +41,6 @@ namespace Jukebox.Controllers
             SongManager.AddSongsToList(songs, room.Songs);
             return View(room);
         }
-
 
     }
 }
