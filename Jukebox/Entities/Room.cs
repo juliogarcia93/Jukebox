@@ -17,7 +17,6 @@ namespace Entities
         public Room()
         {
             this.Accounts = new HashSet<Account>();
-            this.Songs = new HashSet<Song>();
         }
     
         public int Id { get; set; }
@@ -25,6 +24,5 @@ namespace Entities
         public string RoomPassword { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
-        public virtual ICollection<Song> Songs { get; set; }
     }
 }

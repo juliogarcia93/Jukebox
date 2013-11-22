@@ -119,14 +119,33 @@ namespace DataAccessLayer.BusinessLogic
         {
             if (!SongRepository.RoomExists(room))
             {
-                SongRepository.CreateARoom(room, username);
+                AccountModel account = GetAccountModel(username);
+                SongRepository.CreateARoom(room, account.LoginId);
             }
 
         }
 
-        public List<AccountModel> RoomAccounts(string username)
+        public List<AccountModel> GetRoomAccounts(string roomName)
         {
-            return SongRepository.RoomAccounts(username);
+            if (SongRepository.GetRoomList().Count() > 0)
+            {
+                RoomModel room = GetRoomModel(roomName);
+                if (room.Accounts == null)
+                {
+                    return new List<AccountModel>();
+                }
+                return room.Accounts;
+            }
+            else
+            {
+                return new List<AccountModel>();
+            }
+
+        }
+
+        public RoomModel GetRoomModel(string roomName)
+        {
+            return SongRepository.GetRoomList().Single(r => r.RoomName.Contains(roomName));
         }
 
 

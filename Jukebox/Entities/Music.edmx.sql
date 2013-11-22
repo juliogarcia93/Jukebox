@@ -1,9 +1,9 @@
 
 -- --------------------------------------------------
--- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
+-- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 11/18/2013 16:20:18
--- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 11/21/2013 22:54:42
+-- Generated from EDMX file: C:\Users\Julio Garcia\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -26,8 +26,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
 GO
-IF OBJECT_ID(N'[dbo].[FK_RoomAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_RoomAccount];
+IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
 GO
 
 -- --------------------------------------------------
@@ -69,8 +69,7 @@ GO
 -- Creating table 'Accounts'
 CREATE TABLE [dbo].[Accounts] (
     [LoginId] int IDENTITY(1,1) NOT NULL,
-    [Username] nvarchar(max)  NOT NULL,
-    [RoomId] int  NULL
+    [Username] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -128,7 +127,7 @@ GO
 -- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
+    PRIMARY KEY CLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -172,18 +171,18 @@ ON [dbo].[Playlists]
     ([Account_LoginId]);
 GO
 
--- Creating foreign key on [RoomId] in table 'Accounts'
+-- Creating foreign key on [Room_Id] in table 'Accounts'
 ALTER TABLE [dbo].[Accounts]
-ADD CONSTRAINT [FK_RoomAccount]
-    FOREIGN KEY ([RoomId])
+ADD CONSTRAINT [FK_AccountRoom]
+    FOREIGN KEY ([Room_Id])
     REFERENCES [dbo].[Rooms]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_RoomAccount'
-CREATE INDEX [IX_FK_RoomAccount]
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountRoom'
+CREATE INDEX [IX_FK_AccountRoom]
 ON [dbo].[Accounts]
-    ([RoomId]);
+    ([Room_Id]);
 GO
 
 -- --------------------------------------------------

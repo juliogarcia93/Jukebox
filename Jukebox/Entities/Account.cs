@@ -22,7 +22,6 @@ namespace Entities
     
         public int LoginId { get; set; }
         public string Username { get; set; }
-        public Nullable<int> RoomId { get; set; }
     
         public virtual ICollection<Song> Songs { get; set; }
         public virtual ICollection<Playlist> Playlists { get; set; }

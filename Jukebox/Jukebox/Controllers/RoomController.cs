@@ -23,6 +23,19 @@ namespace Jukebox.Controllers
             IdentityDbContext _context = new IdentityDbContext();
             RoomModel room = new RoomModel(username);
             SongManager.CreateARoom(room, username);
+            room = SongManager.GetRoomModel(username);
+            room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
+            foreach (AccountModel account in room.Accounts)
+            {
+                if (account.Songs.Count() > 0)
+                {
+                    room.Songs.AddRange(account.Songs);
+                }
+            }
+            if (room.Songs == null)
+            {
+                room.Songs = new List<SongModel>();
+            }
             return View("Create", room);
         }
 
