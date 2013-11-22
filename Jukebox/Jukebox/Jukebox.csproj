@@ -164,6 +164,7 @@
     <Compile Include="Controllers\MusicController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PlaylistController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -292,11 +293,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Playlist.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
-    <Content Include="Views\Playlist\Create.cshtml" />
-    <Content Include="Views\Playlist\Join.cshtml" />
+    <Content Include="Views\Room\Create.cshtml" />
+    <Content Include="Views\Room\Join.cshtml" />
     <Content Include="Views\Shared\_PlaylistPartial.cshtml" />
     <Content Include="Views\Shared\_MusicPlayerPartial.cshtml" />
     <Content Include="Views\Shared\_RoomPlaylistPartial.cshtml" />
+    <Content Include="Views\Shared\_AccountsPartial.cshtml" />
+    <Content Include="Views\Shared\_UserBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

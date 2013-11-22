@@ -18,6 +18,7 @@ namespace Jukebox.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        SongManager SongManager = new SongManager();
         public AccountController() : this(IdentityConfig.Secrets, IdentityConfig.Logins, IdentityConfig.Users, IdentityConfig.Roles) { }
 
         public AccountController(IUserSecretStore secrets, IUserLoginStore logins, IUserStore users, IRoleStore roles)
@@ -26,6 +27,7 @@ namespace Jukebox.Controllers
             Logins = logins;
             Users = users;
             Roles = roles;
+            
         }
 
         public IUserSecretStore Secrets { get; private set; }
@@ -97,8 +99,10 @@ namespace Jukebox.Controllers
                     if (await Users.Create(user) &&
                         await Secrets.Create(new UserSecret(model.UserName, model.Password)) &&
                         await Logins.Add(new UserLogin(user.Id, IdentityConfig.LocalLoginProvider, model.UserName)))
+                       
                     {
                         await SignIn(user.Id, isPersistent: false);
+                        SongManager.AddAccount(model.UserName);
                         return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
                     else
@@ -448,6 +452,8 @@ namespace Jukebox.Controllers
         
 
         #endregion
+
+        
 
     }
 }

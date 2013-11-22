@@ -1,0 +1,12 @@
+﻿@model AccountModel
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+ <ul class="nav nav-pills nav-stacked" >
+                <li class="clearfix"><a href="#">Songs<span class="badge pull-right" id="SongCount">@Model.Songs.Count()</span></a></li>
+                <li class="clearfix"><a href="#">Playlists<span class="badge pull-right">@Model.Playlists.Count()</span></a></li>
+                <li class="clearfix"><a href="#">Likes<span class="badge pull-right">0</span></a></li>
+                <li class="clearfix"><a href="#">Following<span class="badge pull-right">0</span></a></li>
+                <li class="clearfix"><a href="#">Followers<span class="badge pull-right">0</span></a></li>
+               
+</ul>

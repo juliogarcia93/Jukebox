@@ -37,7 +37,7 @@ namespace DataAccessLayer.Models
         public string Album { get; set; }
         public string Genre { get; set; }
         public string Length { get; set; }
-
+        //public List<AccountModel> Accounts {get; set; }
         public string Username { get; set; }
     }
 }

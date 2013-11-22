@@ -54,6 +54,13 @@ namespace DataAccessLayer.Models
             {
                 SongManager.UploadSong(song);
             }
+            bool UserSongExists = SongManager.GetSongList(username).Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
+            if (!UserSongExists)
+            {
+                SongManager.AddSong(song, username);
+            }
+
+           
         }
 
     }

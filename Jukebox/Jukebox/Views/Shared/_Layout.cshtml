@@ -82,8 +82,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closed">&times;</button>
                 <h4 class="modal-title">Create A Room</h4>
             </div>
-            @using (Html.BeginForm())
-            {
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row modal-row" id="modal-privacy">
@@ -148,7 +146,6 @@
                     </div>
                 </div>
             </div>
-            }
             <div class="modal-footer" id="modal-footer"> 
                 <input id="createbutton" class="btn btn-primary pull-right" type="submit" value="Create"/>
                 <!--<input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />-->
@@ -167,8 +164,6 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closed3">&times;</button>
                 <h4 class="modal-title">Join A Room</h4>
             </div>
-             @using (Html.BeginForm())
-            {
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row modal-row" id="modal-privacy">
@@ -218,7 +213,6 @@
                     </div>
                 </div>
             </div>
-            }
             <div class="modal-footer" id="modal-footer2"> 
                 <input id="searchbutton" class="btn btn-primary pull-right" type="submit" value="Search"/>
                 <!--<input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />-->
@@ -231,12 +225,8 @@
 
 <script type="text/javascript">
     document.getElementById("createbutton").onclick= function(){
-        location.href='@Url.Action("Create", "Playlist", new { username = User.Identity.Name })';
-    }
-
-    document.getElementById("searchbutton").onclick = function () {
-        location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })';
-    }
+        location.href='@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name })';
+}
 </script>
 
 </html>

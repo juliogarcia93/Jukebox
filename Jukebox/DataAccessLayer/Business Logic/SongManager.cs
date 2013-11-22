@@ -11,22 +11,16 @@ namespace DataAccessLayer.BusinessLogic
     public class SongManager
     {
         private SongRepository SongRepository;
-
         public SongManager()
         {
             SongRepository = new SongRepository();
         }
-        
-        public AccountModel GetAccountModel(string username)
+//-----------------------------------------------------------------------------------//
+//-------------------------------The Things for Song/Music stuff --------------------//
+//-----------------------------------------------------------------------------------//
+        public SongModel FindSong(string Songname, string Album)
         {
-            return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
-        }
-
-
-        //Gets the account list related to the roomModel
-        public List<AccountModel> GetAccountList(RoomModel room)
-        {
-            return SongRepository.GetAccountsList(room).ToList();
+            return SongRepository.FindSong(Songname, Album);
         }
 
         public List<SongModel> GetSongList(string username)
@@ -40,7 +34,7 @@ namespace DataAccessLayer.BusinessLogic
             {
                 return new List<SongModel>();
             }
-            
+
         }
 
         public IQueryable<SongModel> GetSongList()
@@ -76,12 +70,64 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.Delete(songmodel, userId);
         }
 
-        public void DeleteSong(SongModel model, string Username) 
+        public void DeleteSong(SongModel model, string Username)
         {
             AccountModel account = GetAccountModel(Username);
             SongRepository.Delete(model, account.LoginId);
 
         }
+ public void AddSong(SongModel model, string username)
+        {
+            SongRepository.AddSong(model, username);
+        }
+//-----------------------------------------------------------------------------------//
+//-------------------------------The Things for Account stuff -----------------------//
+//-----------------------------------------------------------------------------------//
+        public AccountModel GetAccountModel(string username)
+        {
+            return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
+        }
+
+        // Method that gets all the accounts in the database
+        public List<AccountModel> GetAccountsList()
+        {
+            return SongRepository.GetAccountsList().ToList();
+        }
+
+
+        //Gets the account list related to the roomModel
+        public List<AccountModel> GetAccountList(RoomModel room)
+        {
+            return SongRepository.GetAccountsList(room).ToList();
+        }
+
+        //Adds user to the list of users in site
+        public void AddAccount(string username)
+        {
+            Boolean exist = SongRepository.AccountExists(username);
+            if (!exist)
+            {
+                SongRepository.AddAccount(username);
+            }
+        }
+//-----------------------------------------------------------------------------------//
+//-------------------------------The Things for Room stuff --------------------------//
+//-----------------------------------------------------------------------------------//    
+
+        public void CreateARoom(RoomModel room, string username)
+        {
+            if (!SongRepository.RoomExists(room))
+            {
+                SongRepository.CreateARoom(room, username);
+            }
+
+        }
+
+        public List<AccountModel> RoomAccounts(string username)
+        {
+            return SongRepository.RoomAccounts(username);
+        }
+
 
         public List<SongModel> AddSongsToList(List<SongModel> newSongs, List<SongModel> list)
         {
@@ -91,5 +137,16 @@ namespace DataAccessLayer.BusinessLogic
             }
             return list;
         }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
