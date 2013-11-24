@@ -2,7 +2,8 @@
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
-<div class="container">
+<body id="Room-page">
+
 
 <div class="room-container container-fluid">
     <div class="row">
@@ -15,27 +16,26 @@
     </div>
 
 
-    <div class="row">
-           
-    </div>
+
 
     <div class="row">
         <div class="col col-lg-9 pull-left" >
-
+       
          @Html.Partial("_RoomPlaylistPartial", Model.Songs)
-
+        
        
             </div>
 
 
         <div class="col col-lg-3 pull-right">
             <table class="table table-bordered" id="members-table">
-                  @Html.Action("ListAccounts", "Playlist")   
+                  @Html.Action("RoomAccountList", "Room", new {RoomName = Model.RoomName})   
                 </table>
         </div> 
     </div>
 </div>
-</div>
+
+</body>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
 @if(Model.Songs.Count() > 0){

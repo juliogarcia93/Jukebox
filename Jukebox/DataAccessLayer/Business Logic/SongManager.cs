@@ -63,6 +63,7 @@ namespace DataAccessLayer.BusinessLogic
                 s.Genre.Contains(query)
                 ).OrderBy(s => s.SongTitle);
         }
+
         public void Delete(SongModel songmodel, string username)
         {
             AccountModel accountmodel = GetAccountModel(username);
@@ -146,12 +147,12 @@ namespace DataAccessLayer.BusinessLogic
         {
             if (SongRepository.GetRoomList().Count() > 0)
             {
-                RoomModel room = GetRoomModel(roomName);
-                if (room.Accounts == null)
+                List<AccountModel> accounts = SongRepository.GetRoomAccounts(roomName);
+                if (accounts == null)
                 {
                     return new List<AccountModel>();
                 }
-                return room.Accounts;
+                return accounts;
             }
             else
             {
@@ -163,6 +164,12 @@ namespace DataAccessLayer.BusinessLogic
         public RoomModel GetRoomModel(string roomName)
         {
                 return SongRepository.GetRoomList().First(r => r.RoomName == roomName);
+        }
+
+        public IEnumerable<RoomModel> GetRoomList()
+        {
+           IEnumerable<RoomModel> rooms = SongRepository.GetRoomList().AsEnumerable<RoomModel>();
+           return rooms;
         }
 
 

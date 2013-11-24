@@ -26,12 +26,13 @@ namespace DataAccessLayer.Models
             Room = new RoomModel();
             Room_Id = null;
         }
+
+
         public AccountModel(string username)
         {
             Username = username;
             Songs = new List<SongModel>();
             Room = new RoomModel();
-            Room_Id = null;
         }
 
         public int LoginId { get; set; }

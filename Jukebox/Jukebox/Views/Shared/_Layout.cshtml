@@ -29,7 +29,7 @@
             {
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="Room-dropdown">Playlist <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
                             <li role="presentation">
@@ -139,7 +139,7 @@
                                 <h4 class="modal-header-description">Choose a group name: </h4>
                                 <form role="form">
                                     <div class="form-group" id="room-naming">
-                                        <input type="email" class="form-control" id="name-of-room" placeholder="Enter a group name" >
+                                        <input type="text" class="form-control" id="name-of-room" placeholder="Enter a group name" >
                                     </div>
                                 </form>
                             </div>
@@ -225,9 +225,18 @@
 
 
 <script type="text/javascript">
-    document.getElementById("createbutton").onclick= function(){
-        location.href='@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name })';
-}
+    var option = $('#privacy-selector').val();
+    var option2 = $('#privacy-selector2').val();
+
+        document.getElementById("createbutton").onclick = function () {
+            location.href='@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name})';
+        }
+    
+        document.getElementById("searchbutton").onclick = function () {
+            location.href = '@Url.Action("SearchPublic", "Room")';
+        }
+
+
 </script>
 
 </html>

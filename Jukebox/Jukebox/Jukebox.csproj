@@ -237,12 +237,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\Create.png" />
     <Content Include="img\facicon.png" />
     <Content Include="img\icons-16x16.png" />
     <Content Include="img\jukebox.jpg" />
     <Content Include="img\Mainpage.png" />
     <Content Include="img\profile-background.png" />
     <Content Include="img\profile.png" />
+    <Content Include="img\Search.png" />
     <Content Include="img\Setting.png" />
     <Content Include="img\student.png" />
     <Content Include="Scripts\bootstrap.js" />
@@ -300,6 +302,8 @@
     <Content Include="Views\Shared\_RoomPlaylistPartial.cshtml" />
     <Content Include="Views\Shared\_AccountsPartial.cshtml" />
     <Content Include="Views\Shared\_UserBar.cshtml" />
+    <Content Include="Views\Room\SearchPage.cshtml" />
+    <Content Include="Views\Shared\_RoomListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

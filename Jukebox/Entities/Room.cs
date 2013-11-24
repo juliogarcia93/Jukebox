@@ -16,13 +16,13 @@ namespace Entities
     {
         public Room()
         {
-            this.Accounts1 = new HashSet<Account>();
+            this.Accounts = new HashSet<Account>();
         }
     
         public int Id { get; set; }
         public string RoomName { get; set; }
         public string RoomPassword { get; set; }
     
-        public virtual ICollection<Account> Accounts1 { get; set; }
+        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

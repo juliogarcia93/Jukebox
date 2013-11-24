@@ -23,8 +23,10 @@ namespace Jukebox.Controllers
             IdentityDbContext _context = new IdentityDbContext();
             RoomModel room = new RoomModel(username);
             SongManager.AddRoom(room, username);
+            AccountModel user = SongManager.GetAccountModel(username);
             room = SongManager.GetRoomModel(username);
             room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
+            room.Accounts.Add(user);
             foreach (AccountModel account in room.Accounts)
             {
                 if (account.Songs.Count() > 0)
@@ -45,10 +47,24 @@ namespace Jukebox.Controllers
         }
 
 
-        public ActionResult Join()
+        public ActionResult SearchPublic()
         {
-            return View();
+            List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r != null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
+           return View("SearchPage", rooms);
+        }
+        
+        public ActionResult RoomSelect(string RoomName)
+        {
+            RoomModel Room = SongManager.GetRoomModel(RoomName);
+            AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
+            SongManager.AddRoomAccount(Room, account);
+            return View("Create", Room);
         }
 
+        public ActionResult RoomAccountList(string RoomName)
+        {
+            List<AccountModel> accounts = SongManager.GetRoomAccounts(RoomName);
+            return PartialView("_AccountsPartial", accounts);
+        }
     }
 }

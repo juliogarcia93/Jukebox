@@ -22,10 +22,23 @@
 #profile-view {
     margin-top: 75px;
     padding-bottom: 80px;
-    background-image: url('../img/profile-background.png');
+    background-image: url('../img/profile.png');
     background-attachment: fixed;
 }
 
+#search-page {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/search.png');
+    background-attachment: fixed;
+}
+
+#Room-page {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/Create.png');
+    background-attachment: fixed;
+}
 
 /* styles for validation helpers */
 .field-validation-error {
@@ -192,7 +205,7 @@ background-color: rgba(0, 0, 0, 0.13);
 }
 
 .room-container {
-    background-color: white;
+    background-color: rgba(255,255,255,.8);
     padding-left: 30px;
     padding-right: 30px;
     padding-bottom: 20px;
@@ -354,3 +367,4 @@ margin-top: 2px;
 .white, .white a {
   color: #fff;
 }
+

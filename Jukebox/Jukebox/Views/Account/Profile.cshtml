@@ -157,7 +157,7 @@
                 run($(link), audio[0]);
             });
 
-            playlist.find('button').click(function (e) {
+            playlist.find('button').click( function (e) {
                 e.preventDefault();
                 song = $(this).parent().prev().prev().prev().prev().prev();
                 album = $(this).parent().prev().prev().prev();
@@ -169,7 +169,7 @@
                 audio[0].play();
                 remove($(song), $(album));
                 Songs = Songs -1;
-                refresh();
+                refresh();                
                 
             });
 
@@ -192,8 +192,7 @@
                 url: "/Playlist/Delete",
                 data: { SongName: SongName, Album: Album },
                 success: function (data) {
-                    $('#music-playlist').html(data);
-                   
+                    $('#music-playlist').html(data);  
                 }
 
             });
