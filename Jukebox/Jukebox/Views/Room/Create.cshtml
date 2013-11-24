@@ -21,16 +21,16 @@
 
     <div class="row">
         <div class="col col-lg-9 pull-left" >
-
-         @*@Html.Partial("_RoomPlaylistPartial", Model.Songs)*@
-
+        @if(Model.Songs.Count() != 0){
+         @Html.Partial("_RoomPlaylistPartial", Model.Songs)
+        }
        
             </div>
 
 
         <div class="col col-lg-3 pull-right">
             <table class="table table-bordered" id="members-table">
-                  @Html.Action("ListAccounts", "Playlist")   
+                  @Html.Partial("_AccountsPartial", Model.Accounts)   
                 </table>
         </div> 
     </div>

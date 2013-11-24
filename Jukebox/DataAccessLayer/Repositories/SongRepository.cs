@@ -161,7 +161,7 @@ namespace DataAccessLayer.Repositories
         public IQueryable<AccountModel> GetAccountsList(RoomModel room)
         {
             int roomId = GetRoomId(room);
-            return _context.Accounts.Where(a => a.RoomId == roomId)
+            return _context.Accounts.Where(a => a.Room.Id == roomId)
                .Select(a => new AccountModel
                {
                    LoginId = a.LoginId,
@@ -169,10 +169,10 @@ namespace DataAccessLayer.Repositories
                });
         }
 
-        public void AddAccount(string username)
+        public void AddAccount(AccountModel account)
         {
-            Account account = ModelConversions.AccountModelToEntity(new AccountModel(_context.Accounts.Count() + 1, username));
-            _context.Accounts.Add(account);
+            Account entity = ModelConversions.AccountModelToEntity(account);
+            _context.Accounts.Add(entity);
             _context.SaveChanges();
 
         }
@@ -193,20 +193,12 @@ namespace DataAccessLayer.Repositories
         }
 
         //Function CreateARoom adds a roommodel to the database
-        public void CreateARoom(RoomModel room, int loginId)
+        public void AddRoom(RoomModel room, int loginId)
         {
             try
             {
-                //Account account = _context.Accounts.Where(s => s.Username == username).Single();
                 Room entity;
-                //if (_context.Rooms.Any(r => r.RoomName == room.RoomName))
-                //{
-                //    entity = _context.Rooms.First(r => r.RoomName == room.RoomName);
-                //}
-                //else
-                //{
-                    entity = ModelConversions.RoomModelToEntity(room);
-
+                entity = ModelConversions.RoomModelToEntity(room);
                 Account account = GetAccount(loginId);
                 entity.Accounts.Add(account);
                 _context.Rooms.Add(entity);

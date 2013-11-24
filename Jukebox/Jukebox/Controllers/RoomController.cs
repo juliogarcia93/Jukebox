@@ -22,9 +22,11 @@ namespace Jukebox.Controllers
         {
             IdentityDbContext _context = new IdentityDbContext();
             RoomModel room = new RoomModel(username);
-            SongManager.CreateARoom(room, username);
+            SongManager.AddRoom(room, username);
+            AccountModel user = SongManager.GetAccountModel(username);
             room = SongManager.GetRoomModel(username);
             room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
+            room.Accounts.Add(user);
             foreach (AccountModel account in room.Accounts)
             {
                 if (account.Songs.Count() > 0)

@@ -46,7 +46,7 @@
     </Key>
     <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Room_Id" Type="int" Nullable="false" />
+    <Property Name="Room_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Rooms">
     <Key>
@@ -86,7 +86,7 @@
   </Association>
   <Association Name="AccountRoom">
     <End Role="Account" Type="Music.Store.Accounts" Multiplicity="*" />
-    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="1" />
+    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Room">
         <PropertyRef Name="Id" />
@@ -192,7 +192,7 @@
         </Association>
         <Association Name="AccountRoom">
           <End Type="Music.Account" Role="Account" Multiplicity="*" />
-          <End Type="Music.Room" Role="Room" Multiplicity="1" />
+          <End Type="Music.Room" Role="Room" Multiplicity="0..1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -261,6 +261,7 @@
       <EndProperty Name="Account">
         <ScalarProperty Name="LoginId" ColumnName="LoginId" />
       </EndProperty>
+      <Condition ColumnName="Room_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

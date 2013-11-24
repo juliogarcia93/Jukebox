@@ -103,24 +103,26 @@ namespace DataAccessLayer.BusinessLogic
         }
 
         //Adds user to the list of users in site
+        //Checks if the user is here first
+        //Then passes and account Model
         public void AddAccount(string username)
         {
-            Boolean exist = SongRepository.AccountExists(username);
-            if (!exist)
+             if (!SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
-                SongRepository.AddAccount(username);
+                AccountModel account = new AccountModel(username);
+                SongRepository.AddAccount(account);
             }
         }
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Room stuff --------------------------//
 //-----------------------------------------------------------------------------------//    
 
-        public void CreateARoom(RoomModel room, string username)
+        public void AddRoom(RoomModel room, string username)
         {
-            if (!SongRepository.RoomExists(room))
+            if (!SongRepository.RoomExists(room) && SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
                 AccountModel account = GetAccountModel(username);
-                SongRepository.CreateARoom(room, account.LoginId);
+                SongRepository.AddRoom(room, account.LoginId);
             }
 
         }
@@ -145,7 +147,7 @@ namespace DataAccessLayer.BusinessLogic
 
         public RoomModel GetRoomModel(string roomName)
         {
-            return SongRepository.GetRoomList().Single(r => r.RoomName.Contains(roomName));
+                return SongRepository.GetRoomList().First(r => r.RoomName == roomName);
         }
 
 

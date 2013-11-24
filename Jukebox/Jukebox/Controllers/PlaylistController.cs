@@ -45,7 +45,7 @@ namespace Jukebox.Controllers
         }
 
         
-        ////Function that will return the list of accounts to the view
+        //Function that will return the list of accounts to the view
 
         //public PartialViewResult ListAccounts()
         //{
