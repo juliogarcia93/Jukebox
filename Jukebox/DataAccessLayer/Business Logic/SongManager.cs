@@ -119,12 +119,27 @@ namespace DataAccessLayer.BusinessLogic
 
         public void AddRoom(RoomModel room, string username)
         {
-            if (!SongRepository.RoomExists(room) && SongRepository.GetAccountsList().Any(a => a.Username == username))
+            if (!SongRepository.GetRoomList().Any(a => a.RoomName == room.RoomName) && SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
                 AccountModel account = GetAccountModel(username);
                 SongRepository.AddRoom(room, account.LoginId);
+                RoomModel room1 = GetRoomModel(room.RoomName);
+                room1.Accounts.Add(account);
+                //AddRoomAccount(room1, account);//Adds the creater of the room to the room account list
             }
 
+        }
+        /**
+            AddRoomAccount
+         *  Adds Users to the existing room
+        **/
+        public void AddRoomAccount(RoomModel room, AccountModel account)
+        {
+            if (!SongRepository.GetRoomAccounts(room.RoomId).Any(a => a.Username == account.Username))
+            {
+                SongRepository.AddRoomAccount(room.RoomId, account.LoginId);
+
+            }
         }
 
         public List<AccountModel> GetRoomAccounts(string roomName)

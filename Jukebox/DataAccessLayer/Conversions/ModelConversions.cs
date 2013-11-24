@@ -26,8 +26,7 @@ namespace DataAccessLayer.Conversions
         {
             Account entity = new Account();
             entity.Username = model.Username;
-           // entity.Room = RoomModelToEntity(model.Room);
-            
+            //entity.Room = RoomModelToEntity(model.Room);
             return entity;
         }
 
