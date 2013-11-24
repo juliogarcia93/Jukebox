@@ -160,8 +160,7 @@ namespace DataAccessLayer.Repositories
         //Returns an account list of the room to display on the playlist
         public IQueryable<AccountModel> GetAccountsList(RoomModel room)
         {
-            int roomId = GetRoomId(room);
-            return _context.Accounts.Where(a => a.Room.Id == roomId)
+            return _context.Accounts.Where(a => a.Room.Id == room.RoomId)
                .Select(a => new AccountModel
                {
                    LoginId = a.LoginId,
@@ -181,15 +180,11 @@ namespace DataAccessLayer.Repositories
         //-----------------------------------------------------------------------------------// 
 
 
-        public int GetRoomId(RoomModel room)
-        {
-            return room.RoomId;
-        }
 
         //Function RoomExists returns if the room is already in the database
-        public Boolean RoomExists(RoomModel room)
+        public Boolean RoomExists(int roomid)
         {
-            return _context.Rooms.Any(s => s.RoomName == room.RoomName);
+            return _context.Rooms.Any(s => s.Id == roomid);
         }
 
         //Function CreateARoom adds a roommodel to the database
@@ -200,7 +195,7 @@ namespace DataAccessLayer.Repositories
                 Room entity;
                 entity = ModelConversions.RoomModelToEntity(room);
                 Account account = GetAccount(loginId);
-                entity.Accounts.Add(account);
+                entity.Accounts1.Add(account);
                 _context.Rooms.Add(entity);
                 _context.SaveChanges();
             }
@@ -220,9 +215,9 @@ namespace DataAccessLayer.Repositories
         public List<AccountModel> GetRoomAccounts(int roomId)
         {
             Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
-            if (room.Accounts.Count > 0)
+            if (room.Accounts1.Count > 0)
             {
-                return room.Accounts.Select(u => new AccountModel
+                return room.Accounts1.Select(u => new AccountModel
                 {
                     LoginId = u.LoginId,
                     Username = u.Username
@@ -233,6 +228,29 @@ namespace DataAccessLayer.Repositories
                  List<AccountModel> list = new List<AccountModel>();
                  return list;
             }
+        }
+
+        /**
+         * AddRoomAccount
+         * Adds Accounts to the existing Room
+        **/
+        public void AddRoomAccount(int roomId, int loginid)
+        {
+            Account account = GetAccount(loginid);
+            Room room = GetRoom(roomId);
+            room.Accounts1.Add(account);
+            _context.SaveChanges();
+
+        }
+
+
+        /**
+         * GetRoom
+         * returns the rooms associated the specific id
+        **/
+        public Room GetRoom(int roomid)
+        {
+            return _context.Rooms.Where(a => a.Id == roomid).Single();
         }
     }
 }

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/22/2013 00:17:09
+-- Date Created: 11/23/2013 15:34:25
 -- Generated from EDMX file: C:\Users\Glodack\Desktop\JukeBox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -17,38 +17,11 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_AccountSong_Account]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Account];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
-GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Songs];
-GO
-IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Accounts];
-GO
-IF OBJECT_ID(N'[dbo].[Rooms]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Rooms];
-GO
-IF OBJECT_ID(N'[dbo].[Playlists]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Playlists];
-GO
-IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AccountSong];
-GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -70,7 +43,7 @@ GO
 CREATE TABLE [dbo].[Accounts] (
     [LoginId] int IDENTITY(1,1) NOT NULL,
     [Username] nvarchar(max)  NOT NULL,
-    [Room_Id] int  NOT NULL
+    [Room_Id] int  NULL
 );
 GO
 
@@ -174,14 +147,14 @@ GO
 
 -- Creating foreign key on [Room_Id] in table 'Accounts'
 ALTER TABLE [dbo].[Accounts]
-ADD CONSTRAINT [FK_AccountRoom]
+ADD CONSTRAINT [FK_AccountRoom1]
     FOREIGN KEY ([Room_Id])
     REFERENCES [dbo].[Rooms]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_AccountRoom'
-CREATE INDEX [IX_FK_AccountRoom]
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountRoom1'
+CREATE INDEX [IX_FK_AccountRoom1]
 ON [dbo].[Accounts]
     ([Room_Id]);
 GO

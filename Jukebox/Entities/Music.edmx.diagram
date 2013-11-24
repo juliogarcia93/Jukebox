@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="9.5" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Music.Playlist" Width="1.5" PointX="11.875" PointY="5.625" />
         <AssociationConnector Association="Music.AccountPlaylist" />
-        <AssociationConnector Association="Music.AccountRoom" />
+        <AssociationConnector Association="Music.AccountRoom1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
