@@ -76,7 +76,7 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.Delete(model, account.LoginId);
 
         }
- public void AddSong(SongModel model, string username)
+        public void AddSong(SongModel model, string username)
         {
             SongRepository.AddSong(model, username);
         }
@@ -114,6 +114,23 @@ namespace DataAccessLayer.BusinessLogic
 //-------------------------------The Things for Room stuff --------------------------//
 //-----------------------------------------------------------------------------------//    
 
+        public void AddAccount(AccountModel model, string roomname)
+        {
+            SongRepository.AddAccountToRoom(model, roomname);
+        }
+
+        public void AddRoom(string roomname, string username)
+        {
+            SongRepository.AddRoom(roomname);
+            //RoomModel room = SongRepository.GetRoom(roomname);
+           
+        }
+
+        public int GetRoomId()
+        {
+            return SongRepository.GetRoomId();
+        }
+
         public void CreateARoom(RoomModel room, string username)
         {
             if (!SongRepository.RoomExists(room))
@@ -138,6 +155,10 @@ namespace DataAccessLayer.BusinessLogic
             return list;
         }
 
+        public RoomModel GetRoom(string roomname)
+        {
+            return SongRepository.GetRoom(roomname);
+        }
 
 
 

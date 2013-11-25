@@ -97,6 +97,7 @@ namespace DataAccessLayer.Repositories
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
+
         public SongModel FindSong(string name, string album)
         {
             return _context.Songs.Where(s => s.Title == name && s.Album == album)
@@ -170,16 +171,65 @@ namespace DataAccessLayer.Repositories
         //-------------------------------The Things for Room stuff --------------------------//
         //-----------------------------------------------------------------------------------// 
 
+        public RoomModel GetRoom(string roomname)
+        {
+
+            return _context.Rooms.Where( r => r.RoomName == roomname && r.Id == _context.Rooms.Count() ).Select( r => new RoomModel
+            {
+                RoomName = r.RoomName,
+                RoomId = r.Id
+                }).Single();
+        }
+                
+
 
         public int GetRoomId(RoomModel room)
         {
-            return room.RoomId;
+            return (int) room.RoomId;
         }
 
         //Function RoomExists returns if the room is already in the database
         public Boolean RoomExists(RoomModel room)
         {
             return _context.Rooms.Any(s => s.RoomName == room.RoomName);
+        }
+
+        public void AddRoom(string roomname)
+        {
+            try
+            {
+                RoomModel roomModel = new RoomModel(roomname, _context.Rooms.Count() + 1);
+                Room room = ModelConversions.RoomModelToEntity(roomModel);
+            _context.Rooms.Add(room);
+            _context.SaveChanges();
+             }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+
+
+        }
+
+        public int GetRoomId()
+        {
+            return _context.Rooms.Count();
+        }
+
+        public void AddAccountToRoom(AccountModel model, string roomname)
+        {
+            Room room = _context.Rooms.Where(r => r.RoomName == roomname && r.Id == _context.Rooms.Count()).Single();
+            Account account = _context.Accounts.Where(a => a.Username == model.Username).Single();
+            //Song song = ModelConversions.SongModelToEntity(model);
+            account.RoomId = room.Id;
+            room.Accounts.Add(account);
+            _context.SaveChanges();
         }
 
         //Function CreateARoom adds a roommodel to the database
@@ -219,10 +269,7 @@ namespace DataAccessLayer.Repositories
             }).ToList();
 
         }
- public Song GetSong(int songID)
-        {
-            return _context.Songs.Where(s => s.Id == songID).Single();
-        }
+
 
         public List<SongModel> AddSongToList(SongModel song, List<SongModel> list)
         {

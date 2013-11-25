@@ -35,7 +35,7 @@ namespace DataAccessLayer.Conversions
             Room entity = new Room();
             entity.Id = (int) model.RoomId;
             entity.RoomName = model.RoomName;
-            entity.RoomPassword = model.RoomPassword;
+           // entity.RoomPassword = model.RoomPassword;
             return entity;
         }
     }

@@ -14,8 +14,6 @@ namespace DataAccessLayer.Models
         SongManager SongManager = new SongManager();
         public RoomModel()
         {
-            RoomName = "Rachet 2013";
-            Privacy = "Private";
             Accounts = new List<AccountModel>();
             Songs = new List<SongModel>();
         }
@@ -29,6 +27,13 @@ namespace DataAccessLayer.Models
         {
             RoomName = roomname;
             RoomPassword = password;
+            Accounts = new List<AccountModel>();
+            Songs = new List<SongModel>();
+        }
+        public RoomModel(string roomname, int id)
+        {
+            RoomName = roomname;
+            RoomId = id;
             Accounts = new List<AccountModel>();
             Songs = new List<SongModel>();
         }

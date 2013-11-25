@@ -27,5 +27,13 @@ namespace DataAccessLayer.Models
         public Nullable<int> RoomId { get; set; }
         public List<SongModel> Songs { get; set; }
         public List<PlaylistModel> Playlists { get; set; }
+    
+        public void UpdateRoomId(int roomId)
+        {
+            RoomId = roomId;
+        }
+    
     }
+
+
 }

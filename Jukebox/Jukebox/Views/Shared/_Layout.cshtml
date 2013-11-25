@@ -225,7 +225,7 @@
 
 <script type="text/javascript">
     document.getElementById("createbutton").onclick= function(){
-        location.href='@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name })';
+        location.href = '@Url.Action("CreatePublic", "Room", new { RoomName = "RoomName" , username = "christinamorris" } )';
 }
 </script>
 

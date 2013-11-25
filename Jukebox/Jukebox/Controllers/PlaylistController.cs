@@ -29,7 +29,7 @@ namespace Jukebox.Controllers
         {
             IdentityDbContext _context = new IdentityDbContext();
             //SongManager SongManager = new SongManager();
- List<AccountModel> list = SongManager.RoomAccounts(@User.Identity.Name);
+            List<AccountModel> list = SongManager.RoomAccounts(@User.Identity.Name);
             return PartialView("_AccountsPartial", list);        }
 
 
@@ -51,10 +51,7 @@ namespace Jukebox.Controllers
         //    List<AccountModel> list = SongManager.GetAccountsList();
         //    return PartialView("_AccountsPartial", list);
         //}public ActionResult AddSongsToRoom(List<SongModel> songs, RoomModel room)
-        {
-            SongManager.AddSongsToList(songs, room.Songs);
-            return View(room);
-        }
+       
 
     }
 }

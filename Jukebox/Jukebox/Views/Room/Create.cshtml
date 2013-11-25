@@ -7,10 +7,16 @@
 <div class="room-container container-fluid">
     <div class="row">
         <div class="col col-lg-9">
-                <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div><div id="room-type" class="pull-left">(@Model.Privacy)</div>        </div>
+                <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div><div id="room-type" class="pull-left">(@Model.Privacy)</div>
+        </div>
         <div class="col col-lg-3 pull-right">
             <a class= "btn btn-primary pull-right" id = "create-upload-button" data-toggle="modal" href="#RoomModal">Add Songs</a>
         </div>
+    </div>
+
+
+    <div class="row">
+           
     </div>
 
     <div class="row">
@@ -18,7 +24,8 @@
 
          @*@Html.Partial("_RoomPlaylistPartial", Model.Songs)*@
 
-                   </div>
+       
+            </div>
 
 
         <div class="col col-lg-3 pull-right">
@@ -45,7 +52,6 @@
         var offset = 5; //number of td tags per row
         var currentSong = $('#current-song');
         var currentArtist = $('#current-artist');
-        var currentUser = User.Identity.username;
 
         function init() {
             current = 0 * offset;
@@ -91,21 +97,9 @@
             currentArtist.text($(artist).text());
         }
 
-        function getAccount() {
-            $('#account-search')
-            $.ajax({
-                url: "/Playlist/GetAccount",
-                data: { currentUser: currentUser },
-                success: function (data) {
-                    alert('Sucess ' + data);
-                }
-
-            });
-        }
-
         init();
     });
-    
+
 </script>
 
 <!--
@@ -136,10 +130,11 @@
                             <div class="container-fluid">
                                 <table>
                                     <th>Choose songs from your playlist</th>
-                                    foreach (SongModel song in Model.GetSongs(@User.Identity.Name))
-                                {
+                                    @foreach (SongModel song in Model.Songs)
+                                    {
                                     <tr>                       
-                                        <td>  <div class="text-wrap"> <input type="checkbox"> @song.SongTitle</div></td>                                    </tr>
+                                        <td>  <div class="text-wrap"> <input type="checkbox"> @song.SongTitle</div></td>
+                                    </tr>
                                     }
                                 </table>
                             </div>

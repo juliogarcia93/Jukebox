@@ -21,8 +21,15 @@ namespace Jukebox.Controllers
         public ActionResult CreatePublic(string RoomName, string username)
         {
             IdentityDbContext _context = new IdentityDbContext();
-            RoomModel room = new RoomModel(username);
-            SongManager.CreateARoom(room, username);
+            if (username == null)
+                username = "cmmorris";
+            //RoomModel room = new RoomModel(username);
+            //SongManager.CreateARoom(room, username);
+            SongManager.AddRoom(RoomName, username);
+            RoomModel room = SongManager.GetRoom(RoomName);
+            AccountModel account = SongManager.GetAccountModel(username);
+            account.UpdateRoomId(SongManager.GetRoomId());
+            room.Accounts.Add(SongManager.GetAccountModel(username));
             return View("Create", room);
         }
 
