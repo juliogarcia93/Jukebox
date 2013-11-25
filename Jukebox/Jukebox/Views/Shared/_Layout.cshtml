@@ -58,7 +58,11 @@
     <div class="container">
         @RenderBody()
         <hr />
-        <footer id="footer-div">
+       
+    </div>
+
+    <div class="container">
+ <footer id="footer-div">
             <div class="center">
                 @Html.ActionLink("About", "About", "Home", null, new { @class="footer-link"})
                 @Html.ActionLink("Contact", "Contact", "Home",null, new { @class="footer-link"})
@@ -67,6 +71,7 @@
             <p class="pull-left">&copy; @DateTime.Now.Year Jukebox. All Rights Reserved.</p>
 
         </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -93,8 +98,8 @@
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
                                 <select class="form-control" id="privacy-selector">
                                     <option value="0">--Select Your Privacy--</option>
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                    <option value="1">Public</option>
+                                    <option value="2">Private</option>
                                 </select>
                         </div>
                     </div>
@@ -175,8 +180,8 @@
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
                                 <select class="form-control" id="privacy-selector2">
                                     <option value="0">--Select Your Privacy--</option>
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                    <option value="1">Public</option>
+                                    <option value="2">Private</option>
                                 </select>
                         </div>
                     </div>
@@ -225,16 +230,28 @@
 
 
 <script type="text/javascript">
-    var option = $('#privacy-selector').val();
-    var option2 = $('#privacy-selector2').val();
 
-        document.getElementById("createbutton").onclick = function () {
-            location.href='@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name})';
+   
+   
+
+    document.getElementById("createbutton").onclick = function () {
+        var selection1 = $('#privacy-selector').val();
+        if (selection == 1) {
+            location.href = '@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name})';
+        } else {
+            location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
         }
-    
-        document.getElementById("searchbutton").onclick = function () {
+
+    }
+    document.getElementById("searchbutton").onclick = function () {
+        var selection2 = $('#privacy-selector2').val();
+        if (selection2 == 1) {
             location.href = '@Url.Action("SearchPublic", "Room")';
+        } else {
+            location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
         }
+    }
+        
 
 
 </script>

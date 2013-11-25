@@ -304,6 +304,7 @@
     <Content Include="Views\Shared\_UserBar.cshtml" />
     <Content Include="Views\Room\SearchPage.cshtml" />
     <Content Include="Views\Shared\_RoomListPartial.cshtml" />
+    <Content Include="Views\Shared\_AddToRoomPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
