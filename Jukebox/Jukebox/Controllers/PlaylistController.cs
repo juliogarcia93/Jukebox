@@ -25,12 +25,14 @@ namespace Jukebox.Controllers
             return PartialView("_PlaylistPartial", results);
         }
         //returns a partial view of the total list of accounts
+
         public PartialViewResult ListAccounts()
         {
             IdentityDbContext _context = new IdentityDbContext();
             //SongManager SongManager = new SongManager();
-            List<AccountModel> list = SongManager.RoomAccounts(@User.Identity.Name);
-            return PartialView("_AccountsPartial", list);        }
+            List<AccountModel> list = SongManager.GetRoomAccounts(User.Identity.Name);
+            return PartialView("_AccountsPartial", list);
+        }
 
 
 
@@ -43,15 +45,14 @@ namespace Jukebox.Controllers
             return View("Profile");
         }
 
-        ////Function that will return the list of accounts to the view
+        
+        //Function that will return the list of accounts to the view
 
         //public PartialViewResult ListAccounts()
         //{
 
         //    List<AccountModel> list = SongManager.GetAccountsList();
         //    return PartialView("_AccountsPartial", list);
-        //}public ActionResult AddSongsToRoom(List<SongModel> songs, RoomModel room)
-       
-
+        //}
     }
 }

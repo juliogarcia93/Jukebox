@@ -1,13 +1,28 @@
 $(document).ready(function () {
+
+    $('#Room-dropdown').click(function () {
+        $('#pw-of-room').val("");
+        $('#name-of-room2').val("");
+        $('#privacy-selector').val(0);
+        $('#room-pw').val("");
+        $('#room-name').val("");
+        $('#privacy-selector2').val(0);
+        $('#genre-selector').val(0);
+        $('#genre-selector2').val(0);
+        $('#name-of-room').val("");
+        $('#modal-footer').slideUp("slow");
+        $('#modal-footer2').slideUp("slow");
+    });
+
     $('#privacy-selector').change(function () {
         var option = $('#privacy-selector').val();
-        if (option.toLowerCase() == "private") {
+        if (option == 2) {
             $('#modal-private-information').slideDown("slow");
             $('#modal-genre').slideUp("slow");
             $('#modal-public-information').slideUp("slow");
         }
         else {
-            if (option.toLowerCase() == "public") {
+            if (option == 1) {
                 $('#modal-genre').slideDown("slow");
                 $('#modal-private-information').slideUp("slow");
                 $('#modal-footer').slideUp("slow");
@@ -18,17 +33,19 @@ $(document).ready(function () {
                 $('#modal-footer').slideUp("slow");
             }
         }
+       
+
     });
 
     $('#privacy-selector2').change(function () {
         var option = $('#privacy-selector2').val();
-        if (option.toLowerCase() == "private") {
+        if (option == 2) {
             $('#modal-private-information2').slideDown("slow");
             $('#modal-genre2').slideUp("slow");
             $('#modal-public-information2').slideUp("slow");
         }
         else {
-            if (option.toLowerCase() == "public") {
+            if (option == 1) {
                 $('#modal-genre2').slideDown("slow");
                 $('#modal-private-information2').slideUp("slow");
                 $('#modal-footer2').slideUp("slow");
@@ -38,6 +55,8 @@ $(document).ready(function () {
                 $('#modal-footer2').slideUp("slow");
             }
         }
+
+       
     });
 
     $('#genre-selector').change(function () {
@@ -92,96 +111,12 @@ $(document).ready(function () {
         $('#modal-footer2').slideDown("slow");
     });
 
-});
 
+  
 
-$(document).ready(function () {
-    $('#closed').click(function () {
-        $('#pw-of-room').val("");
-        $('#modal-footer').slideUp("slow");
-        $("#modal-genre").slideUp("slow");
-        $("#modal-public-information").slideUp("slow");
-        $("#modal-private-information").slideUp("slow");
-        $('#name-of-room2').val("");
-        $('#pw-of-room').val("");
-        $('#privacy-selector').val(0);
-        $('#room-pw').val("");
-        $('#modal-footer2').slideUp("slow");
-        $("#modal-private-information2").slideUp("slow");
-        $('#modal-public-information2').slideUp("slow");
-        $('#modal-genre2').slideUp("slow");
-        $('#room-name').val("");
-        $('#privacy-selector2').val(0);
-        $('#genre-selector').val(0);
-
-    });
-});
-
-$(document).ready(function () {
-    $('#closed2').click(function () {
-        $('#pw-of-room').val("");
-        $('#modal-footer').slideUp("slow");
-        $("#modal-genre").slideUp("slow");
-        $("#modal-public-information").slideUp("slow");
-        $("#modal-private-information").slideUp("slow");
-        $('#name-of-room2').val("");
-        $('#pw-of-room').val("");
-        $('#privacy-selector').val(0);
-        $('#room-pw').val("");
-        $('#modal-footer2').slideUp("slow");
-        $("#modal-private-information2").slideUp("slow");
-        $('#modal-public-information2').slideUp("slow");
-        $('#modal-genre2').slideUp("slow");
-        $('#room-name').val("");
-        $('#privacy-selector2').val(0);
-        $('#genre-selector').val(0);
-
-    });
-});
-$(document).ready(function () {
-    $('#closed3').click(function () {
-        $('#pw-of-room').val("");
-        $('#modal-footer').slideUp("slow");
-        $("#modal-genre").slideUp("slow");
-        $("#modal-public-information").slideUp("slow");
-        $("#modal-private-information").slideUp("slow");
-        $('#name-of-room2').val("");
-        $('#pw-of-room').val("");
-        $('#privacy-selector').val(0);
-        $('#room-pw').val("");
-        $('#modal-footer2').slideUp("slow");
-        $("#modal-private-information2").slideUp("slow");
-        $('#modal-public-information2').slideUp("slow");
-        $('#modal-genre2').slideUp("slow");
-        $('#room-name').val("");
-        $('#privacy-selector2').val(0);
-        $('#genre-selector').val(0);
-
-    });
-});
-$(document).ready(function () {
-    $('#closed4').click(function () {
-        $('#pw-of-room').val("");
-        $('#modal-footer').slideUp("slow");
-        $("#modal-genre").slideUp("slow");
-        $("#modal-public-information").slideUp("slow");
-        $("#modal-private-information").slideUp("slow");
-        $('#name-of-room2').val("");
-        $('#pw-of-room').val("");
-        $('#privacy-selector').val(0);
-        $('#room-pw').val("");
-        $('#modal-footer2').slideUp("slow");
-        $("#modal-private-information2").slideUp("slow");
-        $('#modal-public-information2').slideUp("slow");
-        $('#modal-genre2').slideUp("slow");
-        $('#room-name').val("");
-        $('#privacy-selector2').val(0);
-        $('#genre-selector').val(0);
-
-    });
-
-
+    
 
 
 
 });
+

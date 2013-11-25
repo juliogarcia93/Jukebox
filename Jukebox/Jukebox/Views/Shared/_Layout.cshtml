@@ -29,7 +29,7 @@
             {
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="Room-dropdown">Playlist <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
                             <li role="presentation">
@@ -41,6 +41,7 @@
                                 <!--ActionLink Method for joining a room -->
                                 <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join a room</a>
                             </li>
+                           
 
                         </ul>
                     </li>
@@ -57,7 +58,11 @@
     <div class="container">
         @RenderBody()
         <hr />
-        <footer id="footer-div">
+       
+    </div>
+
+    <div class="container">
+ <footer id="footer-div">
             <div class="center">
                 @Html.ActionLink("About", "About", "Home", null, new { @class="footer-link"})
                 @Html.ActionLink("Contact", "Contact", "Home",null, new { @class="footer-link"})
@@ -66,6 +71,7 @@
             <p class="pull-left">&copy; @DateTime.Now.Year Jukebox. All Rights Reserved.</p>
 
         </footer>
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -92,8 +98,8 @@
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
                                 <select class="form-control" id="privacy-selector">
                                     <option value="0">--Select Your Privacy--</option>
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                    <option value="1">Public</option>
+                                    <option value="2">Private</option>
                                 </select>
                         </div>
                     </div>
@@ -138,7 +144,7 @@
                                 <h4 class="modal-header-description">Choose a group name: </h4>
                                 <form role="form">
                                     <div class="form-group" id="room-naming">
-                                        <input type="email" class="form-control" id="name-of-room" placeholder="Enter a group name" >
+                                        <input type="text" class="form-control" id="name-of-room" placeholder="Enter a group name" >
                                     </div>
                                 </form>
                             </div>
@@ -174,8 +180,8 @@
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
                                 <select class="form-control" id="privacy-selector2">
                                     <option value="0">--Select Your Privacy--</option>
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                    <option value="1">Public</option>
+                                    <option value="2">Private</option>
                                 </select>
                         </div>
                     </div>
@@ -224,9 +230,30 @@
 
 
 <script type="text/javascript">
-    document.getElementById("createbutton").onclick= function(){
-        location.href = '@Url.Action("CreatePublic", "Room", new { RoomName = "RoomName" , username = "christinamorris" } )';
-}
+
+   
+   
+
+    document.getElementById("createbutton").onclick = function () {
+        var selection1 = $('#privacy-selector').val();
+        if (selection == 1) {
+            location.href = '@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name})';
+        } else {
+            location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
+        }
+
+    }
+    document.getElementById("searchbutton").onclick = function () {
+        var selection2 = $('#privacy-selector2').val();
+        if (selection2 == 1) {
+            location.href = '@Url.Action("SearchPublic", "Room")';
+        } else {
+            location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
+        }
+    }
+        
+
+
 </script>
 
 </html>

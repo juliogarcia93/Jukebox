@@ -4,17 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a75157a789dc482ba7710aeea1060b69" Name="Diagram1" ZoomLevel="73" >
+      <Diagram DiagramId="a75157a789dc482ba7710aeea1060b69" Name="Diagram1" ZoomLevel="98" >
         <EntityTypeShape EntityType="Music.Song" Width="1.5" PointX="12.125" PointY="2" />
         <EntityTypeShape EntityType="Music.Account" Width="1.5" PointX="9.5" PointY="3.25" />
         <AssociationConnector Association="Music.AccountSong" />
         <EntityTypeShape EntityType="Music.Room" Width="1.5" PointX="9.5" PointY="6.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Music.Playlist" Width="1.5" PointX="11.875" PointY="5.625" />
         <AssociationConnector Association="Music.AccountPlaylist" />
-        <AssociationConnector Association="Music.RoomAccount" />
-        <EntityTypeShape EntityType="Music.Playlist1" Width="1.5" PointX="4.189319536178056" PointY="25.786855471221198" />
-        <EntityTypeShape EntityType="Music.Room1" Width="1.5" PointX="6.3455773435279621" PointY="23.790590923182009" />
-        <EntityTypeShape EntityType="Music.Song1" Width="1.5" PointX="11.744308283433462" PointY="27.79293536943986" />
+        <AssociationConnector Association="Music.AccountRoom1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

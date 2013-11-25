@@ -63,6 +63,7 @@ namespace DataAccessLayer.BusinessLogic
                 s.Genre.Contains(query)
                 ).OrderBy(s => s.SongTitle);
         }
+
         public void Delete(SongModel songmodel, string username)
         {
             AccountModel accountmodel = GetAccountModel(username);
@@ -76,6 +77,7 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.Delete(model, account.LoginId);
 
         }
+
         public void AddSong(SongModel model, string username)
         {
             SongRepository.AddSong(model, username);
@@ -102,72 +104,75 @@ namespace DataAccessLayer.BusinessLogic
         }
 
         //Adds user to the list of users in site
+        //Checks if the user is here first
+        //Then passes and account Model
         public void AddAccount(string username)
         {
-            Boolean exist = SongRepository.AccountExists(username);
-            if (!exist)
+             if (!SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
-                SongRepository.AddAccount(username);
+                AccountModel account = new AccountModel(username);
+                SongRepository.AddAccount(account);
             }
         }
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Room stuff --------------------------//
 //-----------------------------------------------------------------------------------//    
 
-        public void AddAccount(AccountModel model, string roomname)
+        public void AddRoom(RoomModel room, string username)
         {
-            SongRepository.AddAccountToRoom(model, roomname);
-        }
-
-        public void AddRoom(string roomname, string username)
-        {
-            SongRepository.AddRoom(roomname);
-            //RoomModel room = SongRepository.GetRoom(roomname);
-           
-        }
-
-        public int GetRoomId()
-        {
-            return SongRepository.GetRoomId();
-        }
-
-        public void CreateARoom(RoomModel room, string username)
-        {
-            if (!SongRepository.RoomExists(room))
+            if (!SongRepository.GetRoomList().Any(a => a.RoomName == room.RoomName) && SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
-                SongRepository.CreateARoom(room, username);
+                AccountModel account = GetAccountModel(username);
+                SongRepository.AddRoom(room, account.LoginId);
+                RoomModel room1 = GetRoomModel(room.RoomName);
+                room1.Accounts.Add(account);
+                //AddRoomAccount(room1, account);//Adds the creater of the room to the room account list
+            }
+
+        }
+        /**
+            AddRoomAccount
+         *  Adds Users to the existing room
+        **/
+        public void AddRoomAccount(RoomModel room, AccountModel account)
+        {
+            if (!SongRepository.GetRoomAccounts(room.RoomId).Any(a => a.Username == account.Username))
+            {
+                SongRepository.AddRoomAccount(room.RoomId, account.LoginId);
+
+            }
+        }
+
+        public List<AccountModel> GetRoomAccounts(string roomName)
+        {
+            if (SongRepository.GetRoomList().Count() > 0)
+            {
+                List<AccountModel> accounts = SongRepository.GetRoomAccounts(roomName);
+                if (accounts == null)
+                {
+                    return new List<AccountModel>();
+                }
+                return accounts;
+            }
+            else
+            {
+                return new List<AccountModel>();
             }
 
         }
 
-        public List<AccountModel> RoomAccounts(string username)
+        public RoomModel GetRoomModel(string roomName)
         {
-            return SongRepository.RoomAccounts(username);
+                return SongRepository.GetRoomList().First(r => r.RoomName == roomName);
         }
 
-
-        public List<SongModel> AddSongsToList(List<SongModel> newSongs, List<SongModel> list)
+        public IEnumerable<RoomModel> GetRoomList()
         {
-            foreach (SongModel song in list)
-            {
-                SongRepository.AddSongToList(song, list);
-            }
-            return list;
+           IEnumerable<RoomModel> rooms = SongRepository.GetRoomList().AsEnumerable<RoomModel>();
+           return rooms;
         }
 
-        public RoomModel GetRoom(string roomname)
-        {
-            return SongRepository.GetRoom(roomname);
-        }
-
-
-
-
-
-
-
-
-
-
+       
+        
     }
 }

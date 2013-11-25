@@ -25,17 +25,16 @@ namespace DataAccessLayer.Conversions
         public static Account AccountModelToEntity(AccountModel model)
         {
             Account entity = new Account();
-            entity.LoginId = (int) model.LoginId;
             entity.Username = model.Username;
+            //entity.Room = RoomModelToEntity(model.Room);
             return entity;
         }
 
         public static Room RoomModelToEntity(RoomModel model)
         {
             Room entity = new Room();
-            entity.Id = (int) model.RoomId;
-            entity.RoomName = model.RoomName;
-           // entity.RoomPassword = model.RoomPassword;
+            entity.RoomName = !string.IsNullOrEmpty(model.RoomName) ? model.RoomName : "";
+            entity.RoomPassword = !string.IsNullOrEmpty(model.RoomPassword) ? model.RoomPassword : "";
             return entity;
         }
     }

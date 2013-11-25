@@ -53,6 +53,7 @@ namespace DataAccessLayer.Repositories
                 });
         }
 
+
         public void Add(SongModel model)
         {
             try
@@ -96,7 +97,6 @@ namespace DataAccessLayer.Repositories
         {
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
-
 
         public SongModel FindSong(string name, string album)
         {
@@ -151,8 +151,7 @@ namespace DataAccessLayer.Repositories
         //Returns an account list of the room to display on the playlist
         public IQueryable<AccountModel> GetAccountsList(RoomModel room)
         {
-            int roomId = GetRoomId(room);
-            return _context.Accounts.Where(a => a.RoomId == roomId)
+            return _context.Accounts.Where(a => a.Room.Id == room.RoomId)
                .Select(a => new AccountModel
                {
                    LoginId = a.LoginId,
@@ -160,10 +159,10 @@ namespace DataAccessLayer.Repositories
                });
         }
 
-        public void AddAccount(string username)
+        public void AddAccount(AccountModel account)
         {
-            Account account = ModelConversions.AccountModelToEntity(new AccountModel(_context.Accounts.Count() + 1, username));
-            _context.Accounts.Add(account);
+            Account entity = ModelConversions.AccountModelToEntity(account);
+            _context.Accounts.Add(entity);
             _context.SaveChanges();
 
         }
@@ -171,75 +170,22 @@ namespace DataAccessLayer.Repositories
         //-------------------------------The Things for Room stuff --------------------------//
         //-----------------------------------------------------------------------------------// 
 
-        public RoomModel GetRoom(string roomname)
-        {
 
-            return _context.Rooms.Where( r => r.RoomName == roomname && r.Id == _context.Rooms.Count() ).Select( r => new RoomModel
-            {
-                RoomName = r.RoomName,
-                RoomId = r.Id
-                }).Single();
-        }
-                
-
-
-        public int GetRoomId(RoomModel room)
-        {
-            return (int) room.RoomId;
-        }
 
         //Function RoomExists returns if the room is already in the database
-        public Boolean RoomExists(RoomModel room)
+        public Boolean RoomExists(int roomid)
         {
-            return _context.Rooms.Any(s => s.RoomName == room.RoomName);
-        }
-
-        public void AddRoom(string roomname)
-        {
-            try
-            {
-                RoomModel roomModel = new RoomModel(roomname, _context.Rooms.Count() + 1);
-                Room room = ModelConversions.RoomModelToEntity(roomModel);
-            _context.Rooms.Add(room);
-            _context.SaveChanges();
-             }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-            }
-
-
-        }
-
-        public int GetRoomId()
-        {
-            return _context.Rooms.Count();
-        }
-
-        public void AddAccountToRoom(AccountModel model, string roomname)
-        {
-            Room room = _context.Rooms.Where(r => r.RoomName == roomname && r.Id == _context.Rooms.Count()).Single();
-            Account account = _context.Accounts.Where(a => a.Username == model.Username).Single();
-            //Song song = ModelConversions.SongModelToEntity(model);
-            account.RoomId = room.Id;
-            room.Accounts.Add(account);
-            _context.SaveChanges();
+            return _context.Rooms.Any(s => s.Id == roomid);
         }
 
         //Function CreateARoom adds a roommodel to the database
-        public void CreateARoom(RoomModel room, string username)
+        public void AddRoom(RoomModel room, int loginId)
         {
             try
             {
-                Account account = _context.Accounts.Where(s => s.Username == username).Single();
-                Room entity = ModelConversions.RoomModelToEntity(room);
-                account.RoomId = entity.Id;
+                Room entity;
+                entity = ModelConversions.RoomModelToEntity(room);
+                Account account = GetAccount(loginId);
                 entity.Accounts.Add(account);
                 _context.Rooms.Add(entity);
                 _context.SaveChanges();
@@ -257,25 +203,76 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        public List<AccountModel> RoomAccounts(string username)
+        public List<AccountModel> GetRoomAccounts(int roomId)
         {
-            Account account = _context.Accounts.Where(a => a.Username == username).Single();
-            int Room = (int)account.RoomId;
-            Room room = _context.Rooms.Where(r => r.Id == Room).Single();
-            return room.Accounts.Select(u => new AccountModel
+            Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
+            if (room.Accounts.Count > 0)
             {
-                LoginId = u.LoginId,
-                Username = u.Username
-            }).ToList();
-
+                return room.Accounts.Select(u => new AccountModel
+                {
+                    LoginId = u.LoginId,
+                    Username = u.Username
+                }).ToList();
+            }
+            else
+            {
+                 List<AccountModel> list = new List<AccountModel>();
+                 return list;
+            }
         }
 
-
-        public List<SongModel> AddSongToList(SongModel song, List<SongModel> list)
+        public List<AccountModel> GetRoomAccounts(string roomname)
         {
-            list.Add(song);
-            return list;
+            Room room = _context.Rooms.Where(r => r.RoomName == roomname).Single();
+            if (room.Accounts.Count > 0)
+            {
+                return room.Accounts.Select(u => new AccountModel
+                {
+                    LoginId = u.LoginId,
+                    Username = u.Username
+                }).ToList();
+            }
+            else
+            {
+                List<AccountModel> list = new List<AccountModel>();
+                return list;
+            }
         }
 
+        /**
+         * AddRoomAccount
+         * Adds Accounts to the existing Room
+        **/
+        public void AddRoomAccount(int roomId, int loginid)
+        {
+            Account account = GetAccount(loginid);
+            Room room = GetRoom(roomId);
+            room.Accounts.Add(account);
+            _context.SaveChanges();
+
+        }
+
+
+        /**
+         * GetRoom
+         * returns the rooms associated the specific id
+        **/
+        public Room GetRoom(int roomid)
+        {
+            return _context.Rooms.Where(a => a.Id == roomid).Single();
+        }
+
+         public IQueryable<RoomModel> GetRoomList()
+        {
+            return _context.Rooms.Where(r => r.RoomName != null).Select(r => new RoomModel
+            {
+                RoomId = r.Id,
+                RoomName = r.RoomName, 
+                RoomPassword = r.RoomPassword,
+            });
+        }
+
+  
+      
     }
 }

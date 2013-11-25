@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/18/2013 16:20:18
+-- Date Created: 11/23/2013 19:11:01
 -- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -26,8 +26,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
 GO
-IF OBJECT_ID(N'[dbo].[FK_RoomAccount]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_RoomAccount];
+IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
 GO
 
 -- --------------------------------------------------
@@ -70,7 +70,7 @@ GO
 CREATE TABLE [dbo].[Accounts] (
     [LoginId] int IDENTITY(1,1) NOT NULL,
     [Username] nvarchar(max)  NOT NULL,
-    [RoomId] int  NULL
+    [Room_Id] int  NULL
 );
 GO
 
@@ -172,18 +172,18 @@ ON [dbo].[Playlists]
     ([Account_LoginId]);
 GO
 
--- Creating foreign key on [RoomId] in table 'Accounts'
+-- Creating foreign key on [Room_Id] in table 'Accounts'
 ALTER TABLE [dbo].[Accounts]
-ADD CONSTRAINT [FK_RoomAccount]
-    FOREIGN KEY ([RoomId])
+ADD CONSTRAINT [FK_AccountRoom]
+    FOREIGN KEY ([Room_Id])
     REFERENCES [dbo].[Rooms]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
--- Creating non-clustered index for FOREIGN KEY 'FK_RoomAccount'
-CREATE INDEX [IX_FK_RoomAccount]
+-- Creating non-clustered index for FOREIGN KEY 'FK_AccountRoom'
+CREATE INDEX [IX_FK_AccountRoom]
 ON [dbo].[Accounts]
-    ([RoomId]);
+    ([Room_Id]);
 GO
 
 -- --------------------------------------------------

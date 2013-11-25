@@ -21,15 +21,23 @@ namespace Jukebox.Controllers
         public ActionResult CreatePublic(string RoomName, string username)
         {
             IdentityDbContext _context = new IdentityDbContext();
-            if (username == null)
-                username = "cmmorris";
-            //RoomModel room = new RoomModel(username);
-            //SongManager.CreateARoom(room, username);
-            SongManager.AddRoom(RoomName, username);
-            RoomModel room = SongManager.GetRoom(RoomName);
-            AccountModel account = SongManager.GetAccountModel(username);
-            account.UpdateRoomId(SongManager.GetRoomId());
-            room.Accounts.Add(SongManager.GetAccountModel(username));
+            RoomModel room = new RoomModel(username);
+            SongManager.AddRoom(room, username);
+            AccountModel user = SongManager.GetAccountModel(username);
+            room = SongManager.GetRoomModel(username);
+            room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
+            room.Accounts.Add(user);
+            foreach (AccountModel account in room.Accounts)
+            {
+                if (account.Songs.Count() > 0)
+                {
+                    room.Songs.AddRange(account.Songs);
+                }
+            }
+            if (room.Songs == null)
+            {
+                room.Songs = new List<SongModel>();
+            }
             return View("Create", room);
         }
 
@@ -37,12 +45,35 @@ namespace Jukebox.Controllers
         {
             return View();
         }
+        
 
-
-        public ActionResult Join()
+        public ActionResult SearchPublic()
         {
-            return View();
+            List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
+           return View("SearchPage", rooms);
+        }
+        
+        public ActionResult RoomSelect(string RoomName)
+        {
+            RoomModel Room = SongManager.GetRoomModel(RoomName);
+            AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
+            SongManager.AddRoomAccount(Room, account);
+            return View("Create", Room);
         }
 
+        public ActionResult RoomAccountList(string RoomName)
+        {
+            List<AccountModel> accounts = SongManager.GetRoomAccounts(RoomName);
+            return PartialView("_AccountsPartial", accounts);
+        }
+
+        public void AddSongs(int[] Songid, RoomModel room)
+        {
+            int count = Songid.Count();
+            for(int x = 0; x < count; x++)
+            {
+                room.Songs.Add(SongManager.GetSongList().Where(s => s.SongID == Songid[x]).Single());
+            }
+        }
     }
 }
