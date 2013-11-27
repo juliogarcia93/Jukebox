@@ -42,5 +42,17 @@ namespace Jukebox.Controllers
             return PartialView("_AddToRoomPartial", songs);
         }
 
+        public PartialViewResult UpdatePlayer(int RoomId)
+        {
+            List<SongModel> songs = SongManager.GetRoomSongsList(RoomId);
+            return PartialView("_MusicPlayerPartial", songs);
+        }
+
+        public PartialViewResult UpdateUserPlayer(string Username)
+        {
+            List<SongModel> songs = SongManager.GetSongList(Username);
+            return PartialView("_MusicPlayerPartial", songs);
+        }
+
     }
 }

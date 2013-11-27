@@ -183,7 +183,7 @@ namespace DataAccessLayer.BusinessLogic
             {
                 return;
             }
-            if (SongRepository.GetAccountsList().Any(a => a.Room_Id == roomId) == false)
+            if (SongRepository.GetRoomList().Any(a => a.RoomId == roomId) == false)
             {
                 return;
             }

@@ -41,6 +41,10 @@ namespace Jukebox.Controllers
             {
                 room.Songs = new List<SongModel>();
             }
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return Json(new { redirectToUrl = Url.View("Create", room) });
+            //}
             return View("Create", room);
         }
 
@@ -53,6 +57,10 @@ namespace Jukebox.Controllers
         public ActionResult SearchPublic()
         {
             List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
+            foreach (RoomModel room in rooms)
+            {
+                room.Songs = SongManager.GetRoomSongsList(room.RoomId);
+            }
            return View("SearchPage", rooms);
         }
         
@@ -61,6 +69,7 @@ namespace Jukebox.Controllers
             RoomModel Room = SongManager.GetRoomModel(RoomName);
             AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
             SongManager.AddRoomAccount(Room, account);
+            Room.Songs = SongManager.GetRoomSongsList(Room.RoomId);
             return View("Create", Room);
         }
 

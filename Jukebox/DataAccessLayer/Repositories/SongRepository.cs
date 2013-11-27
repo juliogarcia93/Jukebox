@@ -262,8 +262,9 @@ namespace DataAccessLayer.Repositories
             {
                 RoomId = r.Id,
                 RoomName = r.RoomName, 
-                RoomPassword = r.RoomPassword,
+                RoomPassword = r.RoomPassword
             });
+
         }
 
         public void AddSongsToRoom(int[] songList, int roomId)
@@ -272,11 +273,16 @@ namespace DataAccessLayer.Repositories
             {
                 AddSongToRoom(songId, roomId);
             }
+            int count = _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Count();
         }
 
         public void AddSongToRoom(int songId, int roomId)
         {
             Song song = GetSong(songId);
+            if (_context.Rooms.Where(r => r.Id == roomId).Single().Songs.Any(s => s.Id == songId))
+            {
+                return;
+            }
             _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Add(song);
             _context.SaveChanges();
         }

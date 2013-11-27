@@ -40,9 +40,8 @@
 </body>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
-@if(Model.Songs.Count() > 0){
     @Html.Partial("_MusicPlayerPartial", Model.Songs)
-}
+
 </nav>
 
 <script type="text/javascript">
@@ -163,11 +162,15 @@
         $("input[name='song']:checked").each(function () {
             checked.push($(this).val());
         });
+        alert(checked);
         addsongs(roomId, checked);
+        updateplayer(roomId);
     }
 
     function addsongs(Id, check) {
         $.ajax({
+            type: "POST",
+            traditional: true,
             url: "/Room/AddSongs",
             data: { SongList: check, RoomId: Id },
             success: function (data) {
@@ -175,5 +178,17 @@
             }
         });
     }
+    function updateplayer(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Music/UpdatePlayer",
+            data: {RoomId: Id},
+            success: function(data) {
+                $('#bottom-music-player').html(data);
+            }
+        });
+     }
+        
 
+    
 </script>

@@ -2,7 +2,7 @@
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
-
+@if(Model.Count() > 0){
             <div class="row">                    
                 <div id="current-music"><h5 id="current-song-header"><strong id="current-song">@Model.First().SongTitle</strong> by <strong id="current-artist">@Model.First().Artist</strong></h5></div>
             </div>
@@ -17,5 +17,5 @@
                     <source type="audio/aif" src="../Music/@Model.First().FilePath" />
                 </audio>
             </div>
-        
+        }
 
