@@ -26,13 +26,7 @@ namespace DataAccessLayer.Models
             Room = new RoomModel();
             Room_Id = null;
         }
-        public AccountModel(string username)
-        {
-            Username = username;
-            Songs = new List<SongModel>();
-            Room = new RoomModel();
-            Room_Id = null;
-        }
+
 
         public AccountModel(string username)
         {
@@ -43,10 +37,6 @@ namespace DataAccessLayer.Models
 
         public int LoginId { get; set; }
         public string Username { get; set; }
-<<<<<<< HEAD
-        public Nullable<int> Room_Id { get; set; }
-=======
->>>>>>> 920480496b0c9b25c1fc1eabd80cf24cff639272
         public RoomModel Room { get; set; }
         public List<SongModel> Songs { get; set; }
         public Nullable<int> Room_Id { get; set; }

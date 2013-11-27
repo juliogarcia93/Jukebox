@@ -18,11 +18,14 @@ namespace Jukebox.Controllers
     public class RoomController : Controller
     {
         SongManager SongManager = new SongManager();
-        public ActionResult CreatePublic(string RoomName, string username)
+
+
+        public ActionResult CreatePublic(string roomname)
         {
+            string username = User.Identity.Name;
             IdentityDbContext _context = new IdentityDbContext();
             RoomModel room = new RoomModel(username);
-            SongManager.AddRoom(room, username);
+            SongManager.AddRoom(room, User.Identity.Name);
             AccountModel user = SongManager.GetAccountModel(username);
             room = SongManager.GetRoomModel(username);
             room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
@@ -45,12 +48,33 @@ namespace Jukebox.Controllers
         {
             return View();
         }
+        
 
-
-        public ActionResult Join()
+        public ActionResult SearchPublic()
         {
-            return View();
+            List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
+           return View("SearchPage", rooms);
+        }
+        
+        public ActionResult RoomSelect(string RoomName)
+        {
+            RoomModel Room = SongManager.GetRoomModel(RoomName);
+            AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
+            SongManager.AddRoomAccount(Room, account);
+            return View("Create", Room);
         }
 
+        public ActionResult RoomAccountList(string RoomName)
+        {
+            List<AccountModel> accounts = SongManager.GetRoomAccounts(RoomName);
+            return PartialView("_AccountsPartial", accounts);
+        }
+
+        public PartialViewResult AddSongs(int[] SongList, int RoomId)
+        {
+            SongManager.AddSongsToRoom(SongList, RoomId);
+            List<SongModel> list = SongManager.GetRoomSongsList(RoomId);
+            return PartialView("_RoomPlaylistPartial", list);
+        }
     }
 }

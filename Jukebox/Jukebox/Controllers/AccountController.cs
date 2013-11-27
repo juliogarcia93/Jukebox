@@ -102,7 +102,7 @@ namespace Jukebox.Controllers
                        
                     {
                         await SignIn(user.Id, isPersistent: false);
-                        SongManager.AddAccount(model.UserName);
+                         SongManager.AddAccount(model.UserName);
                         return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
                     else

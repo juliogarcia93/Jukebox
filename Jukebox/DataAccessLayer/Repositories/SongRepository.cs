@@ -53,15 +53,6 @@ namespace DataAccessLayer.Repositories
                 });
         }
 
-        public IQueryable<RoomModel> GetRoomList()
-        {
-            return _context.Rooms.Select(r => new RoomModel
-            {
-                RoomId = r.Id,
-                RoomName = r.RoomName, 
-                RoomPassword = r.RoomPassword
-            });
-        }
 
         public void Add(SongModel model)
         {
@@ -195,7 +186,7 @@ namespace DataAccessLayer.Repositories
                 Room entity;
                 entity = ModelConversions.RoomModelToEntity(room);
                 Account account = GetAccount(loginId);
-                entity.Accounts1.Add(account);
+                entity.Accounts.Add(account);
                 _context.Rooms.Add(entity);
                 _context.SaveChanges();
             }
@@ -212,22 +203,34 @@ namespace DataAccessLayer.Repositories
 
         }
 
+        //public List<AccountModel> GetRoomAccounts(int roomId)
+        //{
+        //    Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
+        //    if (room.Accounts.Count > 0)
+        //    {
+        //        return room.Accounts.Select(u => new AccountModel
+        //        {
+        //            LoginId = u.LoginId,
+        //            Username = u.Username
+        //        }).ToList();
+        //    }
+        //    else
+        //    {
+        //         List<AccountModel> list = new List<AccountModel>();
+        //         return list;
+        //    }
+        //}
+
         public List<AccountModel> GetRoomAccounts(int roomId)
         {
             Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
-            if (room.Accounts1.Count > 0)
+            var list =  _context.Accounts.Where(a => a.Room.Id == roomId).Select(u => new AccountModel
             {
-                return room.Accounts1.Select(u => new AccountModel
-                {
-                    LoginId = u.LoginId,
-                    Username = u.Username
-                }).ToList();
-            }
-            else
-            {
-                 List<AccountModel> list = new List<AccountModel>();
-                 return list;
-            }
+                LoginId = u.LoginId,
+                Username = u.Username
+            }).ToList();
+            return list;
+            
         }
 
         /**
@@ -238,7 +241,7 @@ namespace DataAccessLayer.Repositories
         {
             Account account = GetAccount(loginid);
             Room room = GetRoom(roomId);
-            room.Accounts1.Add(account);
+            room.Accounts.Add(account);
             _context.SaveChanges();
 
         }
@@ -252,5 +255,47 @@ namespace DataAccessLayer.Repositories
         {
             return _context.Rooms.Where(a => a.Id == roomid).Single();
         }
+
+        public IQueryable<RoomModel> GetRoomList()
+        {
+            return _context.Rooms.Where(r => r.RoomName != null).Select(r => new RoomModel
+            {
+                RoomId = r.Id,
+                RoomName = r.RoomName, 
+                RoomPassword = r.RoomPassword,
+            });
+        }
+
+        public void AddSongsToRoom(int[] songList, int roomId)
+        {
+            foreach (int songId in songList)
+            {
+                AddSongToRoom(songId, roomId);
+            }
+        }
+
+        public void AddSongToRoom(int songId, int roomId)
+        {
+            Song song = GetSong(songId);
+            _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Add(song);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<SongModel> GetRoomSongsList(int roomid)
+        {
+            Room room = _context.Rooms.Where(r => r.Id == roomid).Single();
+                return room.Songs.Select(s => new SongModel
+                {
+                    Artist = s.Artist,
+                    Album = s.Album,
+                    SongTitle = s.Title,
+                    Length = s.Length,
+                    FilePath = s.FilePath,
+                    SongID = s.Id,
+                    Genre = s.Genre
+                });
+        }
+  
+      
     }
 }

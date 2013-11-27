@@ -31,6 +31,15 @@ namespace DataAccessLayer.Models
             Songs = new List<SongModel>();
             Accounts = new List<AccountModel>();
         }
+
+        public RoomModel(string roomname, string password, List<SongModel> songs, List<AccountModel> accounts)
+        {
+            RoomName = roomname;
+            RoomPassword = password;
+            Songs = songs;
+            Accounts = accounts;
+        }
+
         public string RoomPassword { get; set; }
         public string RoomName { get; set; }
         public List<SongModel> Songs { get; set; }

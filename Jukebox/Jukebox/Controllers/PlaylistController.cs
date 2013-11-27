@@ -25,6 +25,7 @@ namespace Jukebox.Controllers
             return PartialView("_PlaylistPartial", results);
         }
         //returns a partial view of the total list of accounts
+
         public PartialViewResult ListAccounts()
         {
             IdentityDbContext _context = new IdentityDbContext();
