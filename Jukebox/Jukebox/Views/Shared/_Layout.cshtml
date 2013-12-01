@@ -73,7 +73,6 @@
         </footer>
 
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -88,6 +87,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closed">&times;</button>
                 <h4 class="modal-title">Create A Room</h4>
             </div>
+@using (Html.BeginForm("Save", "Music", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row modal-row" id="modal-privacy">
@@ -144,7 +145,7 @@
                                 <h4 class="modal-header-description">Choose a group name: </h4>
                                 <form role="form">
                                     <div class="form-group" id="room-naming">
-                                        <input type="text" class="form-control" id="name-of-room" placeholder="Enter a group name" >
+                                        <input type="text" name="roomname" class="form-control" id="name-of-room" placeholder="Enter a group name" >
                                     </div>
                                 </form>
                             </div>
@@ -157,6 +158,7 @@
                 <!--<input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />-->
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="closed2">Close</button>
             </div>
+}
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -236,8 +238,12 @@
 
     document.getElementById("createbutton").onclick = function () {
         var selection1 = $('#privacy-selector').val();
-        if (selection == 1) {
-            location.href = '@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name})';
+        var roomname = $('#name-of-room').val();
+        var user = $('#Username').val();
+        alert(roomname);
+        if (selection1 == 1) {
+            // publicroom(roomname);
+            location.href = '@Url.Action("CreatePublic", "Room", new {Username = User.Identity.Name})';
         } else {
             location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
         }
@@ -252,7 +258,17 @@
         }
     }
         
-
+    //function publicroom(room) {
+    //    $.ajax({
+    //        type: "POST",
+    //        traditional: true,
+    //        url: '@Url.Action("CreatePublic", "Room")',
+    //        data: { roomname: room },
+    //        success: function (data) {
+    //            location.href = data.redirectToUrl;
+    //        }
+    //    });
+    //}
 
 </script>
 

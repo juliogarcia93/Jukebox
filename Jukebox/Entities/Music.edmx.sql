@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/23/2013 19:11:01
+-- Date Created: 11/26/2013 15:33:26
 -- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -17,37 +17,43 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_AccountSong_Account]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Account];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
-GO
 IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
 GO
+IF OBJECT_ID(N'[dbo].[FK_AccountSong_Account]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Account];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoomAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_RoomAccount];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RoomSong]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Songs] DROP CONSTRAINT [FK_RoomSong];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Songs];
-GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
 GO
-IF OBJECT_ID(N'[dbo].[Rooms]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Rooms];
+IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AccountSong];
 GO
 IF OBJECT_ID(N'[dbo].[Playlists]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Playlists];
 GO
-IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AccountSong];
+IF OBJECT_ID(N'[dbo].[Rooms]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Rooms];
+GO
+IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Songs];
 GO
 
 -- --------------------------------------------------
@@ -62,7 +68,8 @@ CREATE TABLE [dbo].[Songs] (
     [FilePath] nvarchar(max)  NOT NULL,
     [Artist] nvarchar(max)  NOT NULL,
     [Genre] nvarchar(max)  NOT NULL,
-    [Album] nvarchar(max)  NOT NULL
+    [Album] nvarchar(max)  NOT NULL,
+    [Room_Id] int  NULL
 );
 GO
 
@@ -70,6 +77,7 @@ GO
 CREATE TABLE [dbo].[Accounts] (
     [LoginId] int IDENTITY(1,1) NOT NULL,
     [Username] nvarchar(max)  NOT NULL,
+    [RoomId] int  NULL,
     [Room_Id] int  NULL
 );
 GO
@@ -183,6 +191,34 @@ ADD CONSTRAINT [FK_AccountRoom]
 -- Creating non-clustered index for FOREIGN KEY 'FK_AccountRoom'
 CREATE INDEX [IX_FK_AccountRoom]
 ON [dbo].[Accounts]
+    ([Room_Id]);
+GO
+
+-- Creating foreign key on [RoomId] in table 'Accounts'
+ALTER TABLE [dbo].[Accounts]
+ADD CONSTRAINT [FK_RoomAccount]
+    FOREIGN KEY ([RoomId])
+    REFERENCES [dbo].[Rooms]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RoomAccount'
+CREATE INDEX [IX_FK_RoomAccount]
+ON [dbo].[Accounts]
+    ([RoomId]);
+GO
+
+-- Creating foreign key on [Room_Id] in table 'Songs'
+ALTER TABLE [dbo].[Songs]
+ADD CONSTRAINT [FK_RoomSong]
+    FOREIGN KEY ([Room_Id])
+    REFERENCES [dbo].[Rooms]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_RoomSong'
+CREATE INDEX [IX_FK_RoomSong]
+ON [dbo].[Songs]
     ([Room_Id]);
 GO
 

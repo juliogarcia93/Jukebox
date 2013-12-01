@@ -203,40 +203,34 @@ namespace DataAccessLayer.Repositories
 
         }
 
+        //public List<AccountModel> GetRoomAccounts(int roomId)
+        //{
+        //    Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
+        //    if (room.Accounts.Count > 0)
+        //    {
+        //        return room.Accounts.Select(u => new AccountModel
+        //        {
+        //            LoginId = u.LoginId,
+        //            Username = u.Username
+        //        }).ToList();
+        //    }
+        //    else
+        //    {
+        //         List<AccountModel> list = new List<AccountModel>();
+        //         return list;
+        //    }
+        //}
+
         public List<AccountModel> GetRoomAccounts(int roomId)
         {
             Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
-            if (room.Accounts.Count > 0)
+            var list =  _context.Accounts.Where(a => a.Room.Id == roomId).Select(u => new AccountModel
             {
-                return room.Accounts.Select(u => new AccountModel
-                {
-                    LoginId = u.LoginId,
-                    Username = u.Username
-                }).ToList();
-            }
-            else
-            {
-                 List<AccountModel> list = new List<AccountModel>();
-                 return list;
-            }
-        }
-
-        public List<AccountModel> GetRoomAccounts(string roomname)
-        {
-            Room room = _context.Rooms.Where(r => r.RoomName == roomname).Single();
-            if (room.Accounts.Count > 0)
-            {
-                return room.Accounts.Select(u => new AccountModel
-                {
-                    LoginId = u.LoginId,
-                    Username = u.Username
-                }).ToList();
-            }
-            else
-            {
-                List<AccountModel> list = new List<AccountModel>();
-                return list;
-            }
+                LoginId = u.LoginId,
+                Username = u.Username
+            }).ToList();
+            return list;
+            
         }
 
         /**
@@ -262,16 +256,51 @@ namespace DataAccessLayer.Repositories
             return _context.Rooms.Where(a => a.Id == roomid).Single();
         }
 
-         public IQueryable<RoomModel> GetRoomList()
+        public IQueryable<RoomModel> GetRoomList()
         {
             return _context.Rooms.Where(r => r.RoomName != null).Select(r => new RoomModel
             {
                 RoomId = r.Id,
                 RoomName = r.RoomName, 
-                RoomPassword = r.RoomPassword,
+                RoomPassword = r.RoomPassword
             });
+
         }
 
+        public void AddSongsToRoom(int[] songList, int roomId)
+        {
+            foreach (int songId in songList)
+            {
+                AddSongToRoom(songId, roomId);
+            }
+            int count = _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Count();
+        }
+
+        public void AddSongToRoom(int songId, int roomId)
+        {
+            Song song = GetSong(songId);
+            if (_context.Rooms.Where(r => r.Id == roomId).Single().Songs.Any(s => s.Id == songId))
+            {
+                return;
+            }
+            _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Add(song);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<SongModel> GetRoomSongsList(int roomid)
+        {
+            Room room = _context.Rooms.Where(r => r.Id == roomid).Single();
+                return room.Songs.Select(s => new SongModel
+                {
+                    Artist = s.Artist,
+                    Album = s.Album,
+                    SongTitle = s.Title,
+                    Length = s.Length,
+                    FilePath = s.FilePath,
+                    SongID = s.Id,
+                    Genre = s.Genre
+                });
+        }
   
       
     }

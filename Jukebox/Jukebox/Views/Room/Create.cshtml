@@ -6,6 +6,8 @@
 
 
 <div class="room-container container-fluid">
+        
+    <input hidden id ="roomId" value="@Model.RoomId" />
     <div class="row">
         <div class="col col-lg-9">
                 <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div>@*<div id="room-type" class="pull-left">(Private)</div>*@
@@ -19,12 +21,12 @@
 
 
     <div class="row">
-        <div class="col col-lg-9 pull-left" >
+        <div class="col col-lg-9 pull-left" id="songlist">
        
          @Html.Partial("_RoomPlaylistPartial", Model.Songs)
         
        
-            </div>
+        </div>
 
 
         <div class="col col-lg-3 pull-right">
@@ -38,9 +40,8 @@
 </body>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
-@if(Model.Songs.Count() > 0){
     @Html.Partial("_MusicPlayerPartial", Model.Songs)
-}
+
 </nav>
 
 <script type="text/javascript">
@@ -156,18 +157,38 @@
     }
     
     document.getElementById("add-music-submit").onclick = function () {
+        var roomId = $('#roomId').val();
         var checked = []
         $("input[name='song']:checked").each(function () {
             checked.push($(this).val());
         });
         alert(checked);
-        $.ajax({
-            url: "/Room/AddSongs",
-            data: { SongName: checked , room: Model},
-            success: function (data) {     
-            }
-
-        });
+        addsongs(roomId, checked);
+        updateplayer(roomId);
     }
 
+    function addsongs(Id, check) {
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/Room/AddSongs",
+            data: { SongList: check, RoomId: Id },
+            success: function (data) {
+                $('#music-playlist').html(data);
+            }
+        });
+    }
+    function updateplayer(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Music/UpdatePlayer",
+            data: {RoomId: Id},
+            success: function(data) {
+                $('#bottom-music-player').html(data);
+            }
+        });
+     }
+        
+
+    
 </script>

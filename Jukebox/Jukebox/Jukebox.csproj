@@ -251,6 +251,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\Jukebox.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\modal-dropdown.js" />
@@ -269,7 +270,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -317,6 +320,10 @@
     <ProjectReference Include="..\..\taglib-sharp-master\src\taglib-sharp.csproj">
       <Project>{6b143a39-c7b2-4743-9917-92262c60e9a6}</Project>
       <Name>taglib-sharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Amazon\Amazon.csproj">
+      <Project>{a4db3a6a-7959-4517-844b-4d00ae09436c}</Project>
+      <Name>Amazon</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
       <Project>{5070fe73-599e-4f57-becd-ed48c7c9e14c}</Project>

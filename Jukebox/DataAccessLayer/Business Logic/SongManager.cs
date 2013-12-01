@@ -118,14 +118,29 @@ namespace DataAccessLayer.BusinessLogic
 //-------------------------------The Things for Room stuff --------------------------//
 //-----------------------------------------------------------------------------------//    
 
+
+        //Gets the song list of the room
+        public List<SongModel> GetRoomSongsList(int roomid)
+        {
+            if (SongRepository.GetRoomList().Any(r => r.RoomId == roomid))
+            {
+                List<SongModel> list = SongRepository.GetRoomSongsList(roomid).ToList();
+                return list;
+            }
+            else
+            {
+                return new List<SongModel>();
+            }
+        }
+
         public void AddRoom(RoomModel room, string username)
         {
             if (!SongRepository.GetRoomList().Any(a => a.RoomName == room.RoomName) && SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
                 AccountModel account = GetAccountModel(username);
                 SongRepository.AddRoom(room, account.LoginId);
-                RoomModel room1 = GetRoomModel(room.RoomName);
-                room1.Accounts.Add(account);
+                //RoomModel room1 = GetRoomModel(room.RoomName);
+                //room1.Accounts.Add(account);
                 //AddRoomAccount(room1, account);//Adds the creater of the room to the room account list
             }
 
@@ -147,7 +162,8 @@ namespace DataAccessLayer.BusinessLogic
         {
             if (SongRepository.GetRoomList().Count() > 0)
             {
-                List<AccountModel> accounts = SongRepository.GetRoomAccounts(roomName);
+                RoomModel room = GetRoomModel(roomName);
+                List<AccountModel> accounts = SongRepository.GetRoomAccounts(room.RoomId);
                 if (accounts == null)
                 {
                     return new List<AccountModel>();
@@ -161,9 +177,23 @@ namespace DataAccessLayer.BusinessLogic
 
         }
 
+        public void AddSongsToRoom(int[] songList, int roomId)
+        {
+            if (songList.Count() <= 0)
+            {
+                return;
+            }
+            if (SongRepository.GetRoomList().Any(a => a.RoomId == roomId) == false)
+            {
+                return;
+            }
+
+            SongRepository.AddSongsToRoom(songList, roomId);
+        }
+
         public RoomModel GetRoomModel(string roomName)
         {
-                return SongRepository.GetRoomList().First(r => r.RoomName == roomName);
+            return SongRepository.GetRoomList().First(r => r.RoomName == roomName);
         }
 
         public IEnumerable<RoomModel> GetRoomList()

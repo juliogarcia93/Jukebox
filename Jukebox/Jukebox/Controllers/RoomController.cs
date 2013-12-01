@@ -18,11 +18,14 @@ namespace Jukebox.Controllers
     public class RoomController : Controller
     {
         SongManager SongManager = new SongManager();
-        public ActionResult CreatePublic(string RoomName, string username)
+
+
+        public ActionResult CreatePublic(string roomname)
         {
+            string username = User.Identity.Name;
             IdentityDbContext _context = new IdentityDbContext();
             RoomModel room = new RoomModel(username);
-            SongManager.AddRoom(room, username);
+            SongManager.AddRoom(room, User.Identity.Name);
             AccountModel user = SongManager.GetAccountModel(username);
             room = SongManager.GetRoomModel(username);
             room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
@@ -38,6 +41,10 @@ namespace Jukebox.Controllers
             {
                 room.Songs = new List<SongModel>();
             }
+            //if (Request.IsAjaxRequest())
+            //{
+            //    return Json(new { redirectToUrl = Url.View("Create", room) });
+            //}
             return View("Create", room);
         }
 
@@ -50,6 +57,10 @@ namespace Jukebox.Controllers
         public ActionResult SearchPublic()
         {
             List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
+            foreach (RoomModel room in rooms)
+            {
+                room.Songs = SongManager.GetRoomSongsList(room.RoomId);
+            }
            return View("SearchPage", rooms);
         }
         
@@ -58,6 +69,7 @@ namespace Jukebox.Controllers
             RoomModel Room = SongManager.GetRoomModel(RoomName);
             AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
             SongManager.AddRoomAccount(Room, account);
+            Room.Songs = SongManager.GetRoomSongsList(Room.RoomId);
             return View("Create", Room);
         }
 
@@ -67,13 +79,11 @@ namespace Jukebox.Controllers
             return PartialView("_AccountsPartial", accounts);
         }
 
-        public void AddSongs(int[] Songid, RoomModel room)
+        public PartialViewResult AddSongs(int[] SongList, int RoomId)
         {
-            int count = Songid.Count();
-            for(int x = 0; x < count; x++)
-            {
-                room.Songs.Add(SongManager.GetSongList().Where(s => s.SongID == Songid[x]).Single());
-            }
+            SongManager.AddSongsToRoom(SongList, RoomId);
+            List<SongModel> list = SongManager.GetRoomSongsList(RoomId);
+            return PartialView("_RoomPlaylistPartial", list);
         }
     }
 }

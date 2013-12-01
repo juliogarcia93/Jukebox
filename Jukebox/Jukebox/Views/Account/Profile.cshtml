@@ -38,10 +38,9 @@
 </body>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
-@if (Model.Songs.Count() > 0)
-{
+
     @Html.Partial("_MusicPlayerPartial", Model.Songs)
-}
+
 </nav>
   <!-- Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -133,8 +132,6 @@
         var offset = 6; //number of td tags per row
         var currentSong = $('#current-song');
         var currentArtist = $('#current-artist');
-        var DeleteSong = $('#testtest'); 
-        var DeleteAlbum = $('#testtest2');
 
         function init() {
             current = 0 * offset;
@@ -163,13 +160,14 @@
                 album = $(this).parent().prev().prev().prev();
                 position = $(this).parent().parent();
                 current = (song.parent().parent().parent().parent().index()) * 6;
-                DeleteSong.text($(song).text());
-                DeleteAlbum.text($(album).text());
+                //DeleteSong.text($(song).text());
+                //DeleteAlbum.text($(album).text());
                 $(position).fadeOut(400);
                 audio[0].play();
                 remove($(song), $(album));
                 Songs = Songs -1;
-                refresh();                
+                refresh(); 
+                updateuserplayer(User.Identity.Name);               
                 
             });
 
@@ -280,6 +278,17 @@
                     $('#music-playlist').html(data);
                 }
 
+            });
+        }
+
+        function updateuserplayer(user) {
+            $.ajax({
+                type: "POST",
+                url: "/Music/UpdateUserPlaylist",
+                data: {Username: user},
+                success: function(data) {
+                    $('#bottom-music-player').html(data);
+                }
             });
         }
 

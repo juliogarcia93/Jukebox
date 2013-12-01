@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+using Amazon;
+using System.IO;
+
 namespace DataAccessLayer.Models
 {
     public class SongList : List<SongModel>
@@ -45,13 +48,15 @@ namespace DataAccessLayer.Models
         public void Add(string username, string fileName, HttpPostedFileBase file)
         {
             string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
-            file.SaveAs(MusicDirectory);
+            //string MusicDirectory = Path.GetFileName(file.FileName);
             TagLib.File metadata = TagLib.File.Create(MusicDirectory);
             string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
             SongModel song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
             bool songExists = SongManager.GetSongList().Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
             if (!songExists)
             {
+                AmazonWebServices AmazonWebServices = new AmazonWebServices();
+                AmazonWebServices.Upload(file);
                 SongManager.UploadSong(song);
             }
             bool UserSongExists = SongManager.GetSongList(username).Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
