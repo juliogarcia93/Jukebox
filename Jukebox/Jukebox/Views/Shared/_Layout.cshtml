@@ -29,7 +29,7 @@
             {
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Playlist <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="Room-dropdown">Playlist <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
                             <li role="presentation">
@@ -41,6 +41,7 @@
                                 <!--ActionLink Method for joining a room -->
                                 <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join a room</a>
                             </li>
+                           
 
                         </ul>
                     </li>
@@ -57,7 +58,11 @@
     <div class="container">
         @RenderBody()
         <hr />
-        <footer id="footer-div">
+       
+    </div>
+
+    <div class="container">
+ <footer id="footer-div">
             <div class="center">
                 @Html.ActionLink("About", "About", "Home", null, new { @class="footer-link"})
                 @Html.ActionLink("Contact", "Contact", "Home",null, new { @class="footer-link"})
@@ -66,8 +71,8 @@
             <p class="pull-left">&copy; @DateTime.Now.Year Jukebox. All Rights Reserved.</p>
 
         </footer>
-    </div>
 
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
@@ -82,6 +87,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closed">&times;</button>
                 <h4 class="modal-title">Create A Room</h4>
             </div>
+@using (Html.BeginForm("Save", "Music", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row modal-row" id="modal-privacy">
@@ -92,8 +99,8 @@
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
                                 <select class="form-control" id="privacy-selector">
                                     <option value="0">--Select Your Privacy--</option>
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                    <option value="1">Public</option>
+                                    <option value="2">Private</option>
                                 </select>
                         </div>
                     </div>
@@ -138,7 +145,7 @@
                                 <h4 class="modal-header-description">Choose a group name: </h4>
                                 <form role="form">
                                     <div class="form-group" id="room-naming">
-                                        <input type="email" class="form-control" id="name-of-room" placeholder="Enter a group name" >
+                                        <input type="text" name="roomname" class="form-control" id="name-of-room" placeholder="Enter a group name" >
                                     </div>
                                 </form>
                             </div>
@@ -151,6 +158,7 @@
                 <!--<input type="submit" value="Create" onclick="window.location.href = '@Url.Action("Create", "Playlist", new { username = User.Identity.Name })'" class="btn btn-primary pull-right" />-->
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal" id="closed2">Close</button>
             </div>
+}
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -174,8 +182,8 @@
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
                                 <select class="form-control" id="privacy-selector2">
                                     <option value="0">--Select Your Privacy--</option>
-                                    <option>Public</option>
-                                    <option>Private</option>
+                                    <option value="1">Public</option>
+                                    <option value="2">Private</option>
                                 </select>
                         </div>
                     </div>
@@ -224,9 +232,44 @@
 
 
 <script type="text/javascript">
-    document.getElementById("createbutton").onclick= function(){
-        location.href='@Url.Action("CreatePublic", "Room", new { Username = User.Identity.Name })';
-}
+
+   
+   
+
+    document.getElementById("createbutton").onclick = function () {
+        var selection1 = $('#privacy-selector').val();
+        var roomname = $('#name-of-room').val();
+        var user = $('#Username').val();
+        alert(roomname);
+        if (selection1 == 1) {
+            // publicroom(roomname);
+            location.href = '@Url.Action("CreatePublic", "Room", new {Username = User.Identity.Name})';
+        } else {
+            location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
+        }
+
+    }
+    document.getElementById("searchbutton").onclick = function () {
+        var selection2 = $('#privacy-selector2').val();
+        if (selection2 == 1) {
+            location.href = '@Url.Action("SearchPublic", "Room")';
+        } else {
+            location.href = '@Url.Action("CreatePrivate", "Room", new {Username = User.Identity.Name})';
+        }
+    }
+        
+    //function publicroom(room) {
+    //    $.ajax({
+    //        type: "POST",
+    //        traditional: true,
+    //        url: '@Url.Action("CreatePublic", "Room")',
+    //        data: { roomname: room },
+    //        success: function (data) {
+    //            location.href = data.redirectToUrl;
+    //        }
+    //    });
+    //}
+
 </script>
 
 </html>

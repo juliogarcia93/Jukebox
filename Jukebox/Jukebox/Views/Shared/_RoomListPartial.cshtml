@@ -1,0 +1,26 @@
+﻿@model List<RoomModel>
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+ <div class="profile-container container-fluid" id="profile-page-wrapper">
+    <table class="table table-hover" id="music-playlist">
+    <thead>
+        <tr>
+            
+            <th id="table-song"><h2>Available Rooms</h2></th>
+        </tr>
+    </thead>
+
+    <div class="row">
+        <div class="col col-lg-9 pull-left" >
+@if(Model.Count() != 0){
+    foreach(RoomModel room in Model)
+        {           
+            <tr class="active-link">
+                <td><div class="text-wrap"><a href="@Url.Action("RoomSelect", "Room", new{ RoomName = room.RoomName } )"><strong>@room.RoomName</strong></a></div></td>
+            </tr>
+        }
+    }
+</div>
+</div>
+</div>

@@ -27,6 +27,14 @@
       <End Role="Account" EntitySet="Accounts" />
       <End Role="Room" EntitySet="Rooms" />
     </AssociationSet>
+    <AssociationSet Name="RoomAccount" Association="Music.Store.RoomAccount">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="RoomSong" Association="Music.Store.RoomSong">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="Song" EntitySet="Songs" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Songs">
     <Key>
@@ -39,6 +47,7 @@
     <Property Name="Artist" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Genre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Album" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Room_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Accounts">
     <Key>
@@ -46,7 +55,8 @@
     </Key>
     <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Room_Id" Type="int" Nullable="false" />
+    <Property Name="RoomId" Type="int" Nullable="true" />
+    <Property Name="Room_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Rooms">
     <Key>
@@ -86,12 +96,36 @@
   </Association>
   <Association Name="AccountRoom">
     <End Role="Account" Type="Music.Store.Accounts" Multiplicity="*" />
-    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="1" />
+    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Room">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Account">
+        <PropertyRef Name="Room_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoomAccount">
+    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="0..1" />
+    <End Role="Account" Type="Music.Store.Accounts" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RoomSong">
+    <End Role="Room" Type="Music.Store.Rooms" Multiplicity="0..1" />
+    <End Role="Song" Type="Music.Store.Songs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Song">
         <PropertyRef Name="Room_Id" />
       </Dependent>
     </ReferentialConstraint>
@@ -141,6 +175,14 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Room" EntitySet="Rooms" />
           </AssociationSet>
+          <AssociationSet Name="RoomAccount" Association="Music.RoomAccount">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Account" EntitySet="Accounts" />
+          </AssociationSet>
+          <AssociationSet Name="RoomSong" Association="Music.RoomSong">
+            <End Role="Room" EntitySet="Rooms" />
+            <End Role="Song" EntitySet="Songs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Song">
           <Key>
@@ -154,6 +196,7 @@
           <Property Type="String" Name="Artist" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="Genre" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="Album" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Room" Relationship="Music.RoomSong" FromRole="Song" ToRole="Room" />
         </EntityType>
         <EntityType Name="Account">
           <Key>
@@ -164,6 +207,7 @@
           <NavigationProperty Name="Songs" Relationship="Music.AccountSong" FromRole="Account" ToRole="Song" />
           <NavigationProperty Name="Playlists" Relationship="Music.AccountPlaylist" FromRole="Account" ToRole="Playlist" />
           <NavigationProperty Name="Room" Relationship="Music.AccountRoom" FromRole="Account" ToRole="Room" />
+          <Property Type="Int32" Name="RoomId" Nullable="true" />
         </EntityType>
         <Association Name="AccountSong">
           <End Type="Music.Account" Role="Account" Multiplicity="*" />
@@ -177,6 +221,7 @@
           <Property Type="String" Name="RoomName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="RoomPassword" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Accounts" Relationship="Music.AccountRoom" FromRole="Room" ToRole="Account" />
+          <NavigationProperty Name="Songs" Relationship="Music.RoomSong" FromRole="Room" ToRole="Song" />
         </EntityType>
         <EntityType Name="Playlist">
           <Key>
@@ -192,7 +237,23 @@
         </Association>
         <Association Name="AccountRoom">
           <End Type="Music.Account" Role="Account" Multiplicity="*" />
-          <End Type="Music.Room" Role="Room" Multiplicity="1" />
+          <End Type="Music.Room" Role="Room" Multiplicity="0..1" />
+        </Association>
+        <Association Name="RoomAccount">
+          <End Type="Music.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="Music.Account" Role="Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Account">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoomSong">
+          <End Type="Music.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="Music.Song" Role="Song" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -218,6 +279,7 @@
         <MappingFragment StoreEntitySet="Accounts">
           <ScalarProperty Name="LoginId" ColumnName="LoginId" />
           <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="RoomId" ColumnName="RoomId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -261,6 +323,16 @@
       <EndProperty Name="Account">
         <ScalarProperty Name="LoginId" ColumnName="LoginId" />
       </EndProperty>
+      <Condition ColumnName="Room_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="RoomSong" TypeName="Music.RoomSong" StoreEntitySet="Songs">
+      <EndProperty Name="Room">
+        <ScalarProperty Name="Id" ColumnName="Room_Id" />
+      </EndProperty>
+      <EndProperty Name="Song">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Room_Id" IsNull="false" />
     </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>

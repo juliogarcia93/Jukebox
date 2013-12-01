@@ -1,17 +1,24 @@
-﻿using DataAccessLayer.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Data.Entity.Validation;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using Jukebox.Models;
+using DataAccessLayer.Models;
+using Entities;
+using DataAccessLayer.BusinessLogic;
 
 namespace Jukebox.Controllers
 {
     public class MusicController : Controller
     {
-         
 
+        SongManager SongManager = new SongManager();
         public ActionResult Save()
         {
 
@@ -29,6 +36,23 @@ namespace Jukebox.Controllers
             return RedirectToAction("Profile", "Account", new { username = User.Identity.Name });
         }
 
+        public ActionResult UserSongs(string Username)
+        {
+            List<SongModel> songs = SongManager.GetSongList(Username);
+            return PartialView("_AddToRoomPartial", songs);
+        }
+
+        public PartialViewResult UpdatePlayer(int RoomId)
+        {
+            List<SongModel> songs = SongManager.GetRoomSongsList(RoomId);
+            return PartialView("_MusicPlayerPartial", songs);
+        }
+
+        public PartialViewResult UpdateUserPlayer(string Username)
+        {
+            List<SongModel> songs = SongManager.GetSongList(Username);
+            return PartialView("_MusicPlayerPartial", songs);
+        }
 
     }
 }

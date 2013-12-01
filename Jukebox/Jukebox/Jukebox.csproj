@@ -237,18 +237,21 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\Create.png" />
     <Content Include="img\facicon.png" />
     <Content Include="img\icons-16x16.png" />
     <Content Include="img\jukebox.jpg" />
     <Content Include="img\Mainpage.png" />
     <Content Include="img\profile-background.png" />
     <Content Include="img\profile.png" />
+    <Content Include="img\Search.png" />
     <Content Include="img\Setting.png" />
     <Content Include="img\student.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <None Include="Properties\PublishProfiles\Jukebox.pubxml" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\modal-dropdown.js" />
@@ -267,7 +270,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -300,6 +305,9 @@
     <Content Include="Views\Shared\_RoomPlaylistPartial.cshtml" />
     <Content Include="Views\Shared\_AccountsPartial.cshtml" />
     <Content Include="Views\Shared\_UserBar.cshtml" />
+    <Content Include="Views\Room\SearchPage.cshtml" />
+    <Content Include="Views\Shared\_RoomListPartial.cshtml" />
+    <Content Include="Views\Shared\_AddToRoomPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

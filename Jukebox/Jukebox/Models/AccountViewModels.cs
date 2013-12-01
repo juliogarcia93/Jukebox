@@ -1,5 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
+
+
 namespace Jukebox.Models 
 {
     public class ExternalLoginConfirmationViewModel
@@ -62,5 +65,12 @@ namespace Jukebox.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+
+    public class RoomViewModel
+    {
+
+        public string RoomName { get; set; }
     }
 }

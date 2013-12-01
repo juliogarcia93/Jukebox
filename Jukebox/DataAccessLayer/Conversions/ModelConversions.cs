@@ -25,8 +25,8 @@ namespace DataAccessLayer.Conversions
         public static Account AccountModelToEntity(AccountModel model)
         {
             Account entity = new Account();
-            entity.LoginId = (int) model.LoginId;
             entity.Username = model.Username;
+            //entity.Room = RoomModelToEntity(model.Room);
             return entity;
         }
 

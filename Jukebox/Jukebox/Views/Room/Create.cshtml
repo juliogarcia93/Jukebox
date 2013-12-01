@@ -2,9 +2,12 @@
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 
-<div class="container">
+<body id="Room-page">
+
 
 <div class="room-container container-fluid">
+        
+    <input hidden id ="roomId" value="@Model.RoomId" />
     <div class="row">
         <div class="col col-lg-9">
                 <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div>@*<div id="room-type" class="pull-left">(Private)</div>*@
@@ -15,32 +18,30 @@
     </div>
 
 
-    <div class="row">
-           
-    </div>
+
 
     <div class="row">
-        <div class="col col-lg-9 pull-left" >
-
-         @*@Html.Partial("_RoomPlaylistPartial", Model.Songs)*@
-
+        <div class="col col-lg-9 pull-left" id="songlist">
        
-            </div>
+         @Html.Partial("_RoomPlaylistPartial", Model.Songs)
+        
+       
+        </div>
 
 
         <div class="col col-lg-3 pull-right">
             <table class="table table-bordered" id="members-table">
-                  @Html.Action("ListAccounts", "Playlist")   
+                  @Html.Action("RoomAccountList", "Room", new {RoomName = Model.RoomName})   
                 </table>
         </div> 
     </div>
 </div>
-</div>
+
+</body>
 
 <nav class="navbar navbar-default navbar-fixed-bottom" id="bottom-music-player" role="navigation">
-@if(Model.Songs.Count() > 0){
     @Html.Partial("_MusicPlayerPartial", Model.Songs)
-}
+
 </nav>
 
 <script type="text/javascript">
@@ -119,10 +120,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <input type="submit" value="Create" class="btn btn-primary pull-right" id="add-music-submit" />
+                <input type="submit" value="Add" class="btn btn-primary pull-right" id="add-music-submit" />
                 <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                <h4 class="modal-title">Add Songs</h4>
+                <h3 class="modal-title">Add Songs</h3>
             </div>
+            
                 @using (Html.BeginForm("Create", "Playlist", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                 {
                     <form class="form-horizontal" role="form">
@@ -131,12 +133,13 @@
                             @Html.ValidationSummary(true)
                             <div class="container-fluid">
                                 <table>
-                                    <th>Choose songs from your playlist</th>
-                                    @foreach (SongModel song in Model.Songs){
-                                    <tr>
+                                    <th><h4>Choose songs from your playlist</h4></th>
+                                    <br />
+                                    @Html.Action("UserSongs","Music",new{Username = User.Identity.Name, @id = "AddSongs"})
+                                    @*<tr>
                                         <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
-                                    </tr>
-                                    }
+                                    </tr>*@
+                                    
                                 </table>
                             </div>
                         </div>
@@ -145,3 +148,47 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<script type="text/javascript">
+
+
+    document.getElementById("create-upload-button").onclick = function () {
+        $(".checkbox").prop("checked", false);
+    }
+    
+    document.getElementById("add-music-submit").onclick = function () {
+        var roomId = $('#roomId').val();
+        var checked = []
+        $("input[name='song']:checked").each(function () {
+            checked.push($(this).val());
+        });
+        alert(checked);
+        addsongs(roomId, checked);
+        updateplayer(roomId);
+    }
+
+    function addsongs(Id, check) {
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            url: "/Room/AddSongs",
+            data: { SongList: check, RoomId: Id },
+            success: function (data) {
+                $('#music-playlist').html(data);
+            }
+        });
+    }
+    function updateplayer(Id) {
+        $.ajax({
+            type: "POST",
+            url: "/Music/UpdatePlayer",
+            data: {RoomId: Id},
+            success: function(data) {
+                $('#bottom-music-player').html(data);
+            }
+        });
+     }
+        
+
+    
+</script>

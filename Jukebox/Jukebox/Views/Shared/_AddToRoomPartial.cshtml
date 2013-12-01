@@ -1,0 +1,51 @@
+﻿@model List<SongModel>
+@using DataAccessLayer.Models;
+@using Jukebox.Models;
+
+@{
+    bool active = true;
+}
+
+<table class="table table-hover" id="music-playlist">
+    <thead>
+        <tr>
+            <th id="song-select" style="width:15px">   </th>
+            <th id="table-song">Song Title</th>
+            <th id="table-artist">Artist</th>
+            <th id="table-album">Album</th>
+        </tr>
+    </thead>
+    <tbody>
+<form>
+        @foreach (SongModel song in Model)
+        {
+            if (active == true)
+            {
+                active = false;
+
+
+                <tr class="active-link">
+                    <td style="width:15px"><input type="checkbox" name="song" value="@song.SongID" class="checkbox"/></td>
+                    <td><div class="text-wrap">@song.SongTitle</div></td>
+                    <td><div class="text-wrap">@song.Artist</div></td>
+                    <td><div class="text-wrap">@song.Album</div></td>        
+                </tr>
+             
+
+            }
+            else
+            {
+
+                <tr>
+                    <td style="width:15px"><input type="checkbox" name="song" value="@song.SongID" class="checkbox"/></td>
+                    <td><div class="text-wrap">@song.SongTitle</div></td>
+                    <td><div class="text-wrap">@song.Artist</div></td>
+                    <td><div class="text-wrap">@song.Album</div></td>
+                </tr>
+               
+            }
+
+        }
+</form>
+    </tbody>
+</table>

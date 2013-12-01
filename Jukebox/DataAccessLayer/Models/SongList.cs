@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 
 using Amazon;
-using Amazon.S3;
-using Amazon.S3.Model;
-using Amazon.S3.Transfer;
+using System.IO;
 
 namespace DataAccessLayer.Models
 {
@@ -49,17 +47,16 @@ namespace DataAccessLayer.Models
 
         public void Add(string username, string fileName, HttpPostedFileBase file)
         {
-            //string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
-            //file.SaveAs(MusicDirectory);
-            string accessKeyID = "AKIAJQR6IATQVY2OVLRQ";
-            string secretAccessKey = "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";
-            TransferUtility utility = new TransferUtility(accessKeyID, secretAccessKey);
+            string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
+            //string MusicDirectory = Path.GetFileName(file.FileName);
             TagLib.File metadata = TagLib.File.Create(MusicDirectory);
             string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
             SongModel song = new SongModel(username,fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
             bool songExists = SongManager.GetSongList().Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
             if (!songExists)
             {
+                AmazonWebServices AmazonWebServices = new AmazonWebServices();
+                AmazonWebServices.Upload(file);
                 SongManager.UploadSong(song);
             }
             bool UserSongExists = SongManager.GetSongList(username).Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
