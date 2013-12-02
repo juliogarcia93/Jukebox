@@ -160,8 +160,8 @@
                 album = $(this).parent().prev().prev().prev();
                 position = $(this).parent().parent();
                 current = (song.parent().parent().parent().parent().index()) * 6;
-                DeleteSong.text($(song).text());
-                DeleteAlbum.text($(album).text());
+                //DeleteSong.text($(song).text());
+                //DeleteAlbum.text($(album).text());
                 $(position).fadeOut(400);
                 audio[0].play();
                 remove($(song), $(album));
