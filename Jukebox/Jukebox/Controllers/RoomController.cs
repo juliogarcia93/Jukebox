@@ -20,11 +20,10 @@ namespace Jukebox.Controllers
         SongManager SongManager = new SongManager();
 
 
-        public ActionResult CreatePublic(string roomname)
+        public ActionResult CreatePublic(RoomViewModel model)
         {
             string username = User.Identity.Name;
-            IdentityDbContext _context = new IdentityDbContext();
-            RoomModel room = new RoomModel(username);
+            RoomModel room = new RoomModel(model.RoomName);
             SongManager.AddRoom(room, User.Identity.Name);
             AccountModel user = SongManager.GetAccountModel(username);
             room = SongManager.GetRoomModel(username);
