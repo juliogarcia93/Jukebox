@@ -19,7 +19,13 @@ namespace Jukebox.Controllers
     {
         SongManager SongManager = new SongManager();
 
-
+        public ActionResult LeaveRoom(string roomname)
+        {
+            string username = User.Identity.Name;
+            RoomModel room = SongManager.GetRoomModel(roomname);
+            SongManager.DeleteAccount(room, username);
+            return RedirectToAction("Profile","Account");
+        }
         public ActionResult CreatePublic(string roomname)
         {
             string username = User.Identity.Name;
@@ -48,12 +54,16 @@ namespace Jukebox.Controllers
             return View("Create", room);
         }
 
-        public ActionResult CreatePrivate(string RoomName, string password, string username)
+
+        //Creates a private room
+        public ActionResult CreatePrivate(string RoomName, string password)
         {
             return View();
+
         }
         
 
+        //Searches for public rooms
         public ActionResult SearchPublic()
         {
             List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();

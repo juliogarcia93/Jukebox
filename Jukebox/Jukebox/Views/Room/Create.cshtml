@@ -9,12 +9,13 @@
         
     <input hidden id ="roomId" value="@Model.RoomId" />
     <div class="row">
-        <div class="col col-lg-9">
+        <div class="col col-lg-6">
                 <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div>@*<div id="room-type" class="pull-left">(Private)</div>*@
         </div>
-        <div class="col col-lg-3 pull-right">
+        <div class="col col-lg-6 pull-right">
             @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})
-        </div>
+           @Html.ActionLink("Leave Room", "Upload", "Music", null, new { @class= "btn btn-primary pull-left", data_toggle="modal", href="#LeaveModal", @id = "leave-button"})   
+    </div>
     </div>
 
 
@@ -145,6 +146,29 @@
                         </div>
                     </form>
                 }
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- Modal for Leave Room button -->
+ <!-- Modal -->
+<div class="modal fade" id="LeaveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+                        <div class="modal-body"> 
+                            <div class="container-fluid">
+                              
+                                 <h4>Sure you wanna leave this sweet ass room?</h4>
+                                   <div>
+                                
+                                    <button type = "button">@Html.ActionLink("Yessir","LeaveRoom","Room", new{RoomName = Model.RoomName})</button>
+                                    <button type="button" class="close" data-dismiss="modal">Stay Here</button>                                    </div>
+                            </div>
+                        </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

@@ -202,6 +202,15 @@ namespace DataAccessLayer.BusinessLogic
            return rooms;
         }
 
+        //Method for leaving a room
+        //This will remove the user from the rooma and set the users room information to null
+        public void DeleteAccount(RoomModel room, string username)
+        {
+            int roomid = room.RoomId;
+            AccountModel account = GetAccountModel(username);
+            SongRepository.DeleteAccount(roomid, account.LoginId);
+        }
+
        
         
     }

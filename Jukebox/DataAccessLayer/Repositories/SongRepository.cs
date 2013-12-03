@@ -301,6 +301,20 @@ namespace DataAccessLayer.Repositories
                     Genre = s.Genre
                 });
         }
+
+        //DeleteAccount Method
+        //Removes the user from the room account list
+        //And removes the room from the users association
+        public void DeleteAccount(int roomId, int loginId)
+        {
+            Account account = GetAccount(loginId);
+            Room room = GetRoom(roomId);
+            room.Accounts.Remove(account);
+            account.RoomId = null;
+            account.Room = null;
+            _context.SaveChanges();
+
+        }
   
       
     }
