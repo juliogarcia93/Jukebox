@@ -240,7 +240,7 @@ namespace DataAccessLayer.Repositories
             {
                 LoginId = u.LoginId,
                 Username = u.Username
-            }).ToList();
+            }).OrderBy(u => u.Username).ToList();
             return list;
             
         }

@@ -73,6 +73,7 @@
 
                 current = (link.parent().parent().parent().index()) * 5;
                 run($(link), audio[0]);
+                
             });
 
             playlist.find('button').click(function (e) {
@@ -83,7 +84,7 @@
                 like($(song), $(album));
                 refresh();
                 updateuserplayer(User.Identity.Name);
-
+                init();
             });
 
             audio[0].addEventListener('ended', function (e) {
@@ -110,6 +111,7 @@
                 }
 
             });
+            init();
         }
 
         function run(link, player) {

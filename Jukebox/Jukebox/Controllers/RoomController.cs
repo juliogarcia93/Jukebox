@@ -115,7 +115,7 @@ namespace Jukebox.Controllers
             RoomModel room = SongManager.GetRoomModel(RoomName);
             SongManager.DeleteAccount(room, username);
             AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
-            return RedirectToAction("Profile", "Account");
+            return RedirectToAction("Profile", "Account", account);
         }
     }
 }
