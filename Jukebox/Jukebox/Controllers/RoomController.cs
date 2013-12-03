@@ -108,5 +108,14 @@ namespace Jukebox.Controllers
             List<SongModel> list = SongManager.GetRoomSongsList(RoomId);
             return PartialView("_RoomPlaylistPartial", list);
         }
+
+        public ActionResult LeaveRoom(string RoomName)
+        {
+            string username = User.Identity.Name;
+            RoomModel room = SongManager.GetRoomModel(RoomName);
+            SongManager.DeleteAccount(room, username);
+            AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
+            return RedirectToAction("Profile", "Account");
+        }
     }
 }

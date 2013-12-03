@@ -59,15 +59,15 @@ namespace Jukebox.Controllers
                     string userId = await Logins.GetUserId(IdentityConfig.LocalLoginProvider, model.UserName);
                     await SignIn(userId, model.RememberMe);
 
-                    if (string.IsNullOrEmpty(returnUrl))
+                    if (!string.IsNullOrEmpty(returnUrl))
                     {
                         return RedirectToLocal(returnUrl);
                     }
                     else
                     {
-                        if (!SongManager.GetAccountsList().Any(a => a.Username == User.Identity.Name))
+                        if (!SongManager.GetAccountsList().Any(a => a.Username == model.UserName))
                         {
-                            SongManager.AddAccount(User.Identity.Name);
+                            SongManager.AddAccount(model.UserName);
                         }
                         return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
@@ -328,6 +328,7 @@ namespace Jukebox.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            
             HttpContext.SignOut();
             return RedirectToAction("Index", "Home");
         }

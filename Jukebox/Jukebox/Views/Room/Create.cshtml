@@ -79,11 +79,6 @@
                 e.preventDefault();
                 song = $(this).parent().next();
                 album = $(this).parent().next().next().next();
-                position = $(this).parent().parent();
-                current = (song.parent().parent().parent().parent().index()) * 6;
-                //DeleteSong.text($(song).text());
-                //DeleteAlbum.text($(album).text());
-                $(position).fadeOut(400);
                 audio[0].play();
                 like($(song), $(album));
                 refresh();

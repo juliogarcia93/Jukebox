@@ -46,13 +46,5 @@ namespace Jukebox.Controllers
         }
 
         
-        //Function that will return the list of accounts to the view
-
-        //public PartialViewResult ListAccounts()
-        //{
-
-        //    List<AccountModel> list = SongManager.GetAccountsList();
-        //    return PartialView("_AccountsPartial", list);
-        //}
     }
 }

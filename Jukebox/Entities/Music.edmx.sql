@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/02/2013 21:50:17
+-- Date Created: 12/03/2013 00:23:05
 -- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -69,6 +69,7 @@ CREATE TABLE [dbo].[Songs] (
     [Artist] nvarchar(max)  NOT NULL,
     [Genre] nvarchar(max)  NOT NULL,
     [Album] nvarchar(max)  NOT NULL,
+    [Likes] int  NOT NULL,
     [Room_Id] int  NULL
 );
 GO

@@ -55,6 +55,9 @@
     <Compile Include="Account.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
+    <Compile Include="ComplexType1.cs">
+      <DependentUpon>Music.tt</DependentUpon>
+    </Compile>
     <Compile Include="Music.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
