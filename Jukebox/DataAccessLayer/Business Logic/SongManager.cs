@@ -95,7 +95,7 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//
         public AccountModel GetAccountModel(string username)
         {
-            return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
+            return SongRepository.GetAccountsList().Where(a => a.Username == username).Single();
         }
 
         // Method that gets all the accounts in the database
@@ -143,16 +143,18 @@ namespace DataAccessLayer.BusinessLogic
 
         public void AddRoom(RoomModel room, string username)
         {
-            //if(SongRepository.IsRoomListEmpty()){
-                if (!SongRepository.GetRoomList().Any(a => a.RoomName == room.RoomName) && SongRepository.GetAccountsList().Any(a => a.Username == username))
-                {
-                    AccountModel account = GetAccountModel(username);
-                    SongRepository.AddRoom(room, account.LoginId);
-                    //RoomModel room1 = GetRoomModel(room.RoomName);
-                    //room1.Accounts.Add(account);
-                    //AddRoomAccount(room1, account);//Adds the creater of the room to the room account list
-                }
+            if (SongRepository.IsRoomListEmpty())
+            {
+                AccountModel account = GetAccountModel(username);
+                SongRepository.AddRoom(room, account.LoginId);
+
             }
+            else if (!SongRepository.GetRoomList().Any(a => a.RoomName == room.RoomName) && SongRepository.GetAccountsList().Any(a => a.Username == username))
+            {
+                AccountModel account = GetAccountModel(username);
+                SongRepository.AddRoom(room, account.LoginId);
+            }
+       }
             
         //}
         /**

@@ -59,12 +59,16 @@ namespace Jukebox.Controllers
                     string userId = await Logins.GetUserId(IdentityConfig.LocalLoginProvider, model.UserName);
                     await SignIn(userId, model.RememberMe);
 
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    if (string.IsNullOrEmpty(returnUrl))
                     {
                         return RedirectToLocal(returnUrl);
                     }
                     else
                     {
+                        if (!SongManager.GetAccountsList().Any(a => a.Username == User.Identity.Name))
+                        {
+                            SongManager.AddAccount(User.Identity.Name);
+                        }
                         return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
                 }

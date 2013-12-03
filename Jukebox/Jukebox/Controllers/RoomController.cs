@@ -19,13 +19,7 @@ namespace Jukebox.Controllers
     {
         SongManager SongManager = new SongManager();
 
-        public ActionResult LeaveRoom(string roomname)
-        {
-            string username = User.Identity.Name;
-            RoomModel room = SongManager.GetRoomModel(roomname);
-            SongManager.DeleteAccount(room, username);
-            return RedirectToAction("Profile","Account");
-        }
+
         public ActionResult CreateRoom()
         {
             string privacy = Request["privacy"].ToLower();
@@ -68,24 +62,40 @@ namespace Jukebox.Controllers
             }
         }
 
+       
+        
 
-        //Creates a private room
-        public ActionResult CreatePrivate(string RoomName, string password)
+        public ActionResult SearchRoom()
         {
-            return View();
+            string privacy = Request["privacy"];
+            string RoomName = Request["roomname"];
+            string Password = Request["password"];
+            string Genre = Request["genre"];
+            string username = User.Identity.Name;
 
-        }        
-
-        //Searches for public rooms
-        public ActionResult SearchPublic()
-        {
-            List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
-            foreach (RoomModel room in rooms)
+            if (privacy == "1")
             {
-                room.Songs = SongManager.GetRoomSongsList(room.RoomId);
+                List<RoomModel> rooms = SongManager.GetRoomList().Where(r => r.Privacy == "public")
+                    .Select(a => new RoomModel 
+                    { 
+                        RoomName = a.RoomName, 
+                        RoomPassword = a.RoomPassword, 
+                        Accounts = a.Accounts
+                    }).ToList();
+                foreach (RoomModel room in rooms)
+                {
+                    room.Songs = SongManager.GetRoomSongsList(room.RoomId);
+                }
+                return View("SearchPage", rooms);
             }
-           return View("SearchPage", rooms);
+            else
+            {
+                RoomModel room = SongManager.GetRoomList().Where(r => r.RoomName == RoomName && r.RoomPassword == Password).Single();
+                return View("Create", room);
+            }
         }
+
+
         
         public ActionResult RoomSelect(string RoomName)
         {

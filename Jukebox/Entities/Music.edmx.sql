@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/02/2013 21:58:10
--- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
+-- Date Created: 12/02/2013 21:50:17
+-- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -69,7 +69,6 @@ CREATE TABLE [dbo].[Songs] (
     [Artist] nvarchar(max)  NOT NULL,
     [Genre] nvarchar(max)  NOT NULL,
     [Album] nvarchar(max)  NOT NULL,
-    [Likes] int  NOT NULL,
     [Room_Id] int  NULL
 );
 GO
@@ -103,8 +102,7 @@ GO
 -- Creating table 'AccountSong'
 CREATE TABLE [dbo].[AccountSong] (
     [Accounts_LoginId] int  NOT NULL,
-    [Songs_Id] int  NOT NULL,
-    [Songs_Likes] int  NOT NULL
+    [Songs_Id] int  NOT NULL
 );
 GO
 
@@ -112,10 +110,10 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [Id], [Likes] in table 'Songs'
+-- Creating primary key on [Id] in table 'Songs'
 ALTER TABLE [dbo].[Songs]
 ADD CONSTRAINT [PK_Songs]
-    PRIMARY KEY CLUSTERED ([Id], [Likes] ASC);
+    PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
 -- Creating primary key on [LoginId] in table 'Accounts'
@@ -136,10 +134,10 @@ ADD CONSTRAINT [PK_Playlists]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Accounts_LoginId], [Songs_Id], [Songs_Likes] in table 'AccountSong'
+-- Creating primary key on [Accounts_LoginId], [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [PK_AccountSong]
-    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id], [Songs_Likes] ASC);
+    PRIMARY KEY NONCLUSTERED ([Accounts_LoginId], [Songs_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -155,18 +153,18 @@ ADD CONSTRAINT [FK_AccountSong_Account]
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [Songs_Id], [Songs_Likes] in table 'AccountSong'
+-- Creating foreign key on [Songs_Id] in table 'AccountSong'
 ALTER TABLE [dbo].[AccountSong]
 ADD CONSTRAINT [FK_AccountSong_Song]
-    FOREIGN KEY ([Songs_Id], [Songs_Likes])
+    FOREIGN KEY ([Songs_Id])
     REFERENCES [dbo].[Songs]
-        ([Id], [Likes])
+        ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_AccountSong_Song'
 CREATE INDEX [IX_FK_AccountSong_Song]
 ON [dbo].[AccountSong]
-    ([Songs_Id], [Songs_Likes]);
+    ([Songs_Id]);
 GO
 
 -- Creating foreign key on [Account_LoginId] in table 'Playlists'

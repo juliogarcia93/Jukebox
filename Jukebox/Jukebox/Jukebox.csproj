@@ -241,9 +241,11 @@
     <Content Include="img\facicon.png" />
     <Content Include="img\icons-16x16.png" />
     <Content Include="img\jukebox.jpg" />
+    <Content Include="img\login.png" />
     <Content Include="img\Mainpage.png" />
     <Content Include="img\profile-background.png" />
     <Content Include="img\profile.png" />
+    <Content Include="img\Register.png" />
     <Content Include="img\Search.png" />
     <Content Include="img\Setting.png" />
     <Content Include="img\student.png" />

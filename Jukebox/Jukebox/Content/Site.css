@@ -41,6 +41,22 @@ body {
     background-size:cover;
 }
 
+#login-page {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/login.png');
+    background-attachment: fixed;
+    background-size:cover;
+}
+
+#register-page {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('../img/register.png');
+    background-attachment: fixed;
+    background-size:cover;
+}
+
 #Room-page {
     margin-top: 75px;
     padding-bottom: 80px;
