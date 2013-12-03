@@ -43,7 +43,18 @@ namespace Amazon
             //file.SaveAs(MusicDirectory);
             utility.Upload(file.InputStream, "jukeboxmusic", file.FileName);
             //utility.UploadDirectoryAsync("C:\\Users\\Julio Garcia\\Desktop\\Jukebox\\Jukebox\\Jukebox\\Music", "jukeboxmusic", new System.Threading.CancellationToken());
-
         }
+
+        public string GetObjectUrl(string filename)
+        {
+            IAmazonS3 s3Client = AWSClientFactory.CreateAmazonS3Client();
+            GetPreSignedUrlRequest request = new GetPreSignedUrlRequest();
+            request.BucketName = "jukeboxmusic";
+            request.Key = filename;
+            request.Expires = DateTime.Now.AddHours(1);
+            string url = s3Client.GetPreSignedURL(request);
+            return url;
+        }
+
     }
 }

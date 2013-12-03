@@ -1387,16 +1387,17 @@ namespace TagLib {
 		                           ReadStyle propertiesStyle)
 		{
 			if(mimetype == null) {
-				string ext = String.Empty;
-				
-				int index = abstraction.Name.LastIndexOf (".") + 1;
-				
-				if(index >= 1 && index < abstraction.Name.Length)
-					ext = abstraction.Name.Substring (index,
-						abstraction.Name.Length - index);
-				
-				mimetype = "taglib/" + ext.ToLower(
-					CultureInfo.InvariantCulture);
+                //string ext = String.Empty;
+
+                //int index = abstraction.Name.LastIndexOf(".") + 1;
+
+                //if (index >= 1 && index < abstraction.Name.Length)
+                //    ext = abstraction.Name.Substring(index,
+                //        abstraction.Name.Length - index);
+
+                //mimetype = "taglib/" + ext.ToLower(
+                //    CultureInfo.InvariantCulture);
+                mimetype = "taglib/mp3";
 			}
 			
 			foreach (FileTypeResolver resolver in file_type_resolvers) {
