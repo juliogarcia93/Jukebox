@@ -37,17 +37,7 @@ namespace Jukebox.Controllers
                 room = SongManager.GetRoomModel(RoomNamePublic);
                 room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
                 room.Accounts.Add(user);
-                //foreach (AccountModel account in room.Accounts)
-                //{
-                //    if (account.Songs.Count() > 0)
-                //    {
-                //        room.Songs.AddRange(account.Songs);
-                //    }
-                //}
-                //if (room.Songs == null)
-                //{
-                //    room.Songs = new List<SongModel>();
-                //}
+                
                 return View("Create", room);
             }
             else
@@ -81,7 +71,7 @@ namespace Jukebox.Controllers
                         RoomName = a.RoomName, 
                         RoomPassword = a.RoomPassword, 
                         Accounts = a.Accounts
-                    }).ToList();
+                    }).OrderBy(r => r.RoomName).ToList();
                 foreach (RoomModel room in rooms)
                 {
                     room.Songs = SongManager.GetRoomSongsList(room.RoomId);
