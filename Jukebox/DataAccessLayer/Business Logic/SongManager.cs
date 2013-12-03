@@ -82,12 +82,20 @@ namespace DataAccessLayer.BusinessLogic
         {
             SongRepository.AddSong(model, username);
         }
+
+        public void IncrementLike(SongModel song)
+        {
+            int songId = song.SongID;
+            //song.IncrementLikes();
+            SongRepository.IncrementLike(songId);
+        }
+
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
         public AccountModel GetAccountModel(string username)
         {
-            return SongRepository.GetAccountsList().FirstOrDefault(a => a.Username == username);
+            return SongRepository.GetAccountsList().Where(a => a.Username == username).Single();
         }
 
         // Method that gets all the accounts in the database
@@ -206,6 +214,19 @@ namespace DataAccessLayer.BusinessLogic
            return rooms;
         }
 
+//Method for leaving a room
+        //This will remove the user from the rooma and set the users room information to null
+        public void DeleteAccount(RoomModel room, string username)
+        {
+            int roomid = room.RoomId;
+            AccountModel account = GetAccountModel(username);
+            SongRepository.DeleteAccount(roomid, account.LoginId);
+        }
+
+        public IQueryable<RoomModel> GetAccountRooms(string username)
+        {
+            return SongRepository.GetAccountRooms(GetAccountModel(username).LoginId);
+        }
        
         
     }

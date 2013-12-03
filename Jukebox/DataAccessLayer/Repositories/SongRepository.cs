@@ -34,7 +34,8 @@ namespace DataAccessLayer.Repositories
                 Album = s.Album,
                 Genre = s.Genre,
                 FilePath = s.FilePath,
-                Length = s.Length
+                Length = s.Length,
+                Likes = s.Likes
             });
         }
 
@@ -49,7 +50,8 @@ namespace DataAccessLayer.Repositories
                     Album = s.Album,
                     Genre = s.Genre,
                     FilePath = s.FilePath,
-                    Length = s.Length
+                    Length = s.Length,
+                    Likes = s.Likes
                 });
         }
 
@@ -109,7 +111,8 @@ namespace DataAccessLayer.Repositories
                     Album = a.Album,
                     Genre = a.Genre,
                     FilePath = a.FilePath,
-                    Length = a.Length
+                    Length = a.Length,
+                    Likes = a.Likes
                 }).Single();
 
         }
@@ -124,6 +127,15 @@ namespace DataAccessLayer.Repositories
             song.Accounts.Add(account);
             _context.SaveChanges();
         }
+
+        public void IncrementLike(int songId)
+        {
+            Song song = GetSong(songId);
+            song.Likes = song.Likes + 1;
+            _context.SaveChanges();
+        }
+
+
         //-----------------------------------------------------------------------------------//
         //-------------------------------The Things for Account stuff -----------------------//
         //-----------------------------------------------------------------------------------//
@@ -303,10 +315,34 @@ namespace DataAccessLayer.Repositories
                     Length = s.Length,
                     FilePath = s.FilePath,
                     SongID = s.Id,
-                    Genre = s.Genre
+                    Genre = s.Genre,
+                    Likes = s.Likes
                 });
         }
-  
-      
+//DeleteAccount Method
+        //Removes the user from the room account list
+        //And removes the room from the users association
+        public void DeleteAccount(int roomId, int loginId)
+        {
+            Account account = GetAccount(loginId);
+            Room room = GetRoom(roomId);
+            room.Accounts.Remove(account);
+            //account.RoomId = null;
+            //account.Room = null;
+            _context.SaveChanges();
+
+        }
+
+        public IQueryable<RoomModel> GetAccountRooms(int loginId)
+        {
+            return _context.Rooms.Where(r => r.Accounts.Any(a => a.LoginId == loginId)).Select(r => new RoomModel
+            {
+                RoomId = r.Id,
+                RoomName = r.RoomName,
+                RoomPassword = r.RoomPassword,
+                Privacy = r.Privacy
+
+            });
+        }      
     }
 }

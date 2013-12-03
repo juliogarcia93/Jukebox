@@ -9,12 +9,13 @@
         
     <input hidden id ="roomId" value="@Model.RoomId" />
     <div class="row">
-        <div class="col col-lg-9">
+        <div class="col col-lg-3">
                 <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div>@*<div id="room-type" class="pull-left">(Private)</div>*@
         </div>
-        <div class="col col-lg-3 pull-right">
+        <div class="col col-lg-9">
             @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})
-        </div>
+           @Html.ActionLink("Leave Room", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#LeaveModal", @id = "leave-button"})   
+    </div>
     </div>
 
 
@@ -74,6 +75,22 @@
                 run($(link), audio[0]);
             });
 
+            playlist.find('button').click(function (e) {
+                e.preventDefault();
+                song = $(this).parent().next();
+                album = $(this).parent().next().next().next();
+                position = $(this).parent().parent();
+                current = (song.parent().parent().parent().parent().index()) * 6;
+                //DeleteSong.text($(song).text());
+                //DeleteAlbum.text($(album).text());
+                $(position).fadeOut(400);
+                audio[0].play();
+                like($(song), $(album));
+                refresh();
+                updateuserplayer(User.Identity.Name);
+
+            });
+
             audio[0].addEventListener('ended', function (e) {
                 current = current + 5;
                 if (current == len) {
@@ -83,6 +100,20 @@
                     link = playlist.find('tbody tr a')[current];
                 }
                 run($(link), audio[0]);
+            });
+        }
+
+        function like(song, album) {
+            var SongName = $(song).text();
+            var AlbumName = $(album).text();
+            var roomId = $('#roomId').val();
+            $.ajax({
+                url: "/Music/Like",
+                data: { SongName: SongName, Album: AlbumName, RoomId: roomId },
+                success: function (data) {
+                    $('#music-playlist').html(data);
+                }
+
             });
         }
 
@@ -135,7 +166,7 @@
                                 <table>
                                     <th><h4>Choose songs from your playlist</h4></th>
                                     <br />
-                                    @Html.Action("UserSongs","Music",new{Username = User.Identity.Name, @id = "AddSongs"})
+                                    @Html.Action("UserSongs","Music", new{Username = User.Identity.Name, @id = "AddSongs"})
                                     @*<tr>
                                         <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
                                     </tr>*@
@@ -145,6 +176,29 @@
                         </div>
                     </form>
                 }
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<!-- Modal for Leave Room button -->
+ <!-- Modal -->
+<div class="modal fade" id="LeaveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+                        <div class="modal-body"> 
+                            <div class="container-fluid">
+                              
+                                 <h4>Sure you wanna leave this sweet ass room?</h4>
+                                   <div>
+                                
+                                    <button type = "button">@Html.ActionLink("Yessir","LeaveRoom","Room",new{RoomName = Model.RoomName},"")</button>
+                                    <button type="button" class="close" data-dismiss="modal">Stay Here</button>                                    </div>
+                            </div>
+                        </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -187,6 +241,9 @@
                 $('#bottom-music-player').html(data);
             }
         });
+
+
+
      }
         
 
