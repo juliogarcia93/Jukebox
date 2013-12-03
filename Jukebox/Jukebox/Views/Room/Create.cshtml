@@ -73,22 +73,18 @@
 
                 current = (link.parent().parent().parent().index()) * 5;
                 run($(link), audio[0]);
+                
             });
 
             playlist.find('button').click(function (e) {
                 e.preventDefault();
                 song = $(this).parent().next();
                 album = $(this).parent().next().next().next();
-                position = $(this).parent().parent();
-                current = (song.parent().parent().parent().parent().index()) * 6;
-                //DeleteSong.text($(song).text());
-                //DeleteAlbum.text($(album).text());
-                $(position).fadeOut(400);
                 audio[0].play();
                 like($(song), $(album));
                 refresh();
                 updateuserplayer(User.Identity.Name);
-
+                init();
             });
 
             audio[0].addEventListener('ended', function (e) {
@@ -115,6 +111,7 @@
                 }
 
             });
+            init();
         }
 
         function run(link, player) {

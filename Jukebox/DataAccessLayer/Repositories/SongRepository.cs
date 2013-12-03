@@ -130,8 +130,8 @@ namespace DataAccessLayer.Repositories
 
         public void IncrementLike(int songId)
         {
-            Song song = GetSong(songId);
-            song.Likes = song.Likes + 1;
+            Song song = _context.Songs.Where(s => s.Id == songId).Single();
+            song.Likes++;
             _context.SaveChanges();
         }
 
@@ -240,7 +240,7 @@ namespace DataAccessLayer.Repositories
             {
                 LoginId = u.LoginId,
                 Username = u.Username
-            }).ToList();
+            }).OrderBy(u => u.Username).ToList();
             return list;
             
         }
