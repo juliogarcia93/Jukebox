@@ -19,6 +19,7 @@ namespace DataAccessLayer.Conversions
             entity.Genre = !string.IsNullOrEmpty(model.Genre) ? model.Genre : "(Unknown Genre)";
             entity.Artist = !string.IsNullOrEmpty(model.Artist) ? model.Artist : "(Unknown Artist)";
             entity.Album = !string.IsNullOrEmpty(model.Album) ? model.Album : "(Unknown Album)";
+            entity.Likes = model.Likes;
             return entity;
         }
 

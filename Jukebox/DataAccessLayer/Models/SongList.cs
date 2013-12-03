@@ -48,10 +48,13 @@ namespace DataAccessLayer.Models
         public void Add(string username, string fileName, HttpPostedFileBase file)
         {
             string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
- 			bool songExists = SongManager.GetSongList().Any(s => s.FilePath == fileName);            if (!songExists)
+            file.SaveAs(MusicDirectory);
+ 			bool songExists = SongManager.GetSongList().Any(s => s.FilePath == fileName);            
+            if (!songExists)
             {
-                AmazonWebServices AmazonWebServices = new AmazonWebServices();
-                AmazonWebServices.Upload(file);
+                //AmazonWebServices AmazonWebServices = new AmazonWebServices();
+                //AmazonWebServices.Upload(file);
+                //string MusicDirectory = AmazonWebServices.GetObjectUrl(fileName);
                 //string MusicDirectory = "https://s3-us-west-1.amazonaws.com/jukeboxmusic/" + fileName;
                 TagLib.File metadata = TagLib.File.Create(MusicDirectory);
                 string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");

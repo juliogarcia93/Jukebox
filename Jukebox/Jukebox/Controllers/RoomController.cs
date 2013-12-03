@@ -72,10 +72,7 @@ namespace Jukebox.Controllers
                         RoomPassword = a.RoomPassword, 
                         Accounts = a.Accounts
                     }).OrderBy(r => r.RoomName).ToList();
-                foreach (RoomModel room in rooms)
-                {
-                    room.Songs = SongManager.GetRoomSongsList(room.RoomId);
-                }
+               
                 return View("SearchPage", rooms);
             }
             else

@@ -41,7 +41,7 @@
                                 <!--ActionLink Method for joining a room -->
                                 <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join a room</a>
                             </li>
-                     
+                       
 
                         </ul>
                     </li>
@@ -145,11 +145,11 @@
                         <div class="col col-lg-11">
                             <div>
                                 <h4 class="modal-header-description">Choose a group name: </h4>
-                                @*<form role="form">*@
+                                
                                     <div class="form-group" id="room-naming">
                                         <input type="text" name="roomnamepublic" class="form-control" id="name-of-room" placeholder="Enter a group name" >
                                     </div>
-                                @*</form>*@
+                              
                             </div>
                         </div>
                     </div>
@@ -175,6 +175,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closed3">&times;</button>
                 <h4 class="modal-title">Join A Room</h4>
             </div>
+
 @using (Html.BeginForm("SearchRoom", "Room", FormMethod.Post, null))
                 {
             <div class="modal-body">
@@ -187,7 +188,7 @@
                         </div>
                         <div class="col col-lg-11">                      
                                 <h4 class="modal-header-description">Choose your privacy: </h4>
-                                <select class="form-control" id="privacy-selector2" name="privacy">
+                                <select class="form-control" id="privacy-selector2" name ="privacy">
                                     <option value="0">--Select Your Privacy--</option>
                                     <option value="1">Public</option>
                                     <option value="2">Private</option>
