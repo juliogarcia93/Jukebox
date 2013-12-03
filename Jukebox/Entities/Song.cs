@@ -26,6 +26,7 @@ namespace Entities
         public string Artist { get; set; }
         public string Genre { get; set; }
         public string Album { get; set; }
+        public int Likes { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual Room Room { get; set; }

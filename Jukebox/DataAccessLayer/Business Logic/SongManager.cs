@@ -82,6 +82,14 @@ namespace DataAccessLayer.BusinessLogic
         {
             SongRepository.AddSong(model, username);
         }
+
+        public void IncrementLike(SongModel song)
+        {
+            int songId = song.SongID;
+            //song.IncrementLikes();
+            SongRepository.IncrementLike(songId);
+        }
+
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
@@ -201,6 +209,7 @@ namespace DataAccessLayer.BusinessLogic
            IEnumerable<RoomModel> rooms = SongRepository.GetRoomList().AsEnumerable<RoomModel>();
            return rooms;
         }
+
 
        
         

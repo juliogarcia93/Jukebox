@@ -39,6 +39,7 @@
   <EntityType Name="Songs">
     <Key>
       <PropertyRef Name="Id" />
+      <PropertyRef Name="Likes" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
@@ -47,6 +48,7 @@
     <Property Name="Artist" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Genre" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Album" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Likes" Type="int" Nullable="false" />
     <Property Name="Room_Id" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="Accounts">
@@ -78,9 +80,11 @@
     <Key>
       <PropertyRef Name="Accounts_LoginId" />
       <PropertyRef Name="Songs_Id" />
+      <PropertyRef Name="Songs_Likes" />
     </Key>
     <Property Name="Accounts_LoginId" Type="int" Nullable="false" />
     <Property Name="Songs_Id" Type="int" Nullable="false" />
+    <Property Name="Songs_Likes" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="AccountPlaylist">
     <End Role="Account" Type="Music.Store.Accounts" Multiplicity="1" />
@@ -148,9 +152,11 @@
     <ReferentialConstraint>
       <Principal Role="Song">
         <PropertyRef Name="Id" />
+        <PropertyRef Name="Likes" />
       </Principal>
       <Dependent Role="AccountSong">
         <PropertyRef Name="Songs_Id" />
+        <PropertyRef Name="Songs_Likes" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -187,6 +193,7 @@
         <EntityType Name="Song">
           <Key>
             <PropertyRef Name="Id" />
+            <PropertyRef Name="Likes" />
           </Key>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Title" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
@@ -197,6 +204,7 @@
           <Property Type="String" Name="Genre" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Type="String" Name="Album" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Room" Relationship="Music.RoomSong" FromRole="Song" ToRole="Room" />
+          <Property Type="Int32" Name="Likes" Nullable="false" annotation:StoreGeneratedPattern="None" />
         </EntityType>
         <EntityType Name="Account">
           <Key>
@@ -255,6 +263,9 @@
           <End Type="Music.Room" Role="Room" Multiplicity="0..1" />
           <End Type="Music.Song" Role="Song" Multiplicity="*" />
         </Association>
+        <ComplexType Name="ComplexType1">
+          <Property Type="String" Name="Likes" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -265,6 +276,7 @@
       <EntityTypeMapping TypeName="IsTypeOf(Music.Song)">
         <MappingFragment StoreEntitySet="Songs">
           <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Likes" ColumnName="Likes" />
           <ScalarProperty Name="Title" ColumnName="Title" />
           <ScalarProperty Name="Length" ColumnName="Length" />
           <ScalarProperty Name="FilePath" ColumnName="FilePath" />
@@ -306,6 +318,7 @@
       </EndProperty>
       <EndProperty Name="Song">
         <ScalarProperty Name="Id" ColumnName="Songs_Id" />
+        <ScalarProperty Name="Likes" ColumnName="Songs_Likes" />
       </EndProperty>
     </AssociationSetMapping>
     <AssociationSetMapping Name="AccountPlaylist" TypeName="Music.AccountPlaylist" StoreEntitySet="Playlists">
@@ -331,6 +344,7 @@
       </EndProperty>
       <EndProperty Name="Song">
         <ScalarProperty Name="Id" ColumnName="Id" />
+        <ScalarProperty Name="Likes" ColumnName="Likes" />
       </EndProperty>
       <Condition ColumnName="Room_Id" IsNull="false" />
     </AssociationSetMapping>
