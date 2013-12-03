@@ -26,32 +26,46 @@ namespace Jukebox.Controllers
             SongManager.DeleteAccount(room, username);
             return RedirectToAction("Profile","Account");
         }
-        public ActionResult CreatePublic(string roomname)
+        public ActionResult CreateRoom()
         {
+            string privacy = Request["privacy"].ToLower();
+            string RoomNamePublic = Request["roomnamepublic"];
+            string RoomNamePrivate = Request["roomnameprivate"];
+            string Password = Request["roompassword"];
+            string Genre = Request["genre"];
             string username = User.Identity.Name;
-            IdentityDbContext _context = new IdentityDbContext();
-            RoomModel room = new RoomModel(username);
-            SongManager.AddRoom(room, User.Identity.Name);
-            AccountModel user = SongManager.GetAccountModel(username);
-            room = SongManager.GetRoomModel(username);
-            room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
-            room.Accounts.Add(user);
-            foreach (AccountModel account in room.Accounts)
+
+            if (privacy == "1")
             {
-                if (account.Songs.Count() > 0)
-                {
-                    room.Songs.AddRange(account.Songs);
-                }
+                RoomModel room = new RoomModel(RoomNamePublic);
+                SongManager.AddRoom(room, User.Identity.Name);
+                AccountModel user = SongManager.GetAccountModel(username);
+                room = SongManager.GetRoomModel(RoomNamePublic);
+                room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
+                room.Accounts.Add(user);
+                //foreach (AccountModel account in room.Accounts)
+                //{
+                //    if (account.Songs.Count() > 0)
+                //    {
+                //        room.Songs.AddRange(account.Songs);
+                //    }
+                //}
+                //if (room.Songs == null)
+                //{
+                //    room.Songs = new List<SongModel>();
+                //}
+                return View("Create", room);
             }
-            if (room.Songs == null)
+            else
             {
-                room.Songs = new List<SongModel>();
+                RoomModel room = new RoomModel(RoomNamePrivate, Password);
+                SongManager.AddRoom(room, User.Identity.Name);
+                AccountModel user = SongManager.GetAccountModel(username);
+                room = SongManager.GetRoomModel(RoomNamePrivate);
+                room.Accounts = SongManager.GetRoomAccounts(room.RoomName);
+                room.Accounts.Add(user);
+                return View("Create", room);
             }
-            //if (Request.IsAjaxRequest())
-            //{
-            //    return Json(new { redirectToUrl = Url.View("Create", room) });
-            //}
-            return View("Create", room);
         }
 
 
@@ -60,8 +74,7 @@ namespace Jukebox.Controllers
         {
             return View();
 
-        }
-        
+        }        
 
         //Searches for public rooms
         public ActionResult SearchPublic()

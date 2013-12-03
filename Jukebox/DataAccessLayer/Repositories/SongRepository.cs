@@ -258,13 +258,18 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<RoomModel> GetRoomList()
         {
-            return _context.Rooms.Where(r => r.RoomName != null).Select(r => new RoomModel
-            {
-                RoomId = r.Id,
-                RoomName = r.RoomName, 
-                RoomPassword = r.RoomPassword
-            });
+                return _context.Rooms.Select(r => new RoomModel
+                {
+                    RoomId = r.Id,
+                    RoomName = r.RoomName,
+                    RoomPassword = r.RoomPassword,
+                    Privacy = r.Privacy
+                });
+        }
 
+        public Boolean IsRoomListEmpty()
+        {
+            return (_context.Rooms.Count() == 0);
         }
 
         public void AddSongsToRoom(int[] songList, int roomId)
@@ -310,8 +315,8 @@ namespace DataAccessLayer.Repositories
             Account account = GetAccount(loginId);
             Room room = GetRoom(roomId);
             room.Accounts.Remove(account);
-            account.RoomId = null;
-            account.Room = null;
+            //account.RoomId = null;
+            //account.Room = null;
             _context.SaveChanges();
 
         }

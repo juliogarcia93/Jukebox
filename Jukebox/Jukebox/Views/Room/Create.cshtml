@@ -136,7 +136,7 @@
                                 <table>
                                     <th><h4>Choose songs from your playlist</h4></th>
                                     <br />
-                                    @Html.Action("UserSongs","Music",new{Username = User.Identity.Name, @id = "AddSongs"})
+                                    @Html.Action("UserSongs","Music", new{Username = User.Identity.Name, @id = "AddSongs"})
                                     @*<tr>
                                         <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
                                     </tr>*@
@@ -165,7 +165,7 @@
                                  <h4>Sure you wanna leave this sweet ass room?</h4>
                                    <div>
                                 
-                                    <button type = "button">@Html.ActionLink("Yessir","LeaveRoom","Room", new{RoomName = Model.RoomName})</button>
+                                    <button type = "button">@Html.ActionLink("Yessir","LeaveRoom","Room",new{RoomName = Model.RoomName},"")</button>
                                     <button type="button" class="close" data-dismiss="modal">Stay Here</button>                                    </div>
                             </div>
                         </div>
