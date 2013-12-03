@@ -110,7 +110,7 @@ namespace DataAccessLayer.BusinessLogic
         {
              if (!SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
-                AccountModel account = new AccountModel(username);
+                AccountModel account = new AccountModel() { Username = username };
                 SongRepository.AddAccount(account);
             }
         }
