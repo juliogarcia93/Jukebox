@@ -39,9 +39,11 @@ namespace Amazon
             string accessKeyID = appSettings["AWSAccessKey"];
             string secretAccessKey = appSettings["AWSSecretKey"];
             TransferUtility utility = new TransferUtility(accessKeyID, secretAccessKey);
-            string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + file.FileName;
-            file.SaveAs(MusicDirectory);
-            utility.Upload(MusicDirectory, "jukeboxmusic");
+            //string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + file.FileName;
+            //file.SaveAs(MusicDirectory);
+            utility.Upload(file.InputStream, "jukeboxmusic", file.FileName);
+            //utility.UploadDirectoryAsync("C:\\Users\\Julio Garcia\\Desktop\\Jukebox\\Jukebox\\Jukebox\\Music", "jukeboxmusic", new System.Threading.CancellationToken());
+
         }
     }
 }
