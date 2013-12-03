@@ -212,12 +212,7 @@ namespace DataAccessLayer.BusinessLogic
            return rooms;
         }
 
-<<<<<<< .mine
         //Method for leaving a room
-=======
-
->>>>>>> .theirs
-//Method for leaving a room
         //This will remove the user from the rooma and set the users room information to null
         public void DeleteAccount(RoomModel room, string username)
         {
