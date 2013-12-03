@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 12/02/2013 20:30:22
+-- Date Created: 12/02/2013 21:58:10
 -- Generated from EDMX file: C:\Users\Christina\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
@@ -87,7 +87,8 @@ GO
 CREATE TABLE [dbo].[Rooms] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoomName] nvarchar(max)  NOT NULL,
-    [RoomPassword] nvarchar(max)  NOT NULL
+    [RoomPassword] nvarchar(max)  NOT NULL,
+    [Privacy] nvarchar(max)  NOT NULL
 );
 GO
 
