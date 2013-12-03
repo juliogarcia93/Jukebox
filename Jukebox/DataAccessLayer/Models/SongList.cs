@@ -48,22 +48,21 @@ namespace DataAccessLayer.Models
         public void Add(string username, string fileName, HttpPostedFileBase file)
         {
             string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
-            //string MusicDirectory = Path.GetFileName(file.FileName);
-            TagLib.File metadata = TagLib.File.Create(MusicDirectory);
-            string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
-            SongModel song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration, 0);
-            bool songExists = SongManager.GetSongList().Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
-            if (!songExists)
+ 			bool songExists = SongManager.GetSongList().Any(s => s.FilePath == fileName);            if (!songExists)
             {
                 AmazonWebServices AmazonWebServices = new AmazonWebServices();
                 AmazonWebServices.Upload(file);
+                //string MusicDirectory = "https://s3-us-west-1.amazonaws.com/jukeboxmusic/" + fileName;
+                TagLib.File metadata = TagLib.File.Create(MusicDirectory);
+                string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
+                SongModel song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration);
                 SongManager.UploadSong(song);
             }
-            bool UserSongExists = SongManager.GetSongList(username).Any(s => s.SongTitle == song.SongTitle && s.Length == song.Length);
-            if (!UserSongExists)
-            {
-                SongManager.AddSong(song, username);
-            }
+            //bool UserSongExists = SongManager.GetSongList(username).Any(s => s.FilePath == fileName);
+            //if (!UserSongExists)
+            //{
+            //    SongManager.AddSong(song, username);
+            //}
 
            
         }

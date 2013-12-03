@@ -67,6 +67,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="RoomName" Type="nvarchar(max)" Nullable="false" />
     <Property Name="RoomPassword" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Privacy" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Playlists">
     <Key>
@@ -230,6 +231,7 @@
           <Property Type="String" Name="RoomPassword" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Accounts" Relationship="Music.AccountRoom" FromRole="Room" ToRole="Account" />
           <NavigationProperty Name="Songs" Relationship="Music.RoomSong" FromRole="Room" ToRole="Song" />
+          <Property Type="String" Name="Privacy" Nullable="false" />
         </EntityType>
         <EntityType Name="Playlist">
           <Key>
@@ -301,6 +303,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoomName" ColumnName="RoomName" />
           <ScalarProperty Name="RoomPassword" ColumnName="RoomPassword" />
+          <ScalarProperty Name="Privacy" ColumnName="Privacy" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -70,7 +70,12 @@ namespace Jukebox.Models
 
     public class RoomViewModel
     {
-
+        [Required]
+        [Display(Name = "User name")]
         public string RoomName { get; set; }
+
+        [Display(Name = "Room Password")]
+        public string Password { get; set; }
     }
+   
 }

@@ -35,6 +35,7 @@ namespace DataAccessLayer.Conversions
             Room entity = new Room();
             entity.RoomName = !string.IsNullOrEmpty(model.RoomName) ? model.RoomName : "";
             entity.RoomPassword = !string.IsNullOrEmpty(model.RoomPassword) ? model.RoomPassword : "";
+            entity.Privacy = model.Privacy;
             return entity;
         }
     }
