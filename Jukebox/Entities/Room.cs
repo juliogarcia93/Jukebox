@@ -23,6 +23,7 @@ namespace Entities
         public int Id { get; set; }
         public string RoomName { get; set; }
         public string RoomPassword { get; set; }
+        public string Privacy { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual ICollection<Song> Songs { get; set; }

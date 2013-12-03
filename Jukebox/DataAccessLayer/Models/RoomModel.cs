@@ -16,6 +16,7 @@ namespace DataAccessLayer.Models
             RoomPassword = null;
             Songs = new List<SongModel>();
             Accounts = new List<AccountModel>();
+            Privacy = "public";
         }
         public RoomModel(string roomname)
         {
@@ -23,6 +24,7 @@ namespace DataAccessLayer.Models
             RoomPassword = null;
             Songs = new List<SongModel>();
             Accounts = new List<AccountModel>();
+            Privacy = "public";
         }
         public RoomModel(string roomname, string password)
         {
@@ -30,6 +32,7 @@ namespace DataAccessLayer.Models
             RoomPassword = password;
             Songs = new List<SongModel>();
             Accounts = new List<AccountModel>();
+            Privacy = "private";
         }
 
         public RoomModel(string roomname, string password, List<SongModel> songs, List<AccountModel> accounts)
@@ -38,6 +41,7 @@ namespace DataAccessLayer.Models
             RoomPassword = password;
             Songs = songs;
             Accounts = accounts;
+            Privacy = "private";
         }
 
         public string RoomPassword { get; set; }
@@ -45,5 +49,6 @@ namespace DataAccessLayer.Models
         public List<SongModel> Songs { get; set; }
         public List<AccountModel> Accounts { get; set; }
         public int RoomId { get; set; }
+        public string Privacy { get; set; }
     }
 }

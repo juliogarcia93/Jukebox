@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, and Azure
 -- --------------------------------------------------
--- Date Created: 11/26/2013 15:33:26
+-- Date Created: 12/02/2013 18:52:54
 -- Generated from EDMX file: C:\Users\Daryl\Desktop\Jukebox\Jukebox\Entities\Music.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [Jukebox];
+USE [jukebox];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,17 +17,17 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
-GO
-IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
-GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Account]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Account];
 GO
 IF OBJECT_ID(N'[dbo].[FK_AccountSong_Song]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[AccountSong] DROP CONSTRAINT [FK_AccountSong_Song];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AccountPlaylist]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Playlists] DROP CONSTRAINT [FK_AccountPlaylist];
+GO
+IF OBJECT_ID(N'[dbo].[FK_AccountRoom]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_AccountRoom];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RoomAccount]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Accounts] DROP CONSTRAINT [FK_RoomAccount];
@@ -40,20 +40,20 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Songs];
+GO
 IF OBJECT_ID(N'[dbo].[Accounts]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Accounts];
-GO
-IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[AccountSong];
-GO
-IF OBJECT_ID(N'[dbo].[Playlists]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Playlists];
 GO
 IF OBJECT_ID(N'[dbo].[Rooms]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Rooms];
 GO
-IF OBJECT_ID(N'[dbo].[Songs]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Songs];
+IF OBJECT_ID(N'[dbo].[Playlists]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Playlists];
+GO
+IF OBJECT_ID(N'[dbo].[AccountSong]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AccountSong];
 GO
 
 -- --------------------------------------------------
@@ -86,7 +86,8 @@ GO
 CREATE TABLE [dbo].[Rooms] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [RoomName] nvarchar(max)  NOT NULL,
-    [RoomPassword] nvarchar(max)  NOT NULL
+    [RoomPassword] nvarchar(max)  NOT NULL,
+    [Privacy] nvarchar(max)  NOT NULL
 );
 GO
 
