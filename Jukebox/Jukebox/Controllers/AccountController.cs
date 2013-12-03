@@ -65,6 +65,10 @@ namespace Jukebox.Controllers
                     }
                     else
                     {
+                        if (!SongManager.GetAccountsList().Any(a => a.Username == User.Identity.Name))
+                        {
+                            SongManager.AddAccount(User.Identity.Name);
+                        }
                         return RedirectToAction("Profile", "Account", new { username = model.UserName });
                     }
                 }

@@ -65,15 +65,37 @@ namespace Jukebox.Controllers
        
         
 
-        public ActionResult SearchPublic()
+        public ActionResult SearchRoom()
         {
-            List<RoomModel> rooms = SongManager.GetRoomList().Where( r => r.RoomPassword == "" || r.RoomPassword == null).Select(a => new RoomModel { RoomName = a.RoomName, RoomPassword = a.RoomPassword, Accounts = a.Accounts}).ToList<RoomModel>();
-            foreach (RoomModel room in rooms)
+            string privacy = Request["privacy"];
+            string RoomName = Request["roomname"];
+            string Password = Request["password"];
+            string Genre = Request["genre"];
+            string username = User.Identity.Name;
+
+            if (privacy == "1")
             {
-                room.Songs = SongManager.GetRoomSongsList(room.RoomId);
+                List<RoomModel> rooms = SongManager.GetRoomList().Where(r => r.Privacy == "public")
+                    .Select(a => new RoomModel 
+                    { 
+                        RoomName = a.RoomName, 
+                        RoomPassword = a.RoomPassword, 
+                        Accounts = a.Accounts
+                    }).ToList();
+                foreach (RoomModel room in rooms)
+                {
+                    room.Songs = SongManager.GetRoomSongsList(room.RoomId);
+                }
+                return View("SearchPage", rooms);
             }
-           return View("SearchPage", rooms);
+            else
+            {
+                RoomModel room = SongManager.GetRoomList().Where(r => r.RoomName == RoomName && r.RoomPassword == Password).Single();
+                return View("Create", room);
+            }
         }
+
+
         
         public ActionResult RoomSelect(string RoomName)
         {
