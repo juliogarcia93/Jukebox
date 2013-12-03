@@ -54,5 +54,14 @@ namespace Jukebox.Controllers
             return PartialView("_MusicPlayerPartial", songs);
         }
 
+        public PartialViewResult Like(string SongName, string Album, int RoomId)
+        {
+            SongModel song = SongManager.FindSong(SongName, Album);
+            SongManager.IncrementLike(song); 
+            List<SongModel> list = SongManager.GetRoomSongsList(RoomId);
+            return PartialView("_RoomPlaylistPartial", list);
+
+        }
+
     }
 }

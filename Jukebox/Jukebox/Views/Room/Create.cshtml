@@ -75,6 +75,22 @@
                 run($(link), audio[0]);
             });
 
+            playlist.find('button').click(function (e) {
+                e.preventDefault();
+                song = $(this).parent().next();
+                album = $(this).parent().next().next().next();
+                position = $(this).parent().parent();
+                current = (song.parent().parent().parent().parent().index()) * 6;
+                //DeleteSong.text($(song).text());
+                //DeleteAlbum.text($(album).text());
+                $(position).fadeOut(400);
+                audio[0].play();
+                like($(song), $(album));
+                refresh();
+                updateuserplayer(User.Identity.Name);
+
+            });
+
             audio[0].addEventListener('ended', function (e) {
                 current = current + 5;
                 if (current == len) {
@@ -84,6 +100,20 @@
                     link = playlist.find('tbody tr a')[current];
                 }
                 run($(link), audio[0]);
+            });
+        }
+
+        function like(song, album) {
+            var SongName = $(song).text();
+            var AlbumName = $(album).text();
+            var roomId = $('#roomId').val();
+            $.ajax({
+                url: "/Music/Like",
+                data: { SongName: SongName, Album: AlbumName, RoomId: roomId },
+                success: function (data) {
+                    $('#music-playlist').html(data);
+                }
+
             });
         }
 
@@ -211,6 +241,9 @@
                 $('#bottom-music-player').html(data);
             }
         });
+
+
+
      }
         
 

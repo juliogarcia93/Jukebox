@@ -18,9 +18,10 @@ namespace DataAccessLayer.Models
             Album = null;
             Genre = null;
             Length = null;
+            Likes = 0;
             
         }
-        public SongModel(string username, string filePath, string songTitle, string artist, string album, string genre, string length)
+        public SongModel(string username, string filePath, string songTitle, string artist, string album, string genre, string length, int likes)
         {
             Username = username;
             FilePath = filePath;
@@ -29,6 +30,12 @@ namespace DataAccessLayer.Models
             Album = album;
             Genre = genre;
             Length = length;
+            Likes = likes;
+        }
+
+        public void IncrementLikes()
+        {
+            Likes = Likes + 1;
         }
         public int SongID { get; set;}
         public string FilePath;
@@ -39,5 +46,6 @@ namespace DataAccessLayer.Models
         public string Length { get; set; }
         //public List<AccountModel> Accounts {get; set; }
         public string Username { get; set; }
+        public int Likes { get; set; }
     }
 }

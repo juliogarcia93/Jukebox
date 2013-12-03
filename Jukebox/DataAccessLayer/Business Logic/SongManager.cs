@@ -82,6 +82,14 @@ namespace DataAccessLayer.BusinessLogic
         {
             SongRepository.AddSong(model, username);
         }
+
+        public void IncrementLike(SongModel song)
+        {
+            int songId = song.SongID;
+            //song.IncrementLikes();
+            SongRepository.IncrementLike(songId);
+        }
+
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
@@ -204,7 +212,12 @@ namespace DataAccessLayer.BusinessLogic
            return rooms;
         }
 
+<<<<<<< .mine
         //Method for leaving a room
+=======
+
+>>>>>>> .theirs
+//Method for leaving a room
         //This will remove the user from the rooma and set the users room information to null
         public void DeleteAccount(RoomModel room, string username)
         {
@@ -217,7 +230,6 @@ namespace DataAccessLayer.BusinessLogic
         {
             return SongRepository.GetAccountRooms(GetAccountModel(username).LoginId);
         }
-
        
         
     }
