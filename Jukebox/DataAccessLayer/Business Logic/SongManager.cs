@@ -110,7 +110,7 @@ namespace DataAccessLayer.BusinessLogic
         {
              if (!SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
-                AccountModel account = new AccountModel(username);
+                AccountModel account = new AccountModel() { Username = username };
                 SongRepository.AddAccount(account);
             }
         }
@@ -211,6 +211,11 @@ namespace DataAccessLayer.BusinessLogic
             int roomid = room.RoomId;
             AccountModel account = GetAccountModel(username);
             SongRepository.DeleteAccount(roomid, account.LoginId);
+        }
+
+        public IQueryable<RoomModel> GetAccountRooms(string username)
+        {
+            return SongRepository.GetAccountRooms(GetAccountModel(username).LoginId);
         }
 
        

@@ -9,12 +9,12 @@
         
     <input hidden id ="roomId" value="@Model.RoomId" />
     <div class="row">
-        <div class="col col-lg-6">
+        <div class="col col-lg-3">
                 <div class="pull-left"><h3 id="playlist-name">@Model.RoomName</h3></div>@*<div id="room-type" class="pull-left">(Private)</div>*@
         </div>
-        <div class="col col-lg-6 pull-right">
+        <div class="col col-lg-9">
             @Html.ActionLink("Add Songs", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#RoomModal", @id = "create-upload-button"})
-           @Html.ActionLink("Leave Room", "Upload", "Music", null, new { @class= "btn btn-primary pull-left", data_toggle="modal", href="#LeaveModal", @id = "leave-button"})   
+           @Html.ActionLink("Leave Room", "Upload", "Music", null, new { @class= "btn btn-primary pull-right", data_toggle="modal", href="#LeaveModal", @id = "leave-button"})   
     </div>
     </div>
 

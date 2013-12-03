@@ -11,7 +11,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Amazon.exe">
-      <publishTime>12/01/2013 00:43:52</publishTime>
+      <publishTime>12/01/2013 23:20:02</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>10/30/2013 18:11:11</publishTime>
@@ -20,10 +20,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2013 16:04:42</publishTime>
     </File>
     <File Include="bin/DataAccessLayer.dll">
-      <publishTime>12/01/2013 11:20:10</publishTime>
+      <publishTime>12/02/2013 00:21:52</publishTime>
     </File>
     <File Include="bin/Entities.dll">
-      <publishTime>12/01/2013 00:43:53</publishTime>
+      <publishTime>12/01/2013 23:20:02</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>10/30/2013 18:11:09</publishTime>
@@ -32,7 +32,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2013 18:11:09</publishTime>
     </File>
     <File Include="bin/Jukebox.dll">
-      <publishTime>12/01/2013 11:20:11</publishTime>
+      <publishTime>12/02/2013 00:21:53</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>10/30/2013 18:11:10</publishTime>
@@ -101,7 +101,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/30/2013 18:11:10</publishTime>
     </File>
     <File Include="bin/taglib-sharp.dll">
-      <publishTime>12/01/2013 11:20:06</publishTime>
+      <publishTime>12/02/2013 00:21:48</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>10/30/2013 18:11:11</publishTime>

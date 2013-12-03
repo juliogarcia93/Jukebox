@@ -320,6 +320,18 @@ namespace DataAccessLayer.Repositories
             _context.SaveChanges();
 
         }
+
+        public IQueryable<RoomModel> GetAccountRooms(int loginId)
+        {
+            return _context.Rooms.Where(r => r.Accounts.Any(a => a.LoginId == loginId)).Select(r => new RoomModel
+            {
+                RoomId = r.Id,
+                RoomName = r.RoomName,
+                RoomPassword = r.RoomPassword,
+                Privacy = r.Privacy
+
+            });
+        }
   
       
     }
