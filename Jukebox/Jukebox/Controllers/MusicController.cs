@@ -22,23 +22,41 @@ namespace Jukebox.Controllers
     {
 
         SongManager SongManager = new SongManager();
+
         /// <summary>
         /// Saves a list of Songs to a user's profile
         /// </summary>
         /// <returns>Profilepage of current user</returns>
         public ActionResult Save()
         {
-
+            int songsUploadedSucessfully = 0;
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];
                 string fileName = System.IO.Path.GetFileName(file.FileName);
-                bool isMP3 = System.IO.Path.GetExtension(file.FileName) == ".mp3" ? true : false;
-                if (isMP3)
+                string fileExtension = System.IO.Path.GetExtension(file.FileName);
+                bool isValidFormat = fileExtension == ".mp3" || fileExtension == ".m4a" ? true : false;
+                if (isValidFormat)
                 {
                     SongList model = new SongList(1, 100);
                     model.Add(User.Identity.Name, fileName, file);
+                    ++songsUploadedSucessfully;
                 }
+            }
+            if (songsUploadedSucessfully > 0)
+            {
+                if (songsUploadedSucessfully == 1)
+                {
+                    TempData["message"] = "You have successfully added " + songsUploadedSucessfully + " song to your profile!";
+                }
+                else
+                {
+                    TempData["message"] = "You have successfully added " + songsUploadedSucessfully + " songs to your profile!";
+                }
+            }
+            else
+            {
+                TempData["error"] = "Whoops! Something went wrong. Please try uploading your music again.";
             }
             return RedirectToAction("Profile", "Account", new { username = User.Identity.Name });
         }
@@ -50,7 +68,7 @@ namespace Jukebox.Controllers
         /// <returns>PartialView of Add songs to room Partial</returns>
         public ActionResult UserSongs(string Username)
         {
-            List<SongModel> songs = SongManager.GetSongList(Username);
+            List<SongModel> songs = SongManager.GetSongList(Username).ToList();
             return PartialView("_AddToRoomPartial", songs);
         }
 
@@ -72,7 +90,7 @@ namespace Jukebox.Controllers
         /// <returns>Partial view of Music Player</returns>
         public PartialViewResult UpdateUserPlayer(string Username)
         {
-            List<SongModel> songs = SongManager.GetSongList(Username);
+            List<SongModel> songs = SongManager.GetSongList(Username).OrderByDescending(s => s.SongID).ToList();
             return PartialView("_MusicPlayerPartial", songs);
         }
 
@@ -87,9 +105,28 @@ namespace Jukebox.Controllers
         {
             SongModel song = SongManager.FindSong(SongName, Album);
             SongManager.IncrementLike(song); 
-            List<SongModel> list = SongManager.GetRoomSongsList(RoomId);
+            List<SongModel> list = SongManager.GetRoomSongsList(RoomId).OrderByDescending(s => s.Likes).ToList();
             return PartialView("_RoomPlaylistPartial", list);
 
+        }
+
+        /// <summary>
+        /// Edit information about a song.
+        /// </summary>
+        /// <param name="oldSong">The name of the song prior to the change.</param>
+        /// <param name="oldAlbum">The name of the album prior to the change.</param>
+        /// <param name="song">The desired song title.</param>
+        /// <param name="artist">The desired artist name.</param>
+        /// <param name="album">The desired album name.</param>
+        /// <returns>N/A</returns>
+        public PartialViewResult Edit(string oldSong, string oldAlbum, string song, string artist, string album)
+        {
+            SongModel songModel = SongManager.FindSong(oldSong, oldAlbum);
+            songModel.SongTitle = song;
+            songModel.Artist = artist;
+            songModel.Album = album;
+            SongManager.EditSong(songModel);
+            return null;
         }
 
     }

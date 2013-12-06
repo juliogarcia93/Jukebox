@@ -29,17 +29,17 @@
             {
                 <ul class="nav navbar-nav">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="Room-dropdown">Playlist <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="Room-dropdown">Rooms <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
                             <li role="presentation">
                                 <!-- Button trigger modal, creating a modal for the user to easily create a group playlist -->
 
-                                <a data-toggle="modal" href="#CreateAroomModal">Create A Room</a>
+                                <a data-toggle="modal" href="#CreateAroomModal">Create Room</a>
                             </li>
                             <li role="presentation">
                                 <!--ActionLink Method for joining a room -->
-                                <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join a room</a>
+                                <a data-toggle="modal" href="#JoinAroomModal" id="join-start">Join Room</a>
                             </li>
                        
 
@@ -63,11 +63,12 @@
 
     <div class="container">
  <footer id="footer-div">
-            <div class="center">
+            <div>
                 @Html.ActionLink("About", "About", "Home", null, new { @class="footer-link"})
                 @Html.ActionLink("Contact", "Contact", "Home",null, new { @class="footer-link"})
+                @Html.ActionLink("Gallery", "Index", "Gallery", null, new { @class="footer-link" })
             </div>
-            <div class="center"></div>
+            <div></div>
             <p class="pull-left">&copy; @DateTime.Now.Year Jukebox. All Rights Reserved.</p>
 
         </footer>
@@ -115,9 +116,12 @@
                             <h4 class="modal-header-description">Select a Genre: </h4>
                             <select class="form-control" id="genre-selector" name="genre">
                                 <option value="0">--Select a Genre--</option>
+                                <option>Trap</option>
                                 <option>Hip-Hop</option>
                                 <option>Dubstep</option>
                                 <option>House</option>
+                                <option>Banda</option>
+                                <option>Rap</option>
                             </select>
                         </div>
                     </div>
@@ -203,9 +207,12 @@
                             <h4 class="modal-header-description">Select a Genre: </h4>
                             <select class="form-control" id="genre-selector2" name="genre">
                                 <option value="0">--Select a Genre--</option>
+                                <option>Trap</option>
                                 <option>Hip-Hop</option>
                                 <option>Dubstep</option>
                                 <option>House</option>
+                                <option>Banda</option>
+                                <option>Rap</option>
                             </select>
                         </div>
                     </div>

@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business Logic\SongManager.cs" />
+    <Compile Include="Conversions\ImageConversion.cs" />
     <Compile Include="Conversions\ModelConversions.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />
@@ -80,10 +82,6 @@
     <ProjectReference Include="..\..\taglib-sharp-master\src\taglib-sharp.csproj">
       <Project>{6b143a39-c7b2-4743-9917-92262c60e9a6}</Project>
       <Name>taglib-sharp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Amazon\Amazon.csproj">
-      <Project>{a4db3a6a-7959-4517-844b-4d00ae09436c}</Project>
-      <Name>Amazon</Name>
     </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{fa15c58a-5448-4af1-a669-53ea0d77cd00}</Project>

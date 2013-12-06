@@ -9,12 +9,13 @@
 <table class="table table-hover" id="music-playlist">
     <thead>
         <tr>
+            <th id="table-share"></th>
             <th id="table-song">Song Title</th>
             <th id="table-artist">Artist</th>
             <th id="table-album">Album</th>
-            <th id="table-genre">Genre</th>
+            @*<th id="table-genre">Genre</th>*@
             <th id="table-length">Length</th>
-            <th id="delete-song">Delete</th>
+            <th id="table-actions"></th>
         </tr>
     </thead>
     <tbody>
@@ -29,14 +30,28 @@
                     <td><div class="text-wrap"><a href="https://s3-us-west-1.amazonaws.com/jukeboxmusic/@song.FilePath">@song.Album</a></div></td>
                     <td><div class="text-wrap"><a href="https://s3-us-west-1.amazonaws.com/jukeboxmusic/@song.FilePath">@song.Genre</a></div></td>
                     <td><div class="text-wrap"><a href="https://s3-us-west-1.amazonaws.com/jukeboxmusic/@song.FilePath">@song.Length</a></div></td> -->
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Artist</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a></div></td>
-                    <td><button type="button" id="delete-button">
-                         <span class="glyphicon glyphicon-trash" ></span>
-                    </button>
+                    <td>
+                        <button class="btn btn-default btn-sm share-button pull-left" type="button">
+                            <span class="glyphicon glyphicon-share"></span>
+                        </button>
+                    </td>
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a><input hidden /></div></td>
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Artist</a><input hidden /></div></td>
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a><input hidden /></div></td>
+                    @*<td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a><input hidden /></div></td>*@
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a><input hidden /></div></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-button" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <div class="action-container hidden" >
+                            <button class="btn btn-success btn-sm ok-button" type="button" style="display: inline;">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-button" type="button" style="display: inline;">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             }
@@ -48,15 +63,28 @@
                     <td><div class="text-wrap"><a href="https://s3-us-west-1.amazonaws.com/jukeboxmusic/@song.FilePath">@song.Album</a></div></td>
                     <td><div class="text-wrap"><a href="https://s3-us-west-1.amazonaws.com/jukeboxmusic/@song.FilePath">@song.Genre</a></div></td>
                     <td><div class="text-wrap"><a href="https://s3-us-west-1.amazonaws.com/jukeboxmusic/@song.FilePath">@song.Length</a></div></td> -->
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Artist</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a></div></td>
-                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a></div></td>
                     <td>
-                        <button type="button" id="delete-button">
-                            <span class="glyphicon glyphicon-trash"></span>
+                        <button class="btn btn-default btn-sm share-button pull-left" type="button">
+                            <span class="glyphicon glyphicon-share"></span>
                         </button>
+                    </td>
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.SongTitle</a><input hidden /></div></td>
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Artist</a><input hidden /></div></td>
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Album</a><input hidden /></div></td>
+                    @*<td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Genre</a><input hidden /></div></td>*@
+                    <td><div class="text-wrap"><a href="../Music/@song.FilePath">@song.Length</a><input hidden /></div></td>
+                    <td>
+                        <button class="btn btn-primary btn-sm edit-button" type="button">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <div class="action-container hidden" >
+                            <button class="btn btn-success btn-sm ok-button" type="button" style="display: inline;">
+                                <span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                            <button class="btn btn-danger btn-sm delete-button" type="button" style="display: inline;">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             }

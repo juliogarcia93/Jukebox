@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.BusinessLogic
 {
-
     /// <summary>
     /// Buisness logic layer that allows users a medium for communication with the database. 
     /// </summary>
     public class SongManager
     {
         private SongRepository SongRepository;
-     
+        
         /// <summary>
         /// Default Constructor
         /// </summary>
@@ -43,18 +42,14 @@ namespace DataAccessLayer.BusinessLogic
         /// </summary>
         /// <param name="username">Username whose songlist you are looking for</param>
         /// <returns>List of SongModels</returns>
-        public List<SongModel> GetSongList(string username)
+        public IQueryable<SongModel> GetSongList(string username)
         {
             if (SongRepository.GetAccountsList().Any(a => a.Username == username))
             {
                 AccountModel account = GetAccountModel(username);
-                return SongRepository.GetSongList(account.LoginId).ToList();
+                return SongRepository.GetSongList(account.LoginId);
             }
-            else
-            {
-                return new List<SongModel>();
-            }
-
+            return null;
         }
 
         /// <summary>
@@ -133,6 +128,7 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
+
         /// <summary>
         /// Returns an Account Model associated with a username
         /// </summary>
@@ -180,7 +176,6 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//    
 
 
-
         /// <summary>
         /// Gets the song list of the room
         /// </summary>
@@ -218,12 +213,12 @@ namespace DataAccessLayer.BusinessLogic
                 SongRepository.AddRoom(room, account.LoginId);
             }
        }
-            
-       /// <summary>
-       /// Adds Users to the existing room
-       /// </summary>
-       /// <param name="room">Room that user is being added to</param>
-       /// <param name="account">AccountModel of user being added to room</param>
+
+        /// <summary>
+        /// Adds Users to the existing room
+        /// </summary>
+        /// <param name="room">Room that user is being added to</param>
+        /// <param name="account">AccountModel of user being added to room</param>
         public void AddRoomAccount(RoomModel room, AccountModel account)
         {
             if (!SongRepository.GetRoomAccounts(room.RoomId).Any(a => a.Username == account.Username))
@@ -307,6 +302,25 @@ namespace DataAccessLayer.BusinessLogic
             AccountModel account = GetAccountModel(username);
             SongRepository.DeleteAccount(roomid, account.LoginId);
         }
-        
+
+        /// <summary>
+        /// Gets a song for the given filename.
+        /// </summary>
+        /// <param name="fileName">The filename of the uploaded song desired.</param>
+        /// <returns>SongModel for matching filename.</returns>
+        public SongModel GetSongModel(string fileName)
+        {
+            SongModel song = SongRepository.GetSongList().FirstOrDefault(s => s.FilePath == fileName);
+            return song;
+        }
+
+        /// <summary>
+        /// Edit song metadata and push to database
+        /// </summary>
+        /// <param name="song">SongModel with updated information.</param>
+        public void EditSong(SongModel song)
+        {
+            SongRepository.EditSong(song);
+        }
     }
 }

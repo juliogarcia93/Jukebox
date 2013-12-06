@@ -11,11 +11,11 @@ using System.Diagnostics;
 
 namespace DataAccessLayer.Repositories
 {
+    /// <summary>
+    /// Direct communication with the database. Tables include songs, artists, rooms, accounts etc.
+    /// </summary>
     public class SongRepository
     {
-        /// <summary>
-        /// Direct communication with the database. Tables include songs, artists, rooms, accounts etc.
-        /// </summary>
         private MusicContainer _context { get; set; }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace DataAccessLayer.Repositories
         //-----------------------------------------------------------------------------------//
         //-------------------------------The Things for Song/Music stuff --------------------//
         //-----------------------------------------------------------------------------------//
-        
+
         /// <summary>
         /// Gets a list of all the songs in the database
         /// </summary>
@@ -57,7 +57,7 @@ namespace DataAccessLayer.Repositories
         /// <returns>IQueryable of SongModels</returns>
         public IQueryable<SongModel> GetSongList(int loginId)
         {
-            return _context.Songs.Where(s => s.Accounts.Any(u => u.LoginId == loginId))
+            return _context.Songs.Where(s => s.Accounts.Any(a => a.LoginId == loginId) == true )
                 .Select(s => new SongModel
                 {
                     SongID = s.Id,
@@ -67,6 +67,25 @@ namespace DataAccessLayer.Repositories
                     Genre = s.Genre,
                     FilePath = s.FilePath,
                     Length = s.Length,
+                    Likes = s.Likes
+                });
+        }
+
+        /// <summary>
+        /// Gets a list of top songs based on the number of likes.
+        /// </summary>
+        /// <param name="numberOfSongs">The size of the list desired.</param>
+        /// <returns>List of SongModels</returns>
+        public IQueryable<SongModel> GetTopSongs(int numberOfSongs)
+        {
+            return _context.Songs.OrderByDescending(s => s.Likes)
+                .Take(numberOfSongs)
+                .Select(s => new SongModel
+                {
+                    SongID = s.Id,
+                    SongTitle = s.Title,
+                    Artist = s.Artist,
+                    Genre = s.Genre,
                     Likes = s.Likes
                 });
         }
@@ -118,6 +137,7 @@ namespace DataAccessLayer.Repositories
             _context.SaveChanges();
 
         }
+
 
         /// <summary>
         /// Gets a Song entity from a songID
@@ -183,6 +203,7 @@ namespace DataAccessLayer.Repositories
         //-------------------------------The Things for Account stuff -----------------------//
         //-----------------------------------------------------------------------------------//
 
+
         /// <summary>
         /// Returns an Account entity for a loginId
         /// </summary>
@@ -245,6 +266,7 @@ namespace DataAccessLayer.Repositories
         //-----------------------------------------------------------------------------------//
         //-------------------------------The Things for Room stuff --------------------------//
         //-----------------------------------------------------------------------------------// 
+
 
 
         /// <summary>
@@ -317,6 +339,7 @@ namespace DataAccessLayer.Repositories
 
         }
 
+
         /// <summary>
         /// Returns the room associated the specific id
         /// </summary>
@@ -351,6 +374,7 @@ namespace DataAccessLayer.Repositories
             return (_context.Rooms.Count() == 0);
         }
 
+
         /// <summary>
         /// Adds a list of songs to a room
         /// </summary>
@@ -364,6 +388,7 @@ namespace DataAccessLayer.Repositories
             }
             int count = _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Count();
         }
+
 
         /// <summary>
         /// Adds a song to the database
@@ -401,7 +426,8 @@ namespace DataAccessLayer.Repositories
                     Likes = s.Likes
                 });
         }
-        
+
+
         /// <summary>
         /// Removes the user from the room account list and removes the room from the users association
         /// </summary>
@@ -433,6 +459,19 @@ namespace DataAccessLayer.Repositories
                 Privacy = r.Privacy
 
             });
-        }      
+        }
+
+        /// <summary>
+        /// Push edited song metadata to the database.
+        /// </summary>
+        /// <param name="song">SongModel with updated information.</param>
+        public void EditSong(SongModel song)
+        {
+            Song entity = GetSong(song.SongID);
+            entity.Title = song.SongTitle;
+            entity.Artist = song.Artist;
+            entity.Album = song.Album;
+            _context.SaveChanges();
+        }
     }
 }

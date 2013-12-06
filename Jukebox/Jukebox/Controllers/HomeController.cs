@@ -1,4 +1,7 @@
 ﻿
+using DataAccessLayer.BusinessLogic;
+using DataAccessLayer.Models;
+using DataAccessLayer.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +16,9 @@ namespace Jukebox.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            SongRepository _context = new SongRepository();
+            List<SongModel> TopSongs = _context.GetTopSongs(6).ToList();
+            return View(TopSongs);
         }
 
         public ActionResult About()

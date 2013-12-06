@@ -135,6 +135,7 @@
             success: function (data) {
                 $('#music-playlist').html(data);
                 $('#RoomModal').modal('hide');
+                init();
             }
         });
     }
@@ -145,6 +146,7 @@
             data: {RoomId: Id},
             success: function(data) {
                 $('#bottom-music-player').html(data);
+                init();
             }
         });
 
@@ -214,10 +216,11 @@
                 data: { SongName: SongName, Album: AlbumName, RoomId: roomId },
                 success: function (data) {
                     $('#music-playlist').html(data);
+                    init();
                 }
 
             });
-            init();
+            
         }
 
         function run(link, player) {

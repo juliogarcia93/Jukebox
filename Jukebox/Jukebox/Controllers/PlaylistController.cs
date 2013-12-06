@@ -18,14 +18,14 @@ namespace Jukebox.Controllers
     {
         SongManager SongManager = new SongManager();
 
-       /// <summary>
-       /// Searches for all the songs that match any part of the query
-       /// </summary>
-       /// <param name="query">query that user enters to search through songlist</param>
-       /// <returns>PartialView of the Playlist</returns>
-        public PartialViewResult Search(string query)
+        /// <summary>
+        /// Searches for all the songs that match any part of the query
+        /// </summary>
+        /// <param name="query">query that user enters to search through songlist</param>
+        /// <returns>PartialView of the Playlist</returns>
+        public PartialViewResult Search(string username, string query)
         {
-            List<SongModel> results = SongManager.Search(query, SongManager.GetSongList()).ToList();
+            List<SongModel> results = SongManager.Search(query, SongManager.GetSongList(username).OrderByDescending(s => s.SongID).AsQueryable()).ToList();
             return PartialView("_PlaylistPartial", results);
         }
 
@@ -41,6 +41,7 @@ namespace Jukebox.Controllers
             return PartialView("_AccountsPartial", list);
         }
 
+
         /// <summary>
         /// Deletes a song associated with a user
         /// </summary>
@@ -49,7 +50,7 @@ namespace Jukebox.Controllers
         /// <returns>Profile View</returns>
         public ActionResult Delete(string SongName, string Album)
         {
-            string Username = @User.Identity.Name;
+            string Username = User.Identity.Name;
             SongModel song = SongManager.FindSong(SongName, Album);
             SongManager.Delete(song, Username);
 

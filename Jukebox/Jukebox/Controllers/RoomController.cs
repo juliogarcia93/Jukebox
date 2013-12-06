@@ -12,7 +12,7 @@ using Jukebox.Models;
 using DataAccessLayer.Models;
 using Entities;
 using DataAccessLayer.BusinessLogic;
-
+using System.Data.SqlClient;
 namespace Jukebox.Controllers
 {
     /// <summary>
@@ -21,6 +21,7 @@ namespace Jukebox.Controllers
     public class RoomController : Controller
     {
         SongManager SongManager = new SongManager();
+
 
         /// <summary>
         /// Creates a New Room
@@ -34,7 +35,6 @@ namespace Jukebox.Controllers
             string Password = Request["roompassword"];
             string Genre = Request["genre"];
             string username = User.Identity.Name;
-
             if (privacy == "1")
             {
                 RoomModel room = new RoomModel(RoomNamePublic);
@@ -58,10 +58,12 @@ namespace Jukebox.Controllers
             }
         }
 
-       /// <summary>
-       /// Searches for a private room
-       /// </summary>
-       /// <returns>View of Search page or Create a room page</returns>
+
+
+        /// <summary>
+        /// Searches for a private room
+        /// </summary>
+        /// <returns>View of Search page or Create a room page</returns>
         public ActionResult SearchRoom()
         {
             string privacy = Request["privacy"];
@@ -99,7 +101,7 @@ namespace Jukebox.Controllers
             RoomModel Room = SongManager.GetRoomModel(RoomName);
             AccountModel account = SongManager.GetAccountModel(User.Identity.Name);
             SongManager.AddRoomAccount(Room, account);
-            Room.Songs = SongManager.GetRoomSongsList(Room.RoomId);
+            Room.Songs = SongManager.GetRoomSongsList(Room.RoomId).OrderByDescending(s => s.Likes).ToList();
             return View("Create", Room);
         }
 
@@ -123,7 +125,7 @@ namespace Jukebox.Controllers
         public PartialViewResult AddSongs(int[] SongList, int RoomId)
         {
             SongManager.AddSongsToRoom(SongList, RoomId);
-            List<SongModel> list = SongManager.GetRoomSongsList(RoomId);
+            List<SongModel> list = SongManager.GetRoomSongsList(RoomId).OrderByDescending(s => s.Likes).ToList();
             return PartialView("_RoomPlaylistPartial", list);
         }
 
