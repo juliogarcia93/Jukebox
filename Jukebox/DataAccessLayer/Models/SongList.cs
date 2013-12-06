@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-
+using DataAccessLayer.Conversions;
 using Amazon;
 using System.IO;
 
@@ -47,6 +47,7 @@ namespace DataAccessLayer.Models
 
         public void Add(string username, string fileName, HttpPostedFileBase file)
         {
+            SongModel song;
             string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
             file.SaveAs(MusicDirectory);
  			bool songExists = SongManager.GetSongList().Any(s => s.FilePath == fileName);            
@@ -57,15 +58,19 @@ namespace DataAccessLayer.Models
                 //string MusicDirectory = AmazonWebServices.GetObjectUrl(fileName);
                 //string MusicDirectory = "https://s3-us-west-1.amazonaws.com/jukeboxmusic/" + fileName;
                 TagLib.File metadata = TagLib.File.Create(MusicDirectory);
+                //var AlbumArtwork = metadata.Tag.Pictures.FirstOrDefault();
+                //ImageConversion.byteArrayToImage((byte[])AlbumArtwork.Data);
                 string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
-                SongModel song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration, 0);
+                song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration, 0);
                 SongManager.UploadSong(song);
             }
-            //bool UserSongExists = SongManager.GetSongList(username).Any(s => s.FilePath == fileName);
-            //if (!UserSongExists)
-            //{
-            //    SongManager.AddSong(song, username);
-            //}
+            bool UserSongExists = SongManager.GetSongList(username).Any(s => s.FilePath == fileName);
+            if (!UserSongExists)
+            {
+                song = SongManager.GetSongModel(fileName);
+                SongManager.AddSong(song, username);
+            }
+
 
            
         }

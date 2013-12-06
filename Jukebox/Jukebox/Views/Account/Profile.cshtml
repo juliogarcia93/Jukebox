@@ -7,6 +7,23 @@
     <title>Profile</title>
 </header>
 <body id="profile-view">
+<input id="username" hidden value="@User.Identity.Name" />
+
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p>@TempData["message"]</p>
+        </div>
+    }
+    else if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <p>@TempData["error"]</p>
+        </div>
+    }
+
 <div class="profile-container container-fluid" id="profile-page-wrapper">
     <div class="row">
         <h3>Welcome @User.Identity.Name!
@@ -129,7 +146,7 @@
         var tracks;
         var current;
         var Songs = @Model.Songs.Count();
-        var offset = 6; //number of td tags per row
+        var offset = 5; //number of td tags per row
         var currentSong = $('#current-song');
         var currentArtist = $('#current-artist');
 
@@ -150,16 +167,16 @@
                 e.preventDefault();
                 link = $(this);
 
-                current = (link.parent().parent().parent().index()) * 5;
+                current = (link.parent().parent().parent().index()) * 4;
                 run($(link), audio[0]);
             });
 
-            playlist.find('button').click( function (e) {
+            playlist.find('.delete-button').click( function (e) {
                 e.preventDefault();
                 song = $(this).parent().prev().prev().prev().prev().prev();
                 album = $(this).parent().prev().prev().prev();
                 position = $(this).parent().parent();
-                current = (song.parent().parent().parent().parent().index()) * 6;
+                current = (song.parent().parent().parent().parent().index()) * 5;
                 //DeleteSong.text($(song).text());
                 //DeleteAlbum.text($(album).text());
                 $(position).fadeOut(400);
@@ -171,8 +188,96 @@
                 
             });
 
+            playlist.find('.edit-button').click( function (e) {
+                e.preventDefault();
+
+                current = ($(this).parent().parent().index()) * 4;
+                var songLink = playlist.find('tbody tr td a')[current];
+                var artistLink = playlist.find('tbody tr td a')[current + 1];
+                var albumLink = playlist.find('tbody tr td a')[current + 2];
+
+                var songInput = playlist.find('tbody tr td input')[current];
+                var artistInput = playlist.find('tbody tr td input')[current + 1];
+                var albumInput = playlist.find('tbody tr td input')[current + 2];
+
+                var song = songLink.text;
+                var artist = artistLink.text;
+                var album = albumLink.text;
+
+                $(songLink).hide();
+                $(artistLink).hide();
+                $(albumLink).hide();
+
+                $(songInput).val(song);
+                $(artistInput).val(artist);
+                $(albumInput).val(album);
+
+                $(songInput).show();
+                $(artistInput).show();
+                $(albumInput).show();
+
+                var actionsDiv = playlist.find('tbody tr td div.action-container')[$(this).parent().parent().index()];
+                //var deleteButton = playlist.find('tbody tr td div.hidden')[$(this).parent().parent().index()];
+
+                $(this).hide('slow', function ()
+                {
+                    $(actionsDiv).removeClass('hidden', 'slow');
+                });
+
+            });
+
+            playlist.find('.ok-button').click( function (e) {
+                e.preventDefault();
+                current = ($(this).parent().parent().parent().index()) * 4;
+                var songLink = playlist.find('tbody tr td a')[current];
+                var artistLink = playlist.find('tbody tr td a')[current + 1];
+                var albumLink = playlist.find('tbody tr td a')[current + 2];
+
+                var songInput = playlist.find('tbody tr td input')[current];
+                var artistInput = playlist.find('tbody tr td input')[current + 1];
+                var albumInput = playlist.find('tbody tr td input')[current + 2];
+
+                var oldSong = $(songLink).text();
+                var oldAlbum = $(albumLink).text();
+
+                var song = $(songInput).val();
+                var artist = $(artistInput).val();
+                var album = $(albumInput).val();
+
+                $(songLink).text(song);
+                $(artistLink).text(artist);
+                $(albumLink).text(album);
+                
+                $(songInput).hide();
+                $(artistInput).hide();
+                $(albumInput).hide();
+
+                $(songLink).show();
+                $(artistLink).show();
+                $(albumLink).show();
+
+                var actionsDiv = playlist.find('tbody tr td div.action-container')[$(this).parent().parent().parent().index()];
+                var editButton = playlist.find('tbody tr td button.edit-button')[$(this).parent().parent().parent().index()];
+                
+
+                $.ajax({
+                    url: "/Music/Edit",
+                    data: { oldSong: oldSong, oldAlbum: oldAlbum, song: song, artist: artist, album: album },
+                    success: function (data) {
+                        $(actionsDiv).fadeOut('slow', function() {
+                            $(actionsDiv).addClass('hidden');
+                            $(editButton).show('slow');
+                        }); 
+                    }
+
+                });
+
+            });
+
+
+
             audio[0].addEventListener('ended', function (e) {
-                current = current + 5;
+                current = current + 4;
                 if (current == len) {
                     current = 0;
                     link = playlist.find('tbody tr a')[0];
@@ -181,7 +286,13 @@
                 }
                 run($(link), audio[0]);
             });
+
+            initializeTooltips();
+            $(document).bind("keyup", function(e) {
+                activateListeners(e);
+            });
         }
+        //End init
 
         function remove(song, album) {
             var SongName = $(song).text();
@@ -213,10 +324,12 @@
         }
 
         $('#profile-search').keyup(function () {
+            $(document).unbind("keyup");
             search();
         });
 
-        $(document).keyup(function (e) {
+
+        function activateListeners(e) {
             var char = e.which;
             console.log(e.which);
 
@@ -234,7 +347,7 @@
             if (char == 39 || char == 176) {
                 nextSong();
             }
-        });
+        }
 
 
 
@@ -248,7 +361,7 @@
         };
 
         function previousSong() {
-            current = current - 5;
+            current = current - 4;
             if (current == len) {
                 current = 0;
                 link = playlist.find('tbody tr a')[0];
@@ -259,7 +372,7 @@
         }
 
         function nextSong() {
-            current = current + 5;
+            current = current + 4;
             if (current == len) {
                 current = 0;
                 link = playlist.find('tbody tr a')[0];
@@ -271,9 +384,10 @@
 
         function search() {
             var query = $('#profile-search').val();
+            var username = $('#username').val();
             $.ajax({
                 url: "/Playlist/Search",
-                data: { query: query },
+                data: { username: username, query: query },
                 success: function (data) {
                     $('#music-playlist').html(data);
                     init();
@@ -292,6 +406,30 @@
                 }
             });
         }
+
+        function initializeTooltips()
+        {
+            $('.share-button').tooltip({
+                placement: 'top',
+                title: "Share"
+            });
+
+            $('.edit-button').tooltip({
+                placement: 'top',
+                title: "Edit"
+            });
+
+            $('.ok-button').tooltip({
+                placement: 'top',
+                title: "Save"
+            });
+
+            $('.delete-button').tooltip({
+                placement: 'top',
+                title: "Delete"
+            });
+        }
+
 
         init();
     });

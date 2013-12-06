@@ -41,7 +41,7 @@ namespace DataAccessLayer.Repositories
 
         public IQueryable<SongModel> GetSongList(int loginId)
         {
-            return _context.Songs.Where(s => s.Accounts.Any(u => u.LoginId == loginId))
+            return _context.Songs.Where(s => s.Accounts.Any(a => a.LoginId == loginId) == true )
                 .Select(s => new SongModel
                 {
                     SongID = s.Id,
@@ -51,6 +51,20 @@ namespace DataAccessLayer.Repositories
                     Genre = s.Genre,
                     FilePath = s.FilePath,
                     Length = s.Length,
+                    Likes = s.Likes
+                });
+        }
+
+        public IQueryable<SongModel> GetTopSongs(int numberOfSongs)
+        {
+            return _context.Songs.OrderByDescending(s => s.Likes)
+                .Take(numberOfSongs)
+                .Select(s => new SongModel
+                {
+                    SongID = s.Id,
+                    SongTitle = s.Title,
+                    Artist = s.Artist,
+                    Genre = s.Genre,
                     Likes = s.Likes
                 });
         }
@@ -343,6 +357,15 @@ namespace DataAccessLayer.Repositories
                 Privacy = r.Privacy
 
             });
-        }      
+        }
+
+        public void EditSong(SongModel song)
+        {
+            Song entity = GetSong(song.SongID);
+            entity.Title = song.SongTitle;
+            entity.Artist = song.Artist;
+            entity.Album = song.Album;
+            _context.SaveChanges();
+        }
     }
 }

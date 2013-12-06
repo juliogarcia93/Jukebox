@@ -1,4 +1,4 @@
-﻿@model List<AccountModel>
+﻿@model List<SongModel>
 @using DataAccessLayer.Models;
 @using Jukebox.Models;
 @using DataAccessLayer.BusinessLogic;
@@ -6,7 +6,8 @@
 
 
 @{
-    ViewBag.Title = "Home Page";  
+    ViewBag.Title = "Home Page";
+    int count = 0; 
 }
 <body id="homepage-view">
     <div class="index-hero">
@@ -21,35 +22,41 @@
         </p>
 
     </div>
-<div class="profile-container container-fluid">
-    <div class="row">
-        <div class="col col-lg-4">
-            <h2>Accomplished thus far</h2>
-            <p>
-                <ul>
-                    <li>Can list accounts</li>
-                    <li>Upload music and delete them off profile</li>
-                    <li>Associate songs with users</li>
-                </ul>
-            </p>
-            
-        </div>
-        <div class="col col-lg-4" >
+    <div class="index-hero">
+        <h1>TOP SONGS</h1>
 
-           
-        </div>
-        <div class="col col-lg-4">
-            <h2>Things to do</h2>
+        <p class="lead">
+            <div class="row col-lg-12">
+                @foreach (SongModel song in Model)
+                {
+                    <div class="col-lg-4 top-songs center">
+                        <img src="http://engineering.ucsb.edu/images/faculty/mike2009.jpg" /><br />
+                        <span>@song.SongTitle</span> <br />
+                        <span><strong>@song.Artist</strong></span> <br />
+                    </div>
+                }
+            </div>
+
+        </p>
+
+    </div>
+
+
+ 
+</body>
+
+@*<div class="profile-container container-fluid">
+    <div class="row">
+        <div class="col col-lg-12">
             <p>
+                <h2>Top Songs</h2>
                 <ul>
-                    <li>Finish making rooms</li>
-                    <li>Fix functions to create room</li>
-                    <li>Implement Join a Room after create works</li>
-                    <li>Change format, appearance and layout of site</li>
-                    <li>Implement room functions like liking songs and a chat</li>
+                    @foreach (SongModel song in Model)
+                    {
+                        <li>@song.SongTitle by @song.Artist (@song.Likes)</li>
+                    }
                 </ul>
             </p>
         </div>
     </div>
-</div>
-</body>
+</div>*@

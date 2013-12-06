@@ -448,7 +448,7 @@ namespace Jukebox.Controllers
             ViewBag.Title = username + "'s Profile";
             SongManager SongManager = new SongManager();
             AccountModel account = new AccountModel();
-            account.Songs = SongManager.GetSongList(username).ToList();
+            account.Songs = SongManager.GetSongList(username).OrderByDescending(s => s.SongID).ToList();
             account.Playlists = new List<PlaylistModel>();
             return View(account);
         }

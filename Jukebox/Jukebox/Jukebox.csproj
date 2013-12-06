@@ -233,6 +233,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="ErrorPages\404.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -299,7 +300,6 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Playlist.cshtml" />
-    <Content Include="Views\Account\Profile.cshtml" />
     <Content Include="Views\Room\Create.cshtml" />
     <Content Include="Views\Room\Join.cshtml" />
     <Content Include="Views\Shared\_PlaylistPartial.cshtml" />
@@ -310,6 +310,7 @@
     <Content Include="Views\Room\SearchPage.cshtml" />
     <Content Include="Views\Shared\_RoomListPartial.cshtml" />
     <Content Include="Views\Shared\_AddToRoomPartial.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -319,10 +320,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\taglib-sharp-master\src\taglib-sharp.csproj">
-      <Project>{6b143a39-c7b2-4743-9917-92262c60e9a6}</Project>
-      <Name>taglib-sharp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Amazon\Amazon.csproj">
       <Project>{a4db3a6a-7959-4517-844b-4d00ae09436c}</Project>
       <Name>Amazon</Name>

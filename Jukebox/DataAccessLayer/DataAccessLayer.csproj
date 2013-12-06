@@ -43,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
@@ -54,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business Logic\SongManager.cs" />
+    <Compile Include="Conversions\ImageConversion.cs" />
     <Compile Include="Conversions\ModelConversions.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\AlbumModel.cs" />

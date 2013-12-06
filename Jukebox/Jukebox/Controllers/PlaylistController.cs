@@ -19,9 +19,9 @@ namespace Jukebox.Controllers
         
 
        
-        public PartialViewResult Search(string query)
+        public PartialViewResult Search(string username, string query)
         {
-            List<SongModel> results = SongManager.Search(query, SongManager.GetSongList()).ToList();
+            List<SongModel> results = SongManager.Search(query, SongManager.GetSongList(username).OrderByDescending(s => s.SongID).AsQueryable()).ToList();
             return PartialView("_PlaylistPartial", results);
         }
         //returns a partial view of the total list of accounts

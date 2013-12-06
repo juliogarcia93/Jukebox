@@ -57,6 +57,14 @@ body {
     background-size:cover;
 }
 
+#error-page {
+    margin-top: 75px;
+    padding-bottom: 80px;
+    background-image: url('~/img/Create.png');
+    background-attachment: fixed;
+    background-size:cover;
+}
+
 #Room-page {
     margin-top: 75px;
     padding-bottom: 80px;
@@ -181,12 +189,16 @@ background-color: rgba(141, 141, 141, 0.16);
     table-layout: fixed;
 }
 
-#table-length {
-    width: 10%;
+#table-share {
+    width: 45px;
 }
 
-#table-genre{
-    width: 15%;    
+#table-actions {
+    width: 80px;
+}
+
+#table-length {
+    width: 10%;
 }
 
 #table-album{
@@ -194,11 +206,11 @@ background-color: rgba(141, 141, 141, 0.16);
 }
 
 #table-artist{
-    width: 15%;
+    width: 20%;
 }
 
 #table-song{
-    width: 30%;
+    width: 35%;
 }
 
 #footer-div {
@@ -393,3 +405,42 @@ margin-top: 2px;
   color: #fff;
 }
 
+.top-songs {
+    font-size: 16px;
+}
+
+.center {
+    text-align: center;
+}
+
+.btn-sm, .btn-xs {
+padding: 0px 2px 0px 4px;
+line-height: 1.5;
+border-radius: 3px;
+}
+
+.hidden {
+    display: none;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+color: #fff;
+background-color: #428bca;
+border-color: #357ebd;
+}
+
+.nav > li > a:hover > .badge {
+display: inline-block;
+min-width: 10px;
+padding: 3px 7px;
+font-size: 12px;
+font-weight: bold;
+line-height: 1;
+color: #428bca;
+text-align: center;
+white-space: nowrap;
+vertical-align: baseline;
+background-color: #FFFFFF;
+border-radius: 10px;
+}
