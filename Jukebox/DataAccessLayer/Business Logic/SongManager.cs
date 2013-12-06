@@ -8,9 +8,17 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.BusinessLogic
 {
+
+    /// <summary>
+    /// Buisness logic layer that allows users a medium for communication with the database. 
+    /// </summary>
     public class SongManager
     {
         private SongRepository SongRepository;
+     
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public SongManager()
         {
             SongRepository = new SongRepository();
@@ -18,11 +26,23 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Song/Music stuff --------------------//
 //-----------------------------------------------------------------------------------//
+
+        /// <summary>
+        /// Finds the SongModel you are looking for
+        /// </summary>
+        /// <param name="Songname">The name of the song you are looking for</param>
+        /// <param name="Album">The name of the album associated with the song you are looking for</param>
+        /// <returns>SongModel</returns>
         public SongModel FindSong(string Songname, string Album)
         {
             return SongRepository.FindSong(Songname, Album);
         }
 
+        /// <summary>
+        /// Gets a list of songs from a user's account
+        /// </summary>
+        /// <param name="username">Username whose songlist you are looking for</param>
+        /// <returns>List of SongModels</returns>
         public List<SongModel> GetSongList(string username)
         {
             if (SongRepository.GetAccountsList().Any(a => a.Username == username))
@@ -37,17 +57,30 @@ namespace DataAccessLayer.BusinessLogic
 
         }
 
+        /// <summary>
+        /// Gets the entire songlist in the database
+        /// </summary>
+        /// <returns>IQueryable of SongModels</SongModel></returns>
         public IQueryable<SongModel> GetSongList()
         {
             return SongRepository.GetSongList();
         }
 
-
+        /// <summary>
+        /// Adds a song to the database
+        /// </summary>
+        /// <param name="model">SongModel of song you are adding</param>
         public void UploadSong(SongModel model)
         {
             SongRepository.Add(model);
         }
 
+        /// <summary>
+        /// Returns a list of all the songs that match any part of the query
+        /// </summary>
+        /// <param name="query">query that user enters to search through songlist</param>
+        /// <param name="originalList">Original list of songs that user is searching through</param>
+        /// <returns>IQueryable of SongModels</returns>
         public IQueryable<SongModel> Search(string query, IQueryable<SongModel> originalList)
         {
             if (string.IsNullOrEmpty(query))
@@ -64,6 +97,11 @@ namespace DataAccessLayer.BusinessLogic
                 ).OrderBy(s => s.SongTitle);
         }
 
+        /// <summary>
+        /// Deletes a song from database
+        /// </summary>
+        /// <param name="songmodel">Song to be deleted</param>
+        /// <param name="username">Username who is deleting the song</param>
         public void Delete(SongModel songmodel, string username)
         {
             AccountModel accountmodel = GetAccountModel(username);
@@ -71,18 +109,20 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.Delete(songmodel, userId);
         }
 
-        public void DeleteSong(SongModel model, string Username)
-        {
-            AccountModel account = GetAccountModel(Username);
-            SongRepository.Delete(model, account.LoginId);
-
-        }
-
+        /// <summary>
+        /// Adds a new song to the database
+        /// </summary>
+        /// <param name="model">Song that is being added</param>
+        /// <param name="username">User that is adding the song</param>
         public void AddSong(SongModel model, string username)
         {
             SongRepository.AddSong(model, username);
         }
 
+        /// <summary>
+        /// Increment Like count when user like's a song
+        /// </summary>
+        /// <param name="song">Song that is being liked</param>
         public void IncrementLike(SongModel song)
         {
             int songId = song.SongID;
@@ -93,27 +133,40 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//
 //-------------------------------The Things for Account stuff -----------------------//
 //-----------------------------------------------------------------------------------//
+        /// <summary>
+        /// Returns an Account Model associated with a username
+        /// </summary>
+        /// <param name="username">Username for user being passed in</param>
+        /// <returns>AcocuntModel for username</returns>
         public AccountModel GetAccountModel(string username)
         {
             return SongRepository.GetAccountsList().Where(a => a.Username == username).Single();
         }
 
-        // Method that gets all the accounts in the database
+        /// <summary>
+        /// Method that gets all the accounts in the database
+        /// </summary>
+        /// <returns>List of SongModels</returns>
         public List<AccountModel> GetAccountsList()
         {
             return SongRepository.GetAccountsList().ToList();
         }
 
 
-        //Gets the account list related to the roomModel
+        /// <summary>
+        /// Gets the account list related to the roomModel
+        /// </summary>
+        /// <param name="room">RoomModel for room being passed in</param>
+        /// <returns>List of AccountModel</returns>
         public List<AccountModel> GetAccountList(RoomModel room)
         {
             return SongRepository.GetAccountsList(room).ToList();
         }
 
-        //Adds user to the list of users in site
-        //Checks if the user is here first
-        //Then passes and account Model
+        /// <summary>
+        /// Adds user to the list of users in site
+        /// </summary>
+        /// <param name="username">Checks if the user is here first</param>
         public void AddAccount(string username)
         {
              if (!SongRepository.GetAccountsList().Any(a => a.Username == username))
@@ -127,7 +180,12 @@ namespace DataAccessLayer.BusinessLogic
 //-----------------------------------------------------------------------------------//    
 
 
-        //Gets the song list of the room
+
+        /// <summary>
+        /// Gets the song list of the room
+        /// </summary>
+        /// <param name="roomid">Id of Room with list of Songs</param>
+        /// <returns>List of SongModels in Room</returns>
         public List<SongModel> GetRoomSongsList(int roomid)
         {
             if (SongRepository.GetRoomList().Any(r => r.RoomId == roomid))
@@ -141,6 +199,11 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Adds a new room to the database
+        /// </summary>
+        /// <param name="room">RoomModel of room being created</param>
+        /// <param name="username">Username of user creating the room</param>
         public void AddRoom(RoomModel room, string username)
         {
             if (SongRepository.IsRoomListEmpty())
@@ -156,11 +219,11 @@ namespace DataAccessLayer.BusinessLogic
             }
        }
             
-        //}
-        /**
-            AddRoomAccount
-         *  Adds Users to the existing room
-        **/
+       /// <summary>
+       /// Adds Users to the existing room
+       /// </summary>
+       /// <param name="room">Room that user is being added to</param>
+       /// <param name="account">AccountModel of user being added to room</param>
         public void AddRoomAccount(RoomModel room, AccountModel account)
         {
             if (!SongRepository.GetRoomAccounts(room.RoomId).Any(a => a.Username == account.Username))
@@ -170,6 +233,11 @@ namespace DataAccessLayer.BusinessLogic
             }
         }
 
+        /// <summary>
+        /// Returns a List of Accounts in a Room
+        /// </summary>
+        /// <param name="roomName">Name of Room that Accountlist is in</param>
+        /// <returns>List of AccountModels in Room</returns>
         public List<AccountModel> GetRoomAccounts(string roomName)
         {
             if (SongRepository.GetRoomList().Count() > 0)
@@ -189,6 +257,11 @@ namespace DataAccessLayer.BusinessLogic
 
         }
 
+        /// <summary>
+        /// Adds Songs to an existing Room
+        /// </summary>
+        /// <param name="songList">List of Songs being added to room</param>
+        /// <param name="roomId">Id of Room that songs are begin added to</param>
         public void AddSongsToRoom(int[] songList, int roomId)
         {
             if (songList.Count() <= 0)
@@ -203,31 +276,37 @@ namespace DataAccessLayer.BusinessLogic
             SongRepository.AddSongsToRoom(songList, roomId);
         }
 
+        /// <summary>
+        /// Gets a RoomModel associated with a roomname
+        /// </summary>
+        /// <param name="roomName">Name of Room</param>
+        /// <returns>RoomModel for roomname</returns>
         public RoomModel GetRoomModel(string roomName)
         {
             return SongRepository.GetRoomList().Where(r => r.RoomName == roomName).Single();
         }
 
+        /// <summary>
+        /// Gets a List of all the Rooms in the database
+        /// </summary>
+        /// <returns>IEnumerable of RoomModels</returns>
         public IEnumerable<RoomModel> GetRoomList()
         {
            IEnumerable<RoomModel> rooms = SongRepository.GetRoomList().AsEnumerable<RoomModel>();
            return rooms;
         }
 
-        //Method for leaving a room
-        //This will remove the user from the rooma and set the users room information to null
+        /// <summary>
+        /// Method for leaving a room. This will remove the user from the room and set the users room information to null
+        /// </summary>
+        /// <param name="room">Room that user is being deleted from</param>
+        /// <param name="username">Username of user that is being deleted from room</param>
         public void DeleteAccount(RoomModel room, string username)
         {
             int roomid = room.RoomId;
             AccountModel account = GetAccountModel(username);
             SongRepository.DeleteAccount(roomid, account.LoginId);
         }
-
-        public IQueryable<RoomModel> GetAccountRooms(string username)
-        {
-            return SongRepository.GetAccountRooms(GetAccountModel(username).LoginId);
-        }
-       
         
     }
 }
