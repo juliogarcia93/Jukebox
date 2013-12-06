@@ -78,10 +78,12 @@ namespace DataAccessLayer.BusinessLogic
         /// <returns>IQueryable of SongModels</returns>
         public IQueryable<SongModel> Search(string query, IQueryable<SongModel> originalList)
         {
+            //If the query is empty, return the original list.
             if (string.IsNullOrEmpty(query))
             {
                 return originalList;
             }
+            //return all of the songs to which the query is a part of (Artist, Album, Genre, etc.)
             return originalList.Where(s => s.SongTitle.Contains(query)
                 ||
                 s.Artist.Contains(query)

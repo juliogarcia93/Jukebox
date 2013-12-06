@@ -30,6 +30,8 @@ namespace Jukebox.Controllers
         public ActionResult Save()
         {
             int songsUploadedSucessfully = 0;
+
+            //Request.Files is the list of files uploaded by the form
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 var file = Request.Files[i];

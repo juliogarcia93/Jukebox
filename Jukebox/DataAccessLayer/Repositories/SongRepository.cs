@@ -57,6 +57,7 @@ namespace DataAccessLayer.Repositories
         /// <returns>IQueryable of SongModels</returns>
         public IQueryable<SongModel> GetSongList(int loginId)
         {
+            //Select all songs that have the association to the given loginId
             return _context.Songs.Where(s => s.Accounts.Any(a => a.LoginId == loginId) == true )
                 .Select(s => new SongModel
                 {
@@ -78,6 +79,7 @@ namespace DataAccessLayer.Repositories
         /// <returns>List of SongModels</returns>
         public IQueryable<SongModel> GetTopSongs(int numberOfSongs)
         {
+            //Order the list of songs based by the number of likes and return the given number of songs
             return _context.Songs.OrderByDescending(s => s.Likes)
                 .Take(numberOfSongs)
                 .Select(s => new SongModel
@@ -99,15 +101,22 @@ namespace DataAccessLayer.Repositories
             try
             {
                 Account account;
+                
+                //Convert the SongModel into an entity to be pushed to the database.
                 Song entity = ModelConversions.SongModelToEntity(model);
+
+                //If there is an account that matches the given username, set account equal to it.
                 if (_context.Accounts.Any(a => a.Username == model.Username))
                 {
                     account = _context.Accounts.First(a => a.Username == model.Username);
                 }
+                //Else, create an Account with the username
                 else
                 {
                     account = new Account() { Username = model.Username };
                 }
+
+                //Add the account association to the song, and push the song to the database
                 entity.Accounts.Add(account);
                 _context.Songs.Add(entity);
                 _context.SaveChanges();
@@ -132,7 +141,10 @@ namespace DataAccessLayer.Repositories
         /// <param name="loginID">LoginId of user deleting song</param>
         public void Delete(SongModel model, int loginID)
         {
+            //Get the account based on the loginId
             Account account = GetAccount(loginID);
+
+            //Remove the song from the database.
             account.Songs.Remove(GetSong(model.SongID));
             _context.SaveChanges();
 
@@ -157,6 +169,7 @@ namespace DataAccessLayer.Repositories
         /// <returns>SongModel of song</returns>
         public SongModel FindSong(string name, string album)
         {
+            //Return the song that matches the given songName and Album
             return _context.Songs.Where(s => s.Title == name && s.Album == album)
                 .Select(a => new SongModel
                 {
@@ -179,9 +192,13 @@ namespace DataAccessLayer.Repositories
         /// <param name="username">username of user adding song</param>
         public void AddSong(SongModel model, string username)
         {
+            //Get the account for the given username
             Account account = _context.Accounts.Where(s => s.Username == username).Single();
+
+            //Find the song that matches the given songtitle and length
             Song song = _context.Songs.Where(s => s.Title == model.SongTitle && s.Length == model.Length).Single();
-            //Song song = ModelConversions.SongModelToEntity(model);
+
+            //Add the song association to the account and push to the database.
             account.Songs.Add(song);
             song.Accounts.Add(account);
             _context.SaveChanges();
@@ -193,7 +210,10 @@ namespace DataAccessLayer.Repositories
         /// <param name="songId">songId of song being liked</param>
         public void IncrementLike(int songId)
         {
+            //Get the song based on its songId
             Song song = _context.Songs.Where(s => s.Id == songId).Single();
+
+            //Increment its likes and push it to the database.
             song.Likes++;
             _context.SaveChanges();
         }
@@ -220,6 +240,7 @@ namespace DataAccessLayer.Repositories
         /// <returns>IQueryable of AccountModels</returns>
         public IQueryable<AccountModel> GetAccountsList()
         {
+            //Return a list of AccountModels for all accounts in the database.
             return _context.Accounts.Select(a => new AccountModel
             {
                 LoginId = a.LoginId,
@@ -258,6 +279,7 @@ namespace DataAccessLayer.Repositories
         /// <param name="account">AccountModel of account being added</param>
         public void AddAccount(AccountModel account)
         {
+            //Convert the AccountModel to an Account entity and push to the database.
             Account entity = ModelConversions.AccountModelToEntity(account);
             _context.Accounts.Add(entity);
             _context.SaveChanges();
@@ -288,11 +310,16 @@ namespace DataAccessLayer.Repositories
         {
             try
             {
+                //Convert RoomModel to Entity
                 Room entity;
                 entity = ModelConversions.RoomModelToEntity(room);
+
+                //Get the host account based on loginId and add its association to the room.
                 Account account = GetAccount(loginId);
                 entity.Accounts.Add(account);
                 _context.Rooms.Add(entity);
+
+                //push to database
                 _context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
@@ -315,7 +342,10 @@ namespace DataAccessLayer.Repositories
         /// <returns>List of AccountModels</returns>
         public List<AccountModel> GetRoomAccounts(int roomId)
         {
+            //Get the room for the given roomId
             Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
+
+            //Get a list of AccountModels for all of the accounts associated to the room.
             var list =  _context.Accounts.Where(a => a.Room.Id == roomId).Select(u => new AccountModel
             {
                 LoginId = u.LoginId,
@@ -438,8 +468,6 @@ namespace DataAccessLayer.Repositories
             Account account = GetAccount(loginId);
             Room room = GetRoom(roomId);
             room.Accounts.Remove(account);
-            //account.RoomId = null;
-            //account.Room = null;
             _context.SaveChanges();
 
         }
@@ -467,10 +495,15 @@ namespace DataAccessLayer.Repositories
         /// <param name="song">SongModel with updated information.</param>
         public void EditSong(SongModel song)
         {
+            //Get the song based on its songId
             Song entity = GetSong(song.SongID);
+
+            //Edit the song information.
             entity.Title = song.SongTitle;
             entity.Artist = song.Artist;
             entity.Album = song.Album;
+
+            //Push to the database.
             _context.SaveChanges();
         }
     }
