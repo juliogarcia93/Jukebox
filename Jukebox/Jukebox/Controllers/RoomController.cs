@@ -15,11 +15,17 @@ using DataAccessLayer.BusinessLogic;
 
 namespace Jukebox.Controllers
 {
+    /// <summary>
+    /// Controller that allows Rooms to interact with the Business Logic layer
+    /// </summary>
     public class RoomController : Controller
     {
         SongManager SongManager = new SongManager();
 
-
+        /// <summary>
+        /// Creates a New Room
+        /// </summary>
+        /// <returns>Create View</returns>
         public ActionResult CreateRoom()
         {
             string privacy = Request["privacy"].ToLower();
@@ -52,9 +58,10 @@ namespace Jukebox.Controllers
             }
         }
 
-       
-        
-
+       /// <summary>
+       /// Searches for a private room
+       /// </summary>
+       /// <returns>View of Search page or Create a room page</returns>
         public ActionResult SearchRoom()
         {
             string privacy = Request["privacy"];
@@ -82,8 +89,11 @@ namespace Jukebox.Controllers
             }
         }
 
-
-        
+        /// <summary>
+        /// Finds and returns a room based on the RoomName
+        /// </summary>
+        /// <param name="RoomName">RoomName for room being searched</param>
+        /// <returns>Create view</returns>
         public ActionResult RoomSelect(string RoomName)
         {
             RoomModel Room = SongManager.GetRoomModel(RoomName);
@@ -93,12 +103,23 @@ namespace Jukebox.Controllers
             return View("Create", Room);
         }
 
+        /// <summary>
+        /// Finds all the Accounts in a room and displays them on the Accounts Partial
+        /// </summary>
+        /// <param name="RoomName">Name of Room with accounts list</param>
+        /// <returns>PartialView for Accounts</returns>
         public ActionResult RoomAccountList(string RoomName)
         {
             List<AccountModel> accounts = SongManager.GetRoomAccounts(RoomName);
             return PartialView("_AccountsPartial", accounts);
         }
 
+        /// <summary>
+        /// Adds Songs to Room
+        /// </summary>
+        /// <param name="SongList">List of songs being added</param>
+        /// <param name="RoomId">Id of room where songs are being added</param>
+        /// <returns>Partial View of Room Playlist</returns>
         public PartialViewResult AddSongs(int[] SongList, int RoomId)
         {
             SongManager.AddSongsToRoom(SongList, RoomId);
@@ -106,6 +127,11 @@ namespace Jukebox.Controllers
             return PartialView("_RoomPlaylistPartial", list);
         }
 
+        /// <summary>
+        /// Removes a user from a room
+        /// </summary>
+        /// <param name="RoomName">Name of Room that user is leaving</param>
+        /// <returns>Profile of User</returns>
         public ActionResult LeaveRoom(string RoomName)
         {
             string username = User.Identity.Name;

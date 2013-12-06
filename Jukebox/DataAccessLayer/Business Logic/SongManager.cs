@@ -17,7 +17,7 @@ namespace DataAccessLayer.BusinessLogic
         private SongRepository SongRepository;
      
         /// <summary>
-        /// Default constructor
+        /// Default Constructor
         /// </summary>
         public SongManager()
         {

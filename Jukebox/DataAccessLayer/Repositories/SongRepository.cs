@@ -13,8 +13,14 @@ namespace DataAccessLayer.Repositories
 {
     public class SongRepository
     {
+        /// <summary>
+        /// Direct communication with the database. Tables include songs, artists, rooms, accounts etc.
+        /// </summary>
         private MusicContainer _context { get; set; }
 
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public SongRepository()
         {
             _context = new MusicContainer();
@@ -24,6 +30,11 @@ namespace DataAccessLayer.Repositories
         //-----------------------------------------------------------------------------------//
         //-------------------------------The Things for Song/Music stuff --------------------//
         //-----------------------------------------------------------------------------------//
+        
+        /// <summary>
+        /// Gets a list of all the songs in the database
+        /// </summary>
+        /// <returns>IQueryable of SongModels</returns>
         public IQueryable<SongModel> GetSongList()
         {
             return _context.Songs.Select(s => new SongModel
@@ -39,6 +50,11 @@ namespace DataAccessLayer.Repositories
             });
         }
 
+        /// <summary>
+        /// Gets all the songs associated with a user
+        /// </summary>
+        /// <param name="loginId">LoginID of user</param>
+        /// <returns>IQueryable of SongModels</returns>
         public IQueryable<SongModel> GetSongList(int loginId)
         {
             return _context.Songs.Where(s => s.Accounts.Any(u => u.LoginId == loginId))
@@ -55,7 +71,10 @@ namespace DataAccessLayer.Repositories
                 });
         }
 
-
+        /// <summary>
+        /// Adds songs to the database
+        /// </summary>
+        /// <param name="model">SongModel of song being added</param>
         public void Add(SongModel model)
         {
             try
@@ -87,6 +106,11 @@ namespace DataAccessLayer.Repositories
 
         }
 
+        /// <summary>
+        /// Deletes a song asssociated with a user
+        /// </summary>
+        /// <param name="model">SongModel of Song being deleted</param>
+        /// <param name="loginID">LoginId of user deleting song</param>
         public void Delete(SongModel model, int loginID)
         {
             Account account = GetAccount(loginID);
@@ -95,11 +119,22 @@ namespace DataAccessLayer.Repositories
 
         }
 
+        /// <summary>
+        /// Gets a Song entity from a songID
+        /// </summary>
+        /// <param name="songID">Id of song</param>
+        /// <returns>Song entity</returns>
         public Song GetSong(int songID)
         {
             return _context.Songs.Where(s => s.Id == songID).Single();
         }
 
+        /// <summary>
+        /// Finds a song based on name and album
+        /// </summary>
+        /// <param name="name">Name of song</param>
+        /// <param name="album">Name of album associated with song</param>
+        /// <returns>SongModel of song</returns>
         public SongModel FindSong(string name, string album)
         {
             return _context.Songs.Where(s => s.Title == name && s.Album == album)
@@ -117,7 +152,11 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        //Add song method for associating a current database song with a username
+        /// <summary>
+        /// Add song method for associating a current database song with a username
+        /// </summary>
+        /// <param name="model">SongModel of song being added</param>
+        /// <param name="username">username of user adding song</param>
         public void AddSong(SongModel model, string username)
         {
             Account account = _context.Accounts.Where(s => s.Username == username).Single();
@@ -128,6 +167,10 @@ namespace DataAccessLayer.Repositories
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Increments the Likes for a song
+        /// </summary>
+        /// <param name="songId">songId of song being liked</param>
         public void IncrementLike(int songId)
         {
             Song song = _context.Songs.Where(s => s.Id == songId).Single();
@@ -140,12 +183,20 @@ namespace DataAccessLayer.Repositories
         //-------------------------------The Things for Account stuff -----------------------//
         //-----------------------------------------------------------------------------------//
 
+        /// <summary>
+        /// Returns an Account entity for a loginId
+        /// </summary>
+        /// <param name="loginId">loginId of user account</param>
+        /// <returns>Account entity</returns>
         private Account GetAccount(int loginId)
         {
             return _context.Accounts.Where(a => a.LoginId == loginId).Single();
         }
 
-
+        /// <summary>
+        /// Gets a list of all the Accounts in the database
+        /// </summary>
+        /// <returns>IQueryable of AccountModels</returns>
         public IQueryable<AccountModel> GetAccountsList()
         {
             return _context.Accounts.Select(a => new AccountModel
@@ -155,12 +206,21 @@ namespace DataAccessLayer.Repositories
             });
         }
 
+        /// <summary>
+        /// Checks to see if Account Exists
+        /// </summary>
+        /// <param name="username">Username of account being checked</param>
+        /// <returns>Boolean of whether account was found or not</returns>
         public Boolean AccountExists(string username)
         {
             return _context.Accounts.Any(a => a.Username == username);
         }
 
-        //Returns an account list of the room to display on the playlist
+        /// <summary>
+        /// Returns an account list of the room to display on the playlist
+        /// </summary>
+        /// <param name="room">RoomModel of room with accountlist</param>
+        /// <returns>IQueryable of AccountModels</returns>
         public IQueryable<AccountModel> GetAccountsList(RoomModel room)
         {
             return _context.Accounts.Where(a => a.Room.Id == room.RoomId)
@@ -171,6 +231,10 @@ namespace DataAccessLayer.Repositories
                });
         }
 
+        /// <summary>
+        /// Adds new Account to database
+        /// </summary>
+        /// <param name="account">AccountModel of account being added</param>
         public void AddAccount(AccountModel account)
         {
             Account entity = ModelConversions.AccountModelToEntity(account);
@@ -183,14 +247,21 @@ namespace DataAccessLayer.Repositories
         //-----------------------------------------------------------------------------------// 
 
 
-
-        //Function RoomExists returns if the room is already in the database
+        /// <summary>
+        /// Returns true if the room is already in the database
+        /// </summary>
+        /// <param name="roomid">Id of room being checked</param>
+        /// <returns>Boolean of whether room exists or not</returns>
         public Boolean RoomExists(int roomid)
         {
             return _context.Rooms.Any(s => s.Id == roomid);
         }
 
-        //Function CreateARoom adds a roommodel to the database
+        /// <summary>
+        /// Adds a Room to the database
+        /// </summary>
+        /// <param name="room">RoomModel being added</param>
+        /// <param name="loginId">loginId of user creating room</param>
         public void AddRoom(RoomModel room, int loginId)
         {
             try
@@ -215,24 +286,11 @@ namespace DataAccessLayer.Repositories
 
         }
 
-        //public List<AccountModel> GetRoomAccounts(int roomId)
-        //{
-        //    Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
-        //    if (room.Accounts.Count > 0)
-        //    {
-        //        return room.Accounts.Select(u => new AccountModel
-        //        {
-        //            LoginId = u.LoginId,
-        //            Username = u.Username
-        //        }).ToList();
-        //    }
-        //    else
-        //    {
-        //         List<AccountModel> list = new List<AccountModel>();
-        //         return list;
-        //    }
-        //}
-
+        /// <summary>
+        /// Get list of Accounts in a Room
+        /// </summary>
+        /// <param name="roomId">roomId of room with list of accounts</param>
+        /// <returns>List of AccountModels</returns>
         public List<AccountModel> GetRoomAccounts(int roomId)
         {
             Room room = _context.Rooms.Where(r => r.Id == roomId).Single();
@@ -245,10 +303,11 @@ namespace DataAccessLayer.Repositories
             
         }
 
-        /**
-         * AddRoomAccount
-         * Adds Accounts to the existing Room
-        **/
+        /// <summary>
+        /// Adds Accounts to the existing Room
+        /// </summary>
+        /// <param name="roomId">Id of room where account is being added</param>
+        /// <param name="loginid">loginId of user being added to room</param>
         public void AddRoomAccount(int roomId, int loginid)
         {
             Account account = GetAccount(loginid);
@@ -258,16 +317,20 @@ namespace DataAccessLayer.Repositories
 
         }
 
-
-        /**
-         * GetRoom
-         * returns the rooms associated the specific id
-        **/
+        /// <summary>
+        /// Returns the room associated the specific id
+        /// </summary>
+        /// <param name="roomid">RoomId of room being searched</param>
+        /// <returns>Room entity</returns>
         public Room GetRoom(int roomid)
         {
             return _context.Rooms.Where(a => a.Id == roomid).Single();
         }
 
+        /// <summary>
+        /// Gets a list of all the rooms in the database
+        /// </summary>
+        /// <returns>IQueryable of RoomModels</returns>
         public IQueryable<RoomModel> GetRoomList()
         {
                 return _context.Rooms.Select(r => new RoomModel
@@ -279,11 +342,20 @@ namespace DataAccessLayer.Repositories
                 });
         }
 
+        /// <summary>
+        /// Checks if there are any rooms in List
+        /// </summary>
+        /// <returns>Boolean that is true when there are no rooms in the database</returns>
         public Boolean IsRoomListEmpty()
         {
             return (_context.Rooms.Count() == 0);
         }
 
+        /// <summary>
+        /// Adds a list of songs to a room
+        /// </summary>
+        /// <param name="songList">int array of songs</param>
+        /// <param name="roomId">roomId of room that songs are being added to</param>
         public void AddSongsToRoom(int[] songList, int roomId)
         {
             foreach (int songId in songList)
@@ -293,6 +365,11 @@ namespace DataAccessLayer.Repositories
             int count = _context.Rooms.Where(r => r.Id == roomId).Single().Songs.Count();
         }
 
+        /// <summary>
+        /// Adds a song to the database
+        /// </summary>
+        /// <param name="songId">songId of song being added to room</param>
+        /// <param name="roomId">roomId that song is being added to</param>
         public void AddSongToRoom(int songId, int roomId)
         {
             Song song = GetSong(songId);
@@ -304,6 +381,11 @@ namespace DataAccessLayer.Repositories
             _context.SaveChanges();
         }
 
+        /// <summary>
+        /// Gets a list of all the songs in a room
+        /// </summary>
+        /// <param name="roomid">roomId what songlist is in</param>
+        /// <returns>IEnumerable of SongModels</returns>
         public IEnumerable<SongModel> GetRoomSongsList(int roomid)
         {
             Room room = _context.Rooms.Where(r => r.Id == roomid).Single();
@@ -319,9 +401,12 @@ namespace DataAccessLayer.Repositories
                     Likes = s.Likes
                 });
         }
-//DeleteAccount Method
-        //Removes the user from the room account list
-        //And removes the room from the users association
+        
+        /// <summary>
+        /// Removes the user from the room account list and removes the room from the users association
+        /// </summary>
+        /// <param name="roomId">roomId of room that has account</param>
+        /// <param name="loginId">account being deleted from a room</param>
         public void DeleteAccount(int roomId, int loginId)
         {
             Account account = GetAccount(loginId);
@@ -333,6 +418,11 @@ namespace DataAccessLayer.Repositories
 
         }
 
+        /// <summary>
+        /// Gets the RoomModel associated with an Account
+        /// </summary>
+        /// <param name="loginId">loginId of Account</param>
+        /// <returns>IQueryable of RoomModel</returns>
         public IQueryable<RoomModel> GetAccountRooms(int loginId)
         {
             return _context.Rooms.Where(r => r.Accounts.Any(a => a.LoginId == loginId)).Select(r => new RoomModel
