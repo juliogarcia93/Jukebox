@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using DataAccessLayer.Conversions;
-using Amazon;
 using System.IO;
 
 namespace DataAccessLayer.Models
@@ -22,7 +21,7 @@ namespace DataAccessLayer.Models
         private List<SongModel> GetSongList()
         {
 
-            string imagesDir = HttpContext.Current.Server.MapPath("~/Music/");
+            string songDirectory = HttpContext.Current.Server.MapPath("~/Music/");
 
             var songs = SongManager.GetSongList();
 
@@ -39,31 +38,39 @@ namespace DataAccessLayer.Models
             CurrentPage = pageNum;
             PageSize = pageSize;
 
-            var images = GetSongList();
+            var songs = GetSongList();
 
-            this.AddRange(images.Skip((pageNum - 1) *
+            this.AddRange(songs.Skip((pageNum - 1) *
                 pageSize).Take(pageSize).ToList());
         }
 
+        /// <summary>
+        /// Uploads a song to the server and posts metadata to the database.
+        /// </summary>
+        /// <param name="username">The username of the user adding the song.</param>
+        /// <param name="fileName">The name of the file for URL purposes.</param>
+        /// <param name="file">The file from the upload form\</param>
         public void Add(string username, string fileName, HttpPostedFileBase file)
         {
             SongModel song;
+
+            //Declaring the directory that the song will be uploaded to and performing upload.
             string MusicDirectory = HttpContext.Current.Server.MapPath("~/Music/") + fileName;
             file.SaveAs(MusicDirectory);
- 			bool songExists = SongManager.GetSongList().Any(s => s.FilePath == fileName);            
+
+            //Checking to see if the song already exists in the database.
+ 			bool songExists = SongManager.GetSongList().Any(s => s.FilePath == fileName);    
+        
+            //If the song doesn't exist, create metadata and push to database.
             if (!songExists)
             {
-                //AmazonWebServices AmazonWebServices = new AmazonWebServices();
-                //AmazonWebServices.Upload(file);
-                //string MusicDirectory = AmazonWebServices.GetObjectUrl(fileName);
-                //string MusicDirectory = "https://s3-us-west-1.amazonaws.com/jukeboxmusic/" + fileName;
                 TagLib.File metadata = TagLib.File.Create(MusicDirectory);
-                //var AlbumArtwork = metadata.Tag.Pictures.FirstOrDefault();
-                //ImageConversion.byteArrayToImage((byte[])AlbumArtwork.Data);
                 string Duration = metadata.Properties.Duration.ToString(@"mm\:ss");
                 song = new SongModel(username, fileName, metadata.Tag.Title, metadata.Tag.FirstAlbumArtist, metadata.Tag.Album, metadata.Tag.Genres.FirstOrDefault(), Duration, 0);
                 SongManager.UploadSong(song);
             }
+
+            //If the song exists and the user doesn't have the association to the song, create the association.
             bool UserSongExists = SongManager.GetSongList(username).Any(s => s.FilePath == fileName);
             if (!UserSongExists)
             {
